@@ -65,13 +65,12 @@ export default function CharterSection() {
                     {/* Fixed 900px image - card clips it */}
                     <div className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[820px] h-full`}>
                       <Image
-                        src={charter.image}
-                        alt={charter.title}
-                        fill
-                        className="object-cover"
-                        quality={90}
-                      />
-                    </div>
+  src={charter.image}
+  alt={charter.title}
+  fill
+  className="object-cover object-center"
+  quality={90}
+/>
                     
                     {/* Top gradient */}
                     <div 
