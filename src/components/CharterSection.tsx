@@ -36,11 +36,11 @@ export default function CharterSection() {
       ref={sectionRef}
       className="px-[59px] py-16"
     >
-      <div className="max-w-[1322px] mx-auto">
-        <motion.h2 
-          className="font-outfit font-medium text-[48px] mb-10"
-          style={{ color: textColor }}
-        >
+      <div className="max-w-[1600px] mx-auto">
+      <motion.h2 
+  className="font-outfit font-medium text-[64px] mb-10"
+  style={{ color: textColor }}
+>
           A Different Kind of<br />Charter.
         </motion.h2>
         <div className="flex flex-col gap-[22px]">
@@ -54,10 +54,10 @@ export default function CharterSection() {
                 return (
                   <motion.div
                     key={charter.title}
-                    className="group relative h-[650px] rounded-[6px] overflow-hidden cursor-pointer"
-                    animate={{ 
-                      width: isHovered ? 900 : isSameRowHovered ? 400 : 650,
-                    }}
+                    className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
+                  animate={{ 
+  width: isHovered ? 1050 : isSameRowHovered ? 450 : 750,
+}}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
                     onMouseLeave={() => setHoveredCard(null)}
