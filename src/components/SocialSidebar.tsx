@@ -4,65 +4,65 @@ import Link from 'next/link'
 export default function SocialSidebar() {
   return (
     <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
-      {/* X (Twitter) - white bg with black outline */}
+      {/* X (Twitter) */}
       <Link 
         href="https://twitter.com/reeladdiction3" 
         target="_blank"
-        className="w-10 h-10 bg-white border-2 border-black rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+        className="w-8 h-8 bg-white border-2 border-black rounded-full flex items-center justify-center hover:scale-110 transition-transform"
       >
-        <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 24 24">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       </Link>
 
-      {/* Facebook - circle with f */}
+      {/* Facebook */}
       <Link 
         href="https://facebook.com/reeladdictionsportfishing" 
         target="_blank"
-        className="w-10 h-10 bg-[#1877F2] rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+        className="w-8 h-8 bg-[#1877F2] rounded-full flex items-center justify-center hover:scale-110 transition-transform"
       >
-        <svg className="w-7 h-7 text-white translate-y-[2px]" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 text-white translate-y-[2px]" fill="currentColor" viewBox="0 0 24 24">
           <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/>
         </svg>
       </Link>
 
-      {/* Instagram - gradient with camera */}
+      {/* Instagram */}
       <Link 
         href="https://instagram.com/reeladdictionsportfishing" 
         target="_blank"
-        className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+        className="w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
         style={{background: 'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)'}}
       >
-        <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.802c-2.67 0-2.986.01-4.04.058-.976.045-1.505.207-1.858.344-.466.182-.8.398-1.15.748-.35.35-.566.684-.748 1.15-.137.353-.3.882-.344 1.857-.048 1.055-.058 1.37-.058 4.041 0 2.67.01 2.986.058 4.04.045.976.207 1.505.344 1.858.182.466.399.8.748 1.15.35.35.684.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058 2.67 0 2.987-.01 4.04-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.684.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041 0-2.67-.01-2.986-.058-4.04-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 0 0-.748-1.15 3.098 3.098 0 0 0-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.055-.048-1.37-.058-4.041-.058zm0 3.063a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27zm0 8.468a3.333 3.333 0 1 0 0-6.666 3.333 3.333 0 0 0 0 6.666zm6.538-8.671a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/>
         </svg>
       </Link>
 
-      {/* YouTube - pillow shape with play */}
+      {/* YouTube */}
       <Link 
         href="https://youtube.com/@reeladdictionsportfishing" 
         target="_blank"
         className="flex items-center justify-center hover:scale-110 transition-transform"
       >
-        <svg className="w-9 h-10" viewBox="0 0 56 50" preserveAspectRatio="none" fill="none">
+        <svg className="w-7 h-8" viewBox="0 0 56 50" preserveAspectRatio="none" fill="none">
           <path d="M54.9 14.8c-.6-2.4-2.5-4.3-4.8-4.9C45.7 8.5 28 8.5 28 8.5s-17.7 0-22.1 1.4c-2.4.6-4.2 2.5-4.8 4.9C0 19.2 0 25 0 25s0 5.8 1.1 10.2c.6 2.4 2.5 4.3 4.8 4.9 4.4 1.4 22.1 1.4 22.1 1.4s17.7 0 22.1-1.4c2.4-.6 4.2-2.5 4.8-4.9C56 30.8 56 25 56 25s0-5.8-1.1-10.2z" fill="#FF0000"/>
           <path d="M22 33V17l16 8-16 8z" fill="white"/>
         </svg>
       </Link>
 
-      {/* TikTok - with color effect */}
+      {/* TikTok */}
       <Link 
         href="https://tiktok.com/@reeladdictionsportfishing" 
         target="_blank"
-        className="w-10 h-10 bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform relative overflow-hidden"
+        className="w-8 h-8 bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform relative overflow-hidden"
       >
-        <svg className="w-5 h-5 absolute text-[#25F4EE]" style={{transform: 'translate(-1px, -1px)'}} fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 absolute text-[#25F4EE]" style={{transform: 'translate(-1px, -1px)'}} fill="currentColor" viewBox="0 0 24 24">
           <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
         </svg>
-        <svg className="w-5 h-5 absolute text-[#FE2C55]" style={{transform: 'translate(1px, 1px)'}} fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 absolute text-[#FE2C55]" style={{transform: 'translate(1px, 1px)'}} fill="currentColor" viewBox="0 0 24 24">
           <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
         </svg>
-        <svg className="w-5 h-5 relative text-white" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 relative text-white" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
         </svg>
       </Link>
