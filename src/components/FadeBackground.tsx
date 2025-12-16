@@ -7,7 +7,7 @@ export default function FadeBackground({ children }: { children: ReactNode }) {
   
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 20%", "start -30%"]
+    offset: ["start 10%", "start -30%"]
   })
   
   const backgroundColor = useTransform(
