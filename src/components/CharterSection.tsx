@@ -66,7 +66,7 @@ export default function CharterSection() {
   src={charter.image}
   alt={charter.title}
   fill
-  className={`object-cover ${charter.position === 'left' ? 'object-left' : 'object-right'}`}
+  className="object-cover"
   quality={90}
 />
                     {/* Top gradient */}
