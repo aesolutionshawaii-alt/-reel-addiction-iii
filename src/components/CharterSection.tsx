@@ -62,17 +62,13 @@ export default function CharterSection() {
                     onMouseEnter={() => setHoveredCard(charter.title)}
                     onMouseLeave={() => setHoveredCard(null)}
                   >
-                    {/* Fixed-width image that clips from one side */}
-                    <div className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[650px] h-full`}>
-                      <Image
-                        src={charter.image}
-                        alt={charter.title}
-                        fill
-                        className="object-cover"
-                        quality={90}
-                      />
-                    </div>
-                    
+                    <Image
+                      src={charter.image}
+                      alt={charter.title}
+                      fill
+                      className="object-cover"
+                      quality={90}
+                    />
                     {/* Top gradient */}
                     <div 
                       className="absolute inset-0"
