@@ -55,15 +55,15 @@ export default function CharterSection() {
                   <motion.div
                     key={charter.title}
                     className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
-                  animate={{ 
-  width: isHovered ? 1050 : isSameRowHovered ? 450 : 750,
+                 animate={{ 
+  width: isHovered ? 820 : isSameRowHovered ? 680 : 750,
 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     {/* Fixed 900px image - card clips it */}
-                    <div className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[900px] h-full`}>
+                    <div className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[820px] h-full`}>
                       <Image
                         src={charter.image}
                         alt={charter.title}
