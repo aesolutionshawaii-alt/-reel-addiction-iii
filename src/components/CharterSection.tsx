@@ -41,7 +41,7 @@ export default function CharterSection() {
           className="font-outfit font-medium text-[64px] mb-10"
           style={{ color: textColor }}
         >
-          A Different Kind of<br />Charter.
+          A Different Kind of Charter.
         </motion.h2>
         <div className="flex flex-col gap-[22px]">
           {[0, 1].map((rowIndex) => (
