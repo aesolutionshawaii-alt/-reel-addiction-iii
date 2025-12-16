@@ -27,9 +27,8 @@ export default function ExploreCards() {
             />
             <div 
               className="absolute inset-0 rounded-lg"
-             style={{
-  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 69.6%, rgba(0, 0, 0, 0.8) 100%)'
-}}
+              style={{
+                background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 69.6%, rgba(0, 0, 0, 0.8) 100%)'
               }}
             />
             <div className="absolute bottom-[18px] left-[18px] right-[18px] flex items-end justify-between">
