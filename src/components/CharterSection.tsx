@@ -63,12 +63,12 @@ export default function CharterSection() {
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     <Image
-                      src={charter.image}
-                      alt={charter.title}
-                      fill
-                      className="object-cover"
-                      quality={90}
-                    />
+  src={charter.image}
+  alt={charter.title}
+  fill
+  className={`object-cover ${charter.position === 'left' ? 'object-left' : 'object-right'}`}
+  quality={90}
+/>
                     {/* Top gradient */}
                     <div 
                       className="absolute inset-0"
