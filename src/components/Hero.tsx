@@ -1,61 +1,73 @@
 'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Hero() {
   return (
-    <section className="relative h-screen min-h-[600px] max-h-[900px] w-full overflow-hidden">
+    <section className="relative h-screen min-h-[800px] w-full overflow-hidden">
+      {/* Background Image */}
       <div className="absolute inset-0">
         <Image
           src="/images/hero-boat.jpg"
           alt="Reel Addiction III deep sea fishing charter boat"
           fill
-          className="object-cover"
+          className="object-cover object-bottom"
           priority
           quality={90}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/10 via-transparent to-navy/70" />
+        {/* Black gradient from bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-[49%]" />
       </div>
 
-      <nav className="relative z-10 flex items-center justify-between px-5 py-4 md:px-20 md:py-6">
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/images/logo-white.png"
-            alt="Reel Addiction III"
-            width={180}
-            height={60}
-            className="h-12 md:h-16 w-auto"
-          />
-        </Link>
+      {/* Logo */}
+      <Link href="/" className="absolute top-[31px] left-[38px] z-10">
+        <Image
+          src="/images/logo-white.png"
+          alt="Reel Addiction III"
+          width={252}
+          height={68}
+          className="w-[252px] h-[68px] object-contain"
+        />
+      </Link>
 
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/about" className="text-white font-outfit hover:text-offwhite transition-colors">About</Link>
-          <Link href="/charters" className="text-white font-outfit hover:text-offwhite transition-colors">Charters</Link>
-          <Link href="/fish" className="text-white font-outfit hover:text-offwhite transition-colors">Fish</Link>
-          <Link href="/contact" className="text-white font-outfit hover:text-offwhite transition-colors">Contact</Link>
-          <Link href="/charters" className="btn-primary">Book Now</Link>
-        </div>
-
-        <button className="md:hidden text-white p-2">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+      {/* Navigation */}
+      <nav className="absolute top-[31px] right-[38px] z-10 hidden md:block">
+        <p className="font-outfit font-normal text-[#f7f5f2] text-base">
+          <Link href="#about" className="hover:underline">About</Link>
+          <span className="mx-2">|</span>
+          <Link href="#charters" className="hover:underline">Charters</Link>
+          <span className="mx-2">|</span>
+          <Link href="#fish" className="hover:underline">Fish</Link>
+          <span className="mx-2">|</span>
+          <Link href="#contact" className="hover:underline">Contact</Link>
+        </p>
       </nav>
 
-      <div className="relative z-10 flex flex-col justify-end h-full pb-20 md:pb-32 px-5 md:px-20">
-        <p className="text-white/90 font-outfit text-lg md:text-xl mb-2">O&apos;ahu&apos;s Premier</p>
-        <h1 className="text-white font-outfit font-bold text-4xl md:text-6xl lg:text-7xl tracking-tight mb-6 max-w-4xl">
+      {/* Hero Content */}
+      <div className="absolute bottom-[130px] left-[90px] z-10">
+        <p className="font-inter font-normal text-white text-[40px] leading-normal">
+          O&apos;ahu&apos;s Premier
+        </p>
+        <h1 className="font-inter font-normal text-white text-[48px] leading-normal tracking-tight max-w-[600px]">
           Deep Sea Fishing Charter
         </h1>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/charters" className="btn-primary text-center">Book Your Charter</Link>
-          <button className="btn-secondary flex items-center justify-center gap-2">
-            <span>Watch Now</span>
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-          </button>
-        </div>
+      </div>
+
+      {/* CTA Buttons */}
+      <div className="absolute bottom-[50px] left-[88px] flex gap-4 z-10">
+        <Link 
+          href="#book" 
+          className="w-[140px] h-10 flex items-center justify-center bg-[#c41e3a] rounded-lg text-white font-inter text-xs hover:bg-[#a01830] transition-colors"
+        >
+          Book Your Charter
+        </Link>
+        <button className="w-[140px] h-10 flex items-center justify-center gap-2 rounded-lg border border-[#d9d9d9] text-white font-inter text-xs hover:bg-white/10 transition-colors">
+          <span>Watch Now</span>
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M10 9l5 3-5 3V9z" fill="currentColor"/>
+          </svg>
+        </button>
       </div>
     </section>
   )
