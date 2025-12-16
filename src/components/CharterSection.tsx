@@ -17,18 +17,12 @@ export default function CharterSection() {
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "start 80%"]
+    offset: ["start end", "start 50%"]
   })
-  
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    ["#f7f5f2", "#000000"]
-  )
   
   const textColor = useTransform(
     scrollYProgress,
-    [0, 0.5],
+    [0, 1],
     ["#0c1e3c", "#ffffff"]
   )
 
@@ -38,10 +32,9 @@ export default function CharterSection() {
   }
 
   return (
-    <motion.section 
+    <section 
       ref={sectionRef}
-      className="px-[59px] py-16 -mt-24 pt-40"
-      style={{ backgroundColor }}
+      className="px-[59px] py-16"
     >
       <div className="max-w-[1322px] mx-auto">
         <motion.h2 
@@ -120,6 +113,6 @@ export default function CharterSection() {
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }
