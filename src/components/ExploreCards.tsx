@@ -10,7 +10,7 @@ const cards = [
 
 export default function ExploreCards() {
   return (
-    <section className="bg-transparent px-[59px] py-10">
+    <section className="bg-transparent px-[59px] pt-24 pb-20">
       <div className="flex justify-center gap-[31px] px-[59px]">
         {cards.map((card) => (
           <Link
