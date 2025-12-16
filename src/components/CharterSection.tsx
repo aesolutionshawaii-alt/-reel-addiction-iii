@@ -34,7 +34,7 @@ export default function CharterSection() {
   return (
     <section 
       ref={sectionRef}
-      className="px-[59px] py-16"
+      className="px-[59px] pt-40 pb-16"
     >
       <div className="max-w-[1600px] mx-auto">
         <motion.h2 
