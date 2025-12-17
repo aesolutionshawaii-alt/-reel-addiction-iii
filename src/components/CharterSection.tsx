@@ -41,97 +41,101 @@ export default function CharterSection() {
         </motion.h2>
         <div className="flex flex-col gap-[22px]">
           {[0, 1].map((rowIndex) => (
-            <div key={rowIndex} className="flex gap-[22px] justify-between max-w-[1522px] mx-auto">
+            <div key={rowIndex} className="grid grid-cols-2 gap-[22px]">
               {charters.filter(c => c.row === rowIndex).map((charter) => {
                 const isHovered = hoveredCard === charter.title
                 const hoveredRow = getHoveredRow()
                 const isSameRowHovered = hoveredRow === charter.row && !isHovered
                 
                 return (
-                  <motion.div
-                    key={charter.title}
-                    className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
-                    animate={{ 
-                      width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
-                    }}
-                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                    onMouseEnter={() => setHoveredCard(charter.title)}
-                    onMouseLeave={() => setHoveredCard(null)}
+                  <div 
+                    key={charter.title} 
+                    className={charter.position === 'left' ? 'flex justify-end' : 'flex justify-start'}
                   >
-                    {/* Fixed width image - card clips it */}
-                    <motion.div 
-                      className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[850px] h-full`}
-                      animate={{
-                        x: isHovered 
-                          ? (charter.position === 'left' ? 30 : -30) 
-                          : isSameRowHovered 
-                            ? (getHoveredPosition() === 'left' ? 30 : -30)
-                            : 0
+                    <motion.div
+                      className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
+                      animate={{ 
+                        width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
                       }}
                       transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                      onMouseEnter={() => setHoveredCard(charter.title)}
+                      onMouseLeave={() => setHoveredCard(null)}
                     >
-                      <Image
-                        src={charter.image}
-                        alt={charter.title}
-                        fill
-                        className="object-cover"
-                        style={{ objectPosition: charter.objectPosition }}
-                        quality={90}
-                      />
-                    </motion.div>
-                    
-                    {/* Top gradient */}
-                    <div 
-                      className="absolute inset-0"
-                      style={{
-                        background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 25%)'
-                      }}
-                    />
-                    {/* Bottom gradient */}
-                    <div 
-                      className="absolute inset-0"
-                      style={{
-                        background: 'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%)'
-                      }}
-                    />
-                    
-                    {/* Title at top center */}
-                    <h3 className="absolute top-0 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[40px] py-2">
-                      {charter.title}
-                    </h3>
-                    
-                    {/* Bottom content */}
-                    <motion.div 
-                      className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end"
-                      animate={{
-                        x: charter.position === 'right' 
-                          ? (isHovered ? -20 : isSameRowHovered ? -20 : 0)
-                          : 0
-                      }}
-                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                    >
-                      <div className="max-w-[450px]">
-                        <p className="text-white font-outfit font-light text-[24px] leading-normal">
-                          {charter.description}
-                        </p>
-                        <p className="text-white font-outfit font-light text-[24px]">
-                          {charter.price}
-                        </p>
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: isHovered ? 1 : 0 }}
-                        transition={{ delay: isHovered ? 0.3 : 0, duration: 0.2 }}
+                      {/* Fixed width image - card clips it */}
+                      <motion.div 
+                        className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[850px] h-full`}
+                        animate={{
+                          x: isHovered 
+                            ? (charter.position === 'left' ? 30 : -30) 
+                            : isSameRowHovered 
+                              ? (getHoveredPosition() === 'left' ? 30 : -30)
+                              : 0
+                        }}
+                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
                       >
-                        <Link 
-                          href="/charters" 
-                          className="flex items-center justify-center w-[150px] h-10 bg-white rounded text-[#1e1e1e] font-outfit font-normal text-sm hover:bg-gray-100 transition-colors"
+                        <Image
+                          src={charter.image}
+                          alt={charter.title}
+                          fill
+                          className="object-cover"
+                          style={{ objectPosition: charter.objectPosition }}
+                          quality={90}
+                        />
+                      </motion.div>
+                      
+                      {/* Top gradient */}
+                      <div 
+                        className="absolute inset-0"
+                        style={{
+                          background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 25%)'
+                        }}
+                      />
+                      {/* Bottom gradient */}
+                      <div 
+                        className="absolute inset-0"
+                        style={{
+                          background: 'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%)'
+                        }}
+                      />
+                      
+                      {/* Title at top center */}
+                      <h3 className="absolute top-0 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[40px] py-2">
+                        {charter.title}
+                      </h3>
+                      
+                      {/* Bottom content */}
+                      <motion.div 
+                        className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end"
+                        animate={{
+                          x: charter.position === 'right' 
+                            ? (isHovered ? -20 : isSameRowHovered ? -20 : 0)
+                            : 0
+                        }}
+                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                      >
+                        <div className="max-w-[450px]">
+                          <p className="text-white font-outfit font-light text-[24px] leading-normal">
+                            {charter.description}
+                          </p>
+                          <p className="text-white font-outfit font-light text-[24px]">
+                            {charter.price}
+                          </p>
+                        </div>
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: isHovered ? 1 : 0 }}
+                          transition={{ delay: isHovered ? 0.3 : 0, duration: 0.2 }}
                         >
-                          Learn More →
-                        </Link>
+                          <Link 
+                            href="/charters" 
+                            className="flex items-center justify-center w-[150px] h-10 bg-white rounded text-[#1e1e1e] font-outfit font-normal text-sm hover:bg-gray-100 transition-colors"
+                          >
+                            Learn More →
+                          </Link>
+                        </motion.div>
                       </motion.div>
                     </motion.div>
-                  </motion.div>
+                  </div>
                 )
               })}
             </div>
