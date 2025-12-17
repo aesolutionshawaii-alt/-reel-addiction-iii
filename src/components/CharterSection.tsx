@@ -30,7 +30,7 @@ export default function CharterSection() {
         <motion.h2 
           className="font-outfit font-medium text-[64px] mb-10"
           animate={{ color: isInView ? "#f7f5f2" : "#0c1e3c" }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.7, ease: "easeInOut" }}
         >
           A Different Kind of Charter.
         </motion.h2>
