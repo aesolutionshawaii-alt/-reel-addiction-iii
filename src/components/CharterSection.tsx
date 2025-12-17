@@ -40,8 +40,8 @@ export default function CharterSection() {
           A Different Kind of Charter.
         </motion.h2>
         <div className="flex flex-col gap-[22px]">
-         {[0, 1].map((rowIndex) => (
-  <div key={rowIndex} className="relative h-[750px] w-full">
+          {[0, 1].map((rowIndex) => (
+            className="flex gap-[22px] justify-between"
               {charters.filter(c => c.row === rowIndex).map((charter) => {
                 const isHovered = hoveredCard === charter.title
                 const hoveredRow = getHoveredRow()
