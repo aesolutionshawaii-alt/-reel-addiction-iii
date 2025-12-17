@@ -1,25 +1,16 @@
 'use client'
-import { useRef, ReactNode } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
-export default function FadeBackground({ children }: { children: ReactNode }) {
+export default function FadeBackground({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
-  
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start -30%", "start -60%"]
-  })
-  
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#f7f5f2", "#000000"]
-  )
+  const isInView = useInView(ref, { once: false, margin: "-30% 0px -70% 0px" })
 
   return (
     <motion.div 
       ref={ref}
-      style={{ backgroundColor }}
+      animate={{ backgroundColor: isInView ? "#000000" : "#f7f5f2" }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
     >
       {children}
     </motion.div>
