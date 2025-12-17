@@ -51,9 +51,13 @@ export default function CharterSection() {
                   <motion.div
                     key={charter.title}
                     className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
-                    animate={{ 
-                      width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
-                    }}
+                    style={{ 
+  transformOrigin: charter.position === 'left' ? 'left center' : 'right center',
+  width: 750
+}}
+animate={{ 
+  scaleX: isHovered ? 1.13 : isSameRowHovered ? 0.87 : 1,
+}}
                     transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
                     onMouseLeave={() => setHoveredCard(null)}
