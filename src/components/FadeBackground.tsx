@@ -9,7 +9,7 @@ export default function FadeBackground({ children }: { children: React.ReactNode
   return (
     <motion.div 
       animate={{ backgroundColor: isInView ? "#000000" : "#f7f5f2" }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.9, ease: "easeInOut" }}
       style={{ position: 'relative' }}
     >
       {children}
