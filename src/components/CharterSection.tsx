@@ -54,16 +54,22 @@ export default function CharterSection() {
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     {/* Fixed width image - card clips it */}
-                    <div className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[820px] h-full`}>
-                      <Image
-                        src={charter.image}
-                        alt={charter.title}
-                        fill
-                        className="object-cover"
-                        style={{ objectPosition: charter.objectPosition }}
-                        quality={90}
-                      />
-                    </div>
+<motion.div 
+  className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[820px] h-full`}
+  animate={{
+    x: isHovered ? (charter.position === 'left' ? 20 : -20) : 0
+  }}
+  transition={{ duration: 0.6, ease: "easeInOut" }}
+>
+  <Image
+    src={charter.image}
+    alt={charter.title}
+    fill
+    className="object-cover"
+    style={{ objectPosition: charter.objectPosition }}
+    quality={90}
+  />
+</motion.div>
                     
                     {/* Top gradient */}
                     <div 
