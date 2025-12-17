@@ -68,7 +68,7 @@ export default function CharterSection() {
                             ? (getHoveredPosition() === 'left' ?30 : -30)
                             : 0
                       }}
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >
                       <Image
                         src={charter.image}
