@@ -41,7 +41,7 @@ export default function CharterSection() {
         </motion.h2>
         <div className="flex flex-col gap-[22px]">
           {[0, 1].map((rowIndex) => (
-            <div key={rowIndex} className="flex gap-[22px] justify-center">
+            className="flex gap-[22px] justify-between"
               {charters.filter(c => c.row === rowIndex).map((charter) => {
                 const isHovered = hoveredCard === charter.title
                 const hoveredRow = getHoveredRow()
