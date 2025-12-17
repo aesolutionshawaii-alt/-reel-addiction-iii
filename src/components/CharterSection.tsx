@@ -20,10 +20,12 @@ export default function CharterSection() {
     if (!hoveredCard) return null
     return charters.find(c => c.title === hoveredCard)?.row
   }
-const getHoveredPosition = () => {
-  if (!hoveredCard) return null
-  return charters.find(c => c.title === hoveredCard)?.position
-}
+
+  const getHoveredPosition = () => {
+    if (!hoveredCard) return null
+    return charters.find(c => c.title === hoveredCard)?.position
+  }
+
   return (
     <section className="px-[59px] pt-40 pb-16 relative">
       {/* Trigger for heading color */}
@@ -57,17 +59,26 @@ const getHoveredPosition = () => {
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     {/* Fixed width image - card clips it */}
-<motion.div 
-  className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[820px] h-full`}
-  animate={{
-    x: isHovered 
-      ? (charter.position === 'left' ? 20 : -20) 
-      : isSameRowHovered 
-        ? (getHoveredPosition() === 'left' ? 20 : -20)
-        : 0
-  }}
-  transition={{ duration: 0.6, ease: "easeInOut" }}
->
+                    <motion.div 
+                      className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[820px] h-full`}
+                      animate={{
+                        x: isHovered 
+                          ? (charter.position === 'left' ? 20 : -20) 
+                          : isSameRowHovered 
+                            ? (getHoveredPosition() === 'left' ? 20 : -20)
+                            : 0
+                      }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                    >
+                      <Image
+                        src={charter.image}
+                        alt={charter.title}
+                        fill
+                        className="object-cover"
+                        style={{ objectPosition: charter.objectPosition }}
+                        quality={90}
+                      />
+                    </motion.div>
                     
                     {/* Top gradient */}
                     <div 
