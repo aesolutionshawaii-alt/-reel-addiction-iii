@@ -2,29 +2,19 @@
 import { useState, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 
 const charters = [
   { title: '3/4 Day', image: '/images/charter-34day.jpg', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
-  { title: 'Full Day', image: '/images/charter-fullday.jpg', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '10% center' },
+  { title: 'Full Day', image: '/images/charter-fullday.jpg', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
   { title: 'Extravaganza', image: '/images/charter-extravaganza.jpg', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
   { title: 'Custom Trip', image: '/images/charter-custom.jpg', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
 ]
 
 export default function CharterSection() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
-  const sectionRef = useRef<HTMLElement>(null)
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "start 50%"]
-  })
-  
-  const textColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#0c1e3c", "#ffffff"]
-  )
+  const triggerRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(triggerRef, { once: false })
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
@@ -32,14 +22,15 @@ export default function CharterSection() {
   }
 
   return (
-    <section 
-      ref={sectionRef}
-      className="px-[59px] pt-40 pb-16"
-    >
+    <section className="px-[59px] pt-40 pb-16 relative">
+      {/* Trigger for heading color */}
+      <div ref={triggerRef} style={{ position: 'absolute', top: '100px', left: 0, height: '1px', width: '100%', pointerEvents: 'none' }} />
+      
       <div className="max-w-[1600px] mx-auto">
         <motion.h2 
           className="font-outfit font-medium text-[64px] mb-10"
-          style={{ color: textColor }}
+          animate={{ color: isInView ? "#ffffff" : "#0c1e3c" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
         >
           A Different Kind of Charter.
         </motion.h2>
