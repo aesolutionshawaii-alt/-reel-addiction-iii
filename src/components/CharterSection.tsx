@@ -52,7 +52,7 @@ export default function CharterSection() {
                     key={charter.title}
                     className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
                     animate={{ 
-                      width: isHovered ? 820 : isSameRowHovered ? 680 : 750,
+                      width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
                     }}
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
@@ -60,7 +60,7 @@ export default function CharterSection() {
                   >
                     {/* Fixed width image - card clips it */}
                     <motion.div 
-                      className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[820px] h-full`}
+                      className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[850px] h-full`}
                       animate={{
                         x: isHovered 
                           ? (charter.position === 'left' ? 30 : -30) 
