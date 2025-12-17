@@ -54,7 +54,7 @@ export default function CharterSection() {
                     animate={{ 
                       width: isHovered ? 820 : isSameRowHovered ? 680 : 750,
                     }}
-                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
                     onMouseLeave={() => setHoveredCard(null)}
                   >
