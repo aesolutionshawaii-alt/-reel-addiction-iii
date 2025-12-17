@@ -28,6 +28,7 @@ const config: Config = {
       fontFamily: {
         outfit: ['var(--font-outfit)', 'sans-serif'],
         inter: ['var(--font-inter)', 'sans-serif'],
+        playfair: ['var(--font-playfair)', 'serif'],
       },
       fontSize: {
         'hero': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],

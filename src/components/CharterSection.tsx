@@ -21,14 +21,8 @@ export default function CharterSection() {
     return charters.find(c => c.title === hoveredCard)?.row
   }
 
-  const getHoveredPosition = () => {
-    if (!hoveredCard) return null
-    return charters.find(c => c.title === hoveredCard)?.position
-  }
-
   return (
     <section className="px-[59px] pt-40 pb-16 relative">
-      {/* Trigger for heading color */}
       <div ref={triggerRef} style={{ position: 'absolute', top: '800px', left: 0, height: '1px', width: '100%', pointerEvents: 'none' }} />
       
       <div className="max-w-[1600px] mx-auto">
@@ -41,7 +35,7 @@ export default function CharterSection() {
         </motion.h2>
         <div className="flex flex-col gap-[22px]">
           {[0, 1].map((rowIndex) => (
-            <div key={rowIndex} className="flex gap-[22px] justify-center">
+            <div key={rowIndex} className="relative h-[750px]" style={{ width: '1522px', margin: '0 auto' }}>
               {charters.filter(c => c.row === rowIndex).map((charter) => {
                 const isHovered = hoveredCard === charter.title
                 const hoveredRow = getHoveredRow()
@@ -50,22 +44,24 @@ export default function CharterSection() {
                 return (
                   <motion.div
                     key={charter.title}
-                    className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
+                    className="absolute top-0 h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
                     animate={{ 
                       width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
+                      left: charter.position === 'left' 
+                        ? 0 
+                        : isHovered ? 672 : isSameRowHovered ? 872 : 772,
                     }}
                     transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
                     onMouseLeave={() => setHoveredCard(null)}
                   >
-                    {/* Fixed width image - card clips it */}
                     <motion.div 
-                      className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[850px] h-full`}
+                      className={`absolute top-0 ${charter.position === 'left' ? 'left-[-50px]' : 'right-[-50px]'} w-[950px] h-full`}
                       animate={{
                         x: isHovered 
                           ? (charter.position === 'left' ? 30 : -30) 
-                          : isSameRowHovered 
-                            ? (getHoveredPosition() === 'left' ? 30 : -30)
+                          : isSameRowHovered
+                            ? (charter.position === 'left' ? -30 : 30)
                             : 0
                       }}
                       transition={{ type: "spring", stiffness: 100, damping: 20 }}
@@ -80,36 +76,20 @@ export default function CharterSection() {
                       />
                     </motion.div>
                     
-                    {/* Top gradient */}
                     <div 
                       className="absolute inset-0"
-                      style={{
-                        background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 25%)'
-                      }}
+                      style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }}
                     />
-                    {/* Bottom gradient */}
                     <div 
                       className="absolute inset-0"
-                      style={{
-                        background: 'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%)'
-                      }}
+                      style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 40%)' }}
                     />
                     
-                    {/* Title at top center */}
                     <h3 className="absolute top-0 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[40px] py-2">
                       {charter.title}
                     </h3>
                     
-                    {/* Bottom content */}
-                    <motion.div 
-                      className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end"
-                      animate={{
-                        x: charter.position === 'right' 
-                          ? (isHovered ? -20 : isSameRowHovered ? -20 : 0)
-                          : 0
-                      }}
-                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                    >
+                    <div className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end">
                       <div className="max-w-[450px]">
                         <p className="text-white font-outfit font-light text-[24px] leading-normal">
                           {charter.description}
@@ -130,7 +110,7 @@ export default function CharterSection() {
                           Learn More →
                         </Link>
                       </motion.div>
-                    </motion.div>
+                    </div>
                   </motion.div>
                 )
               })}
