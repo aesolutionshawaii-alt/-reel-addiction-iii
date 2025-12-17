@@ -50,7 +50,7 @@ export default function CharterSection() {
                 return (
                   <div 
                     key={charter.title} 
-                    className={charter.position === 'left' ? 'flex justify-end' : 'flex justify-start'}
+                    className={charter.position === 'left' ? 'flex justify-start' : 'flex justify-end'}
                   >
                     <motion.div
                       className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
