@@ -63,9 +63,9 @@ export default function CharterSection() {
                       className={`absolute top-0 ${charter.position === 'left' ? 'left-0' : 'right-0'} w-[820px] h-full`}
                       animate={{
                         x: isHovered 
-                          ? (charter.position === 'left' ? 20 : -20) 
+                          ? (charter.position === 'left' ? 30 : -30) 
                           : isSameRowHovered 
-                            ? (getHoveredPosition() === 'left' ? 20 : -20)
+                            ? (getHoveredPosition() === 'left' ?30 : -30)
                             : 0
                       }}
                       transition={{ duration: 0.6, ease: "easeInOut" }}
