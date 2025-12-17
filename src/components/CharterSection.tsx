@@ -53,13 +53,11 @@ export default function CharterSection() {
   className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
   style={{ transformOrigin: charter.position === 'left' ? 'left center' : 'right center' }}
  animate={{ 
+ animate={{ 
   width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
-  marginRight: charter.position === 'left' 
-    ? (isHovered ? -100 : isSameRowHovered ? 100 : 0) 
-    : 0,
-  marginLeft: charter.position === 'right' 
-    ? (isHovered ? -100 : isSameRowHovered ? 100 : 0) 
-    : 0,
+  x: charter.position === 'left' 
+    ? (isHovered ? 50 : isSameRowHovered ? -50 : 0) 
+    : (isHovered ? -50 : isSameRowHovered ? 50 : 0),
 }}
                     transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
