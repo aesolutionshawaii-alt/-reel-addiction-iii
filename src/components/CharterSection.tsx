@@ -33,7 +33,7 @@ export default function CharterSection() {
       
       <div className="max-w-[1600px] mx-auto">
         <motion.h2 
-          className="font-outfit font-medium text-[64px] mb-10"
+          className="font-outfit font-medium text-[72px] mb-10"
           animate={{ color: isInView ? "#f7f5f2" : "#0c1e3c" }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
