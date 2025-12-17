@@ -18,7 +18,7 @@ export default function SeaKeeper() {
           
           <div className="flex justify-center md:justify-end">
             <img 
-              src="/images/seakeeper-logo.png" 
+              src="/images/Seakeeper-logo.png" 
               alt="SeaKeeper" 
               className="w-96 md:w-[500px]"
             />
