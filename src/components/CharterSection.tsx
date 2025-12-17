@@ -24,7 +24,7 @@ export default function CharterSection() {
   return (
     <section className="px-[59px] pt-40 pb-16 relative">
       {/* Trigger for heading color */}
-      <div ref={triggerRef} style={{ position: 'absolute', top: '100px', left: 0, height: '1px', width: '100%', pointerEvents: 'none' }} />
+      <div ref={triggerRef} style={{ position: 'absolute', top: '1000px', left: 0, height: '1px', width: '100%', pointerEvents: 'none' }} />
       
       <div className="max-w-[1600px] mx-auto">
         <motion.h2 
