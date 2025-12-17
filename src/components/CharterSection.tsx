@@ -41,21 +41,19 @@ export default function CharterSection() {
         </motion.h2>
         <div className="flex flex-col gap-[22px]">
           {[0, 1].map((rowIndex) => (
-            <div key={rowIndex} className="grid grid-cols-2 gap-[22px]">
+            <div key={rowIndex} className="flex gap-[22px] justify-center">
               {charters.filter(c => c.row === rowIndex).map((charter) => {
                 const isHovered = hoveredCard === charter.title
                 const hoveredRow = getHoveredRow()
                 const isSameRowHovered = hoveredRow === charter.row && !isHovered
                 
-               return (
-                  <div key={charter.title} className={charter.position === 'left' ? 'flex justify-start' : 'flex justify-end'}>
-                    <motion.div
-  className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
-  
- animate={{ 
-  width: isHovered ? 850 : isSameRowHovered ? 650 : 750
-  
-}}
+                return (
+                  <motion.div
+                    key={charter.title}
+                    className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
+                    animate={{ 
+                      width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
+                    }}
                     transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
                     onMouseLeave={() => setHoveredCard(null)}
@@ -134,7 +132,6 @@ export default function CharterSection() {
                       </motion.div>
                     </motion.div>
                   </motion.div>
-                    </div>
                 )
               })}
             </div>
