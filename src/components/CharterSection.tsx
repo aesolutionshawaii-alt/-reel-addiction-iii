@@ -53,7 +53,6 @@ export default function CharterSection() {
   className="group relative h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
   style={{ transformOrigin: charter.position === 'left' ? 'left center' : 'right center' }}
  animate={{ 
- animate={{ 
   width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
   x: charter.position === 'left' 
     ? (isHovered ? 50 : isSameRowHovered ? -50 : 0) 
