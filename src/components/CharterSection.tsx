@@ -65,7 +65,7 @@ export default function CharterSection() {
                         x: isHovered 
                           ? (charter.position === 'left' ? 30 : -30) 
                           : isSameRowHovered 
-                            ? (getHoveredPosition() === 'left' ?30 : -30)
+                            ? (getHoveredPosition() === 'left' ? 30 : -30)
                             : 0
                       }}
                       transition={{ type: "spring", stiffness: 100, damping: 20 }}
@@ -101,32 +101,33 @@ export default function CharterSection() {
                     </h3>
                     
                     {/* Bottom content */}
-<motion.div 
-  className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end"
-  animate={{
-    x: isHovered 
-      ? (charter.position === 'left' ? 20 : -20) 
-      : isSameRowHovered 
-        ? (getHoveredPosition() === 'left' ? 20 : -20)
-        : 0
-  }}
-  transition={{ type: "spring", stiffness: 100, damping: 20 }}
->
-  <div className="max-w-[450px]">
-    <p className="text-white font-outfit font-light text-[24px] leading-normal">
-      {charter.description}
-    </p>
-    <p className="text-white font-outfit font-light text-[24px]">
-      {charter.price}
-    </p>
-  </div>
-  <Link 
-    href="/charters" 
-    className="flex items-center justify-center w-[150px] h-10 bg-white rounded text-[#1e1e1e] font-outfit font-normal text-sm hover:bg-gray-100 transition-colors"
-  >
-    Learn More →
-  </Link>
-</motion.div>
+                    <motion.div 
+                      className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end"
+                      animate={{
+                        x: isHovered 
+                          ? (charter.position === 'left' ? 20 : -20) 
+                          : isSameRowHovered 
+                            ? (getHoveredPosition() === 'left' ? 20 : -20)
+                            : 0
+                      }}
+                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                    >
+                      <div className="max-w-[450px]">
+                        <p className="text-white font-outfit font-light text-[24px] leading-normal">
+                          {charter.description}
+                        </p>
+                        <p className="text-white font-outfit font-light text-[24px]">
+                          {charter.price}
+                        </p>
+                      </div>
+                      <Link 
+                        href="/charters" 
+                        className="flex items-center justify-center w-[150px] h-10 bg-white rounded text-[#1e1e1e] font-outfit font-normal text-sm hover:bg-gray-100 transition-colors"
+                      >
+                        Learn More →
+                      </Link>
+                    </motion.div>
+                  </motion.div>
                 )
               })}
             </div>
