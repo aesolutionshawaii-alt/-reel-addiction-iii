@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 const charters = [
-  { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
-  { title: 'Full Day', image: '/images/charter-fullday.jpg', video: '/videos/charter-fullday-web.mp4', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
-  { title: 'Extravaganza', image: '/images/charter-extravaganza.jpg', video: '/videos/charter-extravaganza-web.mp4', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
-  { title: 'Custom Trip', image: '/images/charter-custom.jpg', video: '/videos/charter-custom-web.mp4', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
+  { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/charter-34day-mobile.mp4', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
+  { title: 'Full Day', image: '/images/charter-fullday.jpg', video: '/videos/charter-fullday-web.mp4', mobileVideo: '/videos/charter-fullday-mobile.mp4', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
+  { title: 'Extravaganza', image: '/images/charter-extravaganza.jpg', video: '/videos/charter-extravaganza-web.mp4', mobileVideo: '/videos/charter-extravaganza-mobile.mp4', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
+  { title: 'Custom Trip', image: '/images/charter-custom.jpg', video: '/videos/charter-custom-web.mp4', mobileVideo: '/videos/charter-custom-mobile.mp4', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
 ]
 
 export default function CharterSection({ isDark = false }: { isDark?: boolean }) {
@@ -95,7 +95,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                   />
                   <video
   ref={el => { videoRefs.current[index] = el }}
-  src={charter.video}
+  src={charter.mobileVideo}
   autoPlay
   loop
   muted
