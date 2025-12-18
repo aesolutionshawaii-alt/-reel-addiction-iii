@@ -27,7 +27,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     const handleScroll = () => {
       if (scrollRef.current) {
         const scrollLeft = scrollRef.current.scrollLeft
-        const cardWidth = 316
+        const cardWidth = 336
         const newIndex = Math.round(scrollLeft / cardWidth)
         setActiveIndex(Math.min(newIndex, charters.length - 1))
       }
@@ -83,7 +83,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
               {charters.map((charter, index) => (
                 <div
                   key={charter.title}
-                  className="relative w-[300px] h-[450px] rounded-lg overflow-hidden flex-shrink-0 snap-center"
+                  className="relative w-[320px] h-[480px] rounded-lg overflow-hidden flex-shrink-0 snap-center"
                 >
                   <Image
                     src={charter.image}

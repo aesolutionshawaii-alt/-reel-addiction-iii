@@ -723,6 +723,9 @@ video {
 .h-\[245px\] {
   height: 245px;
 }
+.h-\[480px\] {
+  height: 480px;
+}
 .w-4 {
   width: 1rem;
 }
