@@ -818,6 +818,9 @@ video {
 .cursor-pointer {
   cursor: pointer;
 }
+.resize {
+  resize: both;
+}
 .snap-x {
   scroll-snap-type: x var(--tw-scroll-snap-strictness);
 }
