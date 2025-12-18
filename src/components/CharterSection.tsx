@@ -51,7 +51,14 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       }
     })
   }, [activeIndex, isPlaying])
-
+// Reset video loaded state when switching cards
+useEffect(() => {
+  setVideoLoaded(prev => {
+    const next = [...prev]
+    next[activeIndex] = false
+    return next
+  })
+}, [activeIndex])
   const togglePlayback = () => {
     videoRefs.current.forEach(video => {
       if (video) {
