@@ -1231,6 +1231,9 @@ video {
 .duration-300 {
   transition-duration: 300ms;
 }
+.duration-1000 {
+  transition-duration: 1000ms;
+}
 
 /* Base styles */
 

@@ -15,6 +15,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
@@ -36,7 +37,9 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     const ref = scrollRef.current
     ref?.addEventListener('scroll', handleScroll)
     return () => ref?.removeEventListener('scroll', handleScroll)
-  }, [])// Only play video on active card
+  }, [])
+
+  // Only play video on active card (mobile)
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (video) {
@@ -89,20 +92,29 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                     src={charter.image}
                     alt={charter.title}
                     fill
-                    className="object-cover"
+                    className={`object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying ? 'opacity-0' : 'opacity-100'}`}
                     style={{ objectPosition: charter.objectPosition }}
                     quality={90}
                   />
-                  <video
-  ref={el => { videoRefs.current[index] = el }}
-  src={charter.mobileVideo}
-  autoPlay
-  loop
-  muted
-  playsInline
-  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
-  style={{ objectPosition: charter.objectPosition }}
-/>
+                  {index === activeIndex && (
+                    <video
+                      ref={el => { videoRefs.current[index] = el }}
+                      src={charter.mobileVideo}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      onCanPlayThrough={() => {
+                        setVideoLoaded(prev => {
+                          const next = [...prev]
+                          next[index] = true
+                          return next
+                        })
+                      }}
+                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded[index] && isPlaying ? 'opacity-100' : 'opacity-0'}`}
+                      style={{ objectPosition: charter.objectPosition }}
+                    />
+                  )}
                   <div
                     className="absolute inset-0"
                     style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }}
@@ -136,7 +148,6 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
           {/* Dots and Play/Pause */}
           <div className="flex items-center justify-center gap-3 mt-4">
             <div className="flex items-center gap-2 px-4 h-8 rounded-full bg-white/20">
-
               {charters.map((_, index) => (
                 <div
                   key={index}
@@ -147,9 +158,9 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
               ))}
             </div>
             <button 
-  onClick={togglePlayback}
-  className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
->
+              onClick={togglePlayback}
+              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
+            >
               {isPlaying ? (
                 <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
