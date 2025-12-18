@@ -970,6 +970,9 @@ video {
 .bg-center {
   background-position: center;
 }
+.bg-bottom {
+  background-position: bottom;
+}
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1432,6 +1435,8 @@ video {
     gap: 48px;
   }.md\:gap-\[32px\] {
     gap: 32px;
+  }.md\:bg-center {
+    background-position: center;
   }.md\:px-0 {
     padding-left: 0px;
     padding-right: 0px;

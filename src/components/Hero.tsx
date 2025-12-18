@@ -4,17 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Hero() {
-  const [menuOpen, setMenuOpen] = useState(false)
   const [videoLoaded, setVideoLoaded] = useState(false)
 
   return (
-    <section className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden">
+    <section className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden bg-cover bg-center" style={{ backgroundImage: 'url(/images/hero-poster-mobile.jpg)' }}>
       {/* Background */}
       <div className="absolute inset-0">
-        {/* Poster image - always visible initially */}
-        <div 
-          className={`absolute inset-0 transition-opacity duration-500 md:hidden ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
-        >
+        {/* Poster image - desktop only, fades out when video ready */}
+        <div className={`absolute inset-0 transition-opacity duration-500 hidden md:block ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}>
           <Image
             src="/images/hero-boat.jpg"
             alt="Reel Addiction III"
@@ -24,26 +21,26 @@ export default function Hero() {
           />
         </div>
 
-        {/* Desktop video */}
+        {/* Desktop video - fades in when ready */}
         <video
           autoPlay
           loop
           muted
           playsInline
           onCanPlayThrough={() => setVideoLoaded(true)}
-          className="absolute inset-0 w-full h-full object-cover object-bottom hidden md:block"
+          className={`absolute inset-0 w-full h-full object-cover object-bottom hidden md:block transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
         >
           <source src="/videos/hero-video.mp4" type="video/mp4" />
         </video>
 
-        {/* Mobile video */}
+        {/* Mobile video - fades in when ready */}
         <video
           autoPlay
           loop
           muted
           playsInline
           onCanPlayThrough={() => setVideoLoaded(true)}
-          className="absolute inset-0 w-full h-full object-cover md:hidden"
+          className={`absolute inset-0 w-full h-full object-cover md:hidden transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
         >
           <source src="/videos/hero-mobile-720-noaudio.mp4" type="video/mp4" />
         </video>
@@ -76,62 +73,6 @@ export default function Hero() {
         </p>
       </nav>
 
-      {/* Mobile Hamburger Button */}
-      <button 
-        className="absolute top-4 right-4 z-30 md:hidden"
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          {menuOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </button>
-
-      {/* Mobile Menu Overlay */}
-      {menuOpen && (
-        <div 
-          className="fixed inset-0 bg-black/80 z-20 md:hidden"
-          onClick={() => setMenuOpen(false)}
-        >
-          <div 
-            className="absolute top-20 right-4 bg-[#0d0d0f] rounded-lg p-6 flex flex-col gap-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Link 
-              href="#about" 
-              className="text-white font-outfit text-xl hover:text-gray-300"
-              onClick={() => setMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link 
-              href="#charters" 
-              className="text-white font-outfit text-xl hover:text-gray-300"
-              onClick={() => setMenuOpen(false)}
-            >
-              Charters
-            </Link>
-            <Link 
-              href="#fish" 
-              className="text-white font-outfit text-xl hover:text-gray-300"
-              onClick={() => setMenuOpen(false)}
-            >
-              Fish
-            </Link>
-            <Link 
-              href="#contact" 
-              className="text-white font-outfit text-xl hover:text-gray-300"
-              onClick={() => setMenuOpen(false)}
-            >
-              Contact
-            </Link>
-          </div>
-        </div>
-      )}
-
       {/* Hero Content + Buttons */}
       <div className="absolute bottom-16 md:bottom-[50px] inset-x-0 md:left-[90px] md:right-auto z-10 flex flex-col items-center md:items-start px-6 md:px-0">
         {/* Text block */}
@@ -145,7 +86,7 @@ export default function Hero() {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-[340px] md:w-auto">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-[320px] md:w-auto">
           <Link 
             href="#book" 
             className="w-full md:w-[200px] h-12 md:h-14 flex items-center justify-center bg-[#c41e3a] rounded-lg text-white font-inter text-base hover:bg-[#a01830] transition-colors"
