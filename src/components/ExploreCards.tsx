@@ -10,13 +10,13 @@ const cards = [
 
 export default function ExploreCards() {
   return (
-    <section className="bg-transparent px-4 md:px-[59px] pt-12 md:pt-24 pb-12 md:pb-20">
-      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[31px]">
+    <section className="bg-transparent px-4 md:px-8 pt-12 md:pt-24 pb-12 md:pb-20">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[32px]">
         {cards.map((card) => (
           <Link
             key={card.title}
             href={card.href}
-            className="group relative w-full max-w-[340px] md:w-[420px] h-[200px] md:h-[280px] rounded-lg overflow-hidden"
+            className="group relative w-full max-w-[340px] md:max-w-none md:w-[380px] h-[245px] md:h-[275px] rounded-lg overflow-hidden"
           >
             <Image
               src={card.image}

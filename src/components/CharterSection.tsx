@@ -164,7 +164,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         </div>
 
         {/* Desktop Layout - Animated cards */}
-        <div className="hidden md:block px-[59px]">
+        <div className="hidden md:block">
           <div className="flex flex-col gap-[22px]">
             {[0, 1].map((rowIndex) => (
               <div key={rowIndex} className="relative h-[750px]" style={{ width: '1522px', margin: '0 auto' }}>
