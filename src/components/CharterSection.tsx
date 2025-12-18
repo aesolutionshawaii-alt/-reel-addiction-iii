@@ -93,7 +93,7 @@ useEffect(() => {
               {charters.map((charter, index) => (
                 <div
                   key={charter.title}
-                  className="relative w-[320px] h-[480px] rounded-lg overflow-hidden flex-shrink-0 snap-center"
+                  className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
                 >
                   <Image
                     src={charter.image}
