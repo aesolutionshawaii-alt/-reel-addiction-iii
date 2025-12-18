@@ -5,21 +5,49 @@ import Link from 'next/link'
 
 export default function Hero() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [videoLoaded, setVideoLoaded] = useState(false)
 
   return (
     <section className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden">
-      {/* Background Video */}
+      {/* Background */}
       <div className="absolute inset-0">
+        {/* Poster image - always visible initially */}
+        <div 
+          className={`absolute inset-0 transition-opacity duration-500 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+        >
+          <Image
+            src="/images/hero-boat.jpg"
+            alt="Reel Addiction III"
+            fill
+            className="object-cover object-bottom"
+            priority
+          />
+        </div>
+
+        {/* Desktop video */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          poster="/images/hero-boat.jpg"
-          className="absolute inset-0 w-full h-full object-cover object-bottom"
+          onCanPlayThrough={() => setVideoLoaded(true)}
+          className="absolute inset-0 w-full h-full object-cover object-bottom hidden md:block"
         >
           <source src="/videos/hero-video.mp4" type="video/mp4" />
         </video>
+
+        {/* Mobile video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          onCanPlayThrough={() => setVideoLoaded(true)}
+          className="absolute inset-0 w-full h-full object-cover md:hidden"
+        >
+          <source src="/videos/hero-mobile-720-noaudio.mp4" type="video/mp4" />
+        </video>
+
         {/* Black gradient from bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-[49%]" />
       </div>
