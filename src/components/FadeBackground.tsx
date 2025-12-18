@@ -20,7 +20,7 @@ export default function FadeBackground({ children }: { children: React.ReactNode
       style={{ position: 'relative' }}
     >
       {childrenWithProps}
-      <div ref={triggerRef} style={{ position: 'absolute', top: '1400px', left: 0, height: '1000px', width: '100%', pointerEvents: 'none' }} />
+      <div ref={triggerRef} style={{ position: 'absolute', top: '1200px', left: 0, height: '1000px', width: '100%', pointerEvents: 'none' }} />
     </motion.div>
   )
 }
