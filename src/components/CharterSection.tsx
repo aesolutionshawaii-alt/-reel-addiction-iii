@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 
 const charters = [
-  { title: '3/4 Day', image: '/images/charter-34day.jpg', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
-  { title: 'Full Day', image: '/images/charter-fullday.jpg', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
-  { title: 'Extravaganza', image: '/images/charter-extravaganza.jpg', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
-  { title: 'Custom Trip', image: '/images/charter-custom.jpg', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
+  { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
+  { title: 'Full Day', image: '/images/charter-fullday.jpg', video: '/videos/charter-fullday-web.mp4', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
+  { title: 'Extravaganza', image: '/images/charter-extravaganza.jpg', video: '/videos/charter-extravaganza-web.mp4', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
+  { title: 'Custom Trip', image: '/images/charter-custom.jpg', video: '/videos/charter-custom-web.mp4', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
 ]
 
 export default function CharterSection() {
@@ -26,7 +26,7 @@ export default function CharterSection() {
       <div ref={triggerRef} style={{ position: 'absolute', top: '800px', left: 0, height: '1px', width: '100%', pointerEvents: 'none' }} />
       
       <div className="max-w-[1600px] mx-auto">
-        <motion.h2 
+        <motion.h2
           className="font-outfit font-medium text-[72px] mb-10"
           animate={{ color: isInView ? "#f7f5f2" : "#0c1e3c" }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -45,21 +45,21 @@ export default function CharterSection() {
                   <motion.div
                     key={charter.title}
                     className="absolute top-0 h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
-                    animate={{ 
+                    animate={{
                       width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
-                      left: charter.position === 'left' 
-                        ? 0 
+                      left: charter.position === 'left'
+                        ? 0
                         : isHovered ? 672 : isSameRowHovered ? 872 : 772,
                     }}
                     transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     onMouseEnter={() => setHoveredCard(charter.title)}
                     onMouseLeave={() => setHoveredCard(null)}
                   >
-                    <motion.div 
+                    <motion.div
                       className={`absolute top-0 ${charter.position === 'left' ? 'left-[-50px]' : 'right-[-50px]'} w-[950px] h-full`}
                       animate={{
-                        x: isHovered 
-                          ? (charter.position === 'left' ? 30 : -30) 
+                        x: isHovered
+                          ? (charter.position === 'left' ? 30 : -30)
                           : isSameRowHovered
                             ? (charter.position === 'left' ? -30 : 30)
                             : 0
@@ -74,13 +74,29 @@ export default function CharterSection() {
                         style={{ objectPosition: charter.objectPosition }}
                         quality={90}
                       />
+                      <motion.div
+  className="absolute inset-0"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: isHovered ? 1 : 0 }}
+  transition={{ delay: isHovered ? 0.3 : 0, duration: 0.5 }}
+>
+  <video
+    src={charter.video}
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="w-full h-full object-cover"
+    style={{ objectPosition: charter.objectPosition }}
+  />
+</motion.div>
                     </motion.div>
                     
-                    <div 
+                    <div
                       className="absolute inset-0"
                       style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }}
                     />
-                    <div 
+                    <div
                       className="absolute inset-0"
                       style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 40%)' }}
                     />
@@ -103,8 +119,8 @@ export default function CharterSection() {
                         animate={{ opacity: isHovered ? 1 : 0 }}
                         transition={{ delay: isHovered ? 0.3 : 0, duration: 0.2 }}
                       >
-                        <Link 
-                          href="/charters" 
+                        <Link
+                          href="/charters"
                           className="flex items-center justify-center w-[150px] h-10 bg-white rounded text-[#1e1e1e] font-outfit font-normal text-sm hover:bg-gray-100 transition-colors"
                         >
                           Learn More →
