@@ -13,7 +13,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         {/* Poster image - always visible initially */}
         <div 
-          className={`absolute inset-0 transition-opacity duration-500 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+          className={`absolute inset-0 transition-opacity duration-500 md:hidden ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
         >
           <Image
             src="/images/hero-boat.jpg"
