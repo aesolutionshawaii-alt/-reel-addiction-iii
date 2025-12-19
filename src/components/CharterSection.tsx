@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const charters = [
   { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/charter-34day-mobile.mp4', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
@@ -21,7 +21,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
+
   const getHoveredRow = () => {
     if (!hoveredCard) return null
     return charters.find(c => c.title === hoveredCard)?.row
@@ -42,7 +42,6 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     return () => ref?.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Only play video on active card (mobile)
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (video) {
@@ -55,7 +54,6 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     })
   }, [activeIndex, isPlaying])
 
-  // Reset video loaded state when switching cards
   useEffect(() => {
     setVideoLoaded(prev => {
       const next = [...prev]
@@ -64,13 +62,11 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     })
   }, [activeIndex])
 
-  // Reset video when section scrolls out of view vertically (mobile)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setSectionInView(true)
-          // Delay reveal so poster shows even with cached video
           setReadyToReveal(false)
           revealTimeoutRef.current = setTimeout(() => {
             setReadyToReveal(true)
@@ -103,19 +99,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         clearTimeout(revealTimeoutRef.current)
       }
     }
-  }, [])// Control desktop video playback on hover
-  useEffect(() => {
-    Object.entries(desktopVideoRefs.current).forEach(([title, video]) => {
-      if (video) {
-        if (hoveredCard === title) {
-          video.currentTime = 0
-          video.play()
-        } else {
-          video.pause()
-        }
-      }
-    })
-  }, [hoveredCard])
+  }, [])
 
   const togglePlayback = () => {
     videoRefs.current.forEach(video => {
@@ -134,14 +118,14 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     <section className="pt-24 md:pt-16 pb-16 relative">
       <div className="max-w-[1600px] mx-auto">
         <motion.h2
-         className="font-outfit font-medium text-[32px] md:text-[72px] mb-20 md:mb-10 px-4 md:px-[59px] -translate-y-4 md:-translate-y-6"
+          className="font-outfit font-medium text-[32px] md:text-[72px] mb-20 md:mb-10 px-4 md:px-[59px] -translate-y-4 md:-translate-y-6"
           animate={{ color: isDark ? "#f7f5f2" : "#0c1e3c" }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
           A Different Kind of Charter.
         </motion.h2>
 
-        {/* Mobile Layout - Horizontal scroll carousel */}
+        {/* Mobile Layout */}
         <div className="md:hidden">
           <div 
             ref={scrollRef}
@@ -180,14 +164,8 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                       style={{ objectPosition: charter.objectPosition }}
                     />
                   )}
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }}
-                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
                   <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px]">
                     {charter.title}
                   </h3>
@@ -210,7 +188,6 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
             </div>
           </div>
 
-          {/* Dots and Play/Pause */}
           <div className="flex items-center justify-center gap-3 mt-4">
             <div className="flex items-center gap-2 px-4 h-8 rounded-full bg-white/20">
               {charters.map((_, index) => (
@@ -239,7 +216,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
           </div>
         </div>
 
-        {/* Desktop Layout - Animated cards */}
+        {/* Desktop Layout */}
         <div className="hidden md:block">
           <div className="flex flex-col gap-[22px]">
             {[0, 1].map((rowIndex) => (
@@ -282,33 +259,28 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           style={{ objectPosition: charter.objectPosition }}
                           quality={90}
                         />
-                       <motion.div
+                        <motion.div
                           className="absolute inset-0"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: isHovered ? 1 : 0 }}
                           transition={{ delay: isHovered ? 0.3 : 0, duration: 0.5 }}
                         >
-                          <video
-                            ref={el => { desktopVideoRefs.current[charter.title] = el }}
-                            src={charter.video}
-                            preload="auto"
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover"
-                            style={{ objectPosition: charter.objectPosition }}
-                          />
+                          {isHovered && (
+                            <video
+                              src={charter.video}
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              className="w-full h-full object-cover"
+                              style={{ objectPosition: charter.objectPosition }}
+                            />
+                          )}
                         </motion.div>
                       </motion.div>
                       
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }}
-                      />
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 40%)' }}
-                      />
+                      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
+                      <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 40%)' }} />
                       
                       <h3 className="absolute top-0 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[40px] py-2">
                         {charter.title}
