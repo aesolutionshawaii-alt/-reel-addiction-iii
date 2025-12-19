@@ -1,10 +1,19 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const [videoSrc, setVideoSrc] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setVideoSrc('/videos/hero-mobile-720-noaudio.mp4')
+    } else {
+      setVideoSrc('/videos/hero-video.mp4')
+    }
+  }, [])
 
   return (
     <section className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden bg-cover bg-center" style={{ backgroundImage: 'url(/images/hero-poster-mobile.jpg)' }}>
@@ -21,29 +30,18 @@ export default function Hero() {
           />
         </div>
 
-        {/* Desktop video - fades in when ready */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          onCanPlayThrough={() => setVideoLoaded(true)}
-          className={`absolute inset-0 w-full h-full object-cover object-bottom hidden md:block transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
-        >
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
-        </video>
-
-        {/* Mobile video - fades in when ready */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          onCanPlayThrough={() => setVideoLoaded(true)}
-          className={`absolute inset-0 w-full h-full object-cover md:hidden transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
-        >
-          <source src="/videos/hero-mobile-720-noaudio.mp4" type="video/mp4" />
-        </video>
+        {/* Video - only loads correct version based on screen size */}
+        {videoSrc && (
+          <video
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            onCanPlayThrough={() => setVideoLoaded(true)}
+            className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
 
         {/* Black gradient from bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-[49%]" />
