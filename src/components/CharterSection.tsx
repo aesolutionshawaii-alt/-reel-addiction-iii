@@ -16,9 +16,11 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
-  const [sectionInView, setSectionInView] = useState(true)
+  const [sectionInView, setSectionInView] = useState(false)
+  const [readyToReveal, setReadyToReveal] = useState(true)
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
@@ -68,10 +70,18 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       ([entry]) => {
         if (entry.isIntersecting) {
           setSectionInView(true)
+          // Delay reveal so poster shows even with cached video
+          setReadyToReveal(false)
+          revealTimeoutRef.current = setTimeout(() => {
+            setReadyToReveal(true)
+          }, 500)
         } else {
-          // Section left viewport - reset to poster and unmount video
           setSectionInView(false)
+          setReadyToReveal(false)
           setVideoLoaded(new Array(charters.length).fill(false))
+          if (revealTimeoutRef.current) {
+            clearTimeout(revealTimeoutRef.current)
+          }
           videoRefs.current.forEach(video => {
             if (video) {
               video.pause()
@@ -87,7 +97,12 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       observer.observe(scrollRef.current)
     }
 
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      if (revealTimeoutRef.current) {
+        clearTimeout(revealTimeoutRef.current)
+      }
+    }
   }, [])
 
   const togglePlayback = () => {
@@ -130,7 +145,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                     src={charter.image}
                     alt={charter.title}
                     fill
-                    className={`object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying ? 'opacity-0' : 'opacity-100'}`}
+                    className={`object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-0' : 'opacity-100'}`}
                     style={{ objectPosition: charter.objectPosition }}
                     quality={90}
                   />
@@ -149,7 +164,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           return next
                         })
                       }}
-                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded[index] && isPlaying ? 'opacity-100' : 'opacity-0'}`}
+                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
                       style={{ objectPosition: charter.objectPosition }}
                     />
                   )}
