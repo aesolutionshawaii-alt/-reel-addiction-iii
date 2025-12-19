@@ -16,6 +16,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
+  const [sectionInView, setSectionInView] = useState(true)
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
@@ -51,14 +52,44 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       }
     })
   }, [activeIndex, isPlaying])
-// Reset video loaded state when switching cards
-useEffect(() => {
-  setVideoLoaded(prev => {
-    const next = [...prev]
-    next[activeIndex] = false
-    return next
-  })
-}, [activeIndex])
+
+  // Reset video loaded state when switching cards
+  useEffect(() => {
+    setVideoLoaded(prev => {
+      const next = [...prev]
+      next[activeIndex] = false
+      return next
+    })
+  }, [activeIndex])
+
+  // Reset video when section scrolls out of view vertically (mobile)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSectionInView(true)
+        } else {
+          // Section left viewport - reset to poster and unmount video
+          setSectionInView(false)
+          setVideoLoaded(new Array(charters.length).fill(false))
+          videoRefs.current.forEach(video => {
+            if (video) {
+              video.pause()
+              video.currentTime = 0
+            }
+          })
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (scrollRef.current) {
+      observer.observe(scrollRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
   const togglePlayback = () => {
     videoRefs.current.forEach(video => {
       if (video) {
@@ -103,7 +134,7 @@ useEffect(() => {
                     style={{ objectPosition: charter.objectPosition }}
                     quality={90}
                   />
-                  {index === activeIndex && (
+                  {index === activeIndex && sectionInView && (
                     <video
                       ref={el => { videoRefs.current[index] = el }}
                       src={charter.mobileVideo}
