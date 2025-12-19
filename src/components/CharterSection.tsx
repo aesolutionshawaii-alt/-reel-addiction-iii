@@ -21,7 +21,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-
+  const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
   const getHoveredRow = () => {
     if (!hoveredCard) return null
     return charters.find(c => c.title === hoveredCard)?.row
@@ -103,7 +103,19 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         clearTimeout(revealTimeoutRef.current)
       }
     }
-  }, [])
+  }, [])// Control desktop video playback on hover
+  useEffect(() => {
+    Object.entries(desktopVideoRefs.current).forEach(([title, video]) => {
+      if (video) {
+        if (hoveredCard === title) {
+          video.currentTime = 0
+          video.play()
+        } else {
+          video.pause()
+        }
+      }
+    })
+  }, [hoveredCard])
 
   const togglePlayback = () => {
     videoRefs.current.forEach(video => {
@@ -271,23 +283,22 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           quality={90}
                         />
                        <motion.div
-  className="absolute inset-0"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: isHovered ? 1 : 0 }}
-  transition={{ delay: isHovered ? 0.3 : 0, duration: 0.5 }}
->
-  {isHovered && (
-    <video
-      src={charter.video}
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="w-full h-full object-cover"
-      style={{ objectPosition: charter.objectPosition }}
-    />
-  )}
-</motion.div>
+                          className="absolute inset-0"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: isHovered ? 1 : 0 }}
+                          transition={{ delay: isHovered ? 0.3 : 0, duration: 0.5 }}
+                        >
+                          <video
+                            ref={el => { desktopVideoRefs.current[charter.title] = el }}
+                            src={charter.video}
+                            preload="auto"
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover"
+                            style={{ objectPosition: charter.objectPosition }}
+                          />
+                        </motion.div>
                       </motion.div>
                       
                       <div
