@@ -20,6 +20,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
   const [sectionInView, setSectionInView] = useState(false)
   const [readyToReveal, setReadyToReveal] = useState(true)
+  const [videoEnded, setVideoEnded] = useState<boolean[]>(new Array(charters.length).fill(false))
 
 const scrollRef = useRef<HTMLDivElement>(null)
 const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
@@ -116,6 +117,13 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
       }
     })
   }, [activeIndex, sectionInView, isPlaying])
+  useEffect(() => {
+    setVideoEnded(prev => {
+      const next = [...prev]
+      next[activeIndex] = false
+      return next
+    })
+  }, [activeIndex])
   
     
   
@@ -159,17 +167,24 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
             src={charter.image}
             alt={charter.title}
             fill
-            className={`object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-0' : 'opacity-100'}`}
+            className={`object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal && !videoEnded[index] ? 'opacity-0' : 'opacity-100'}`}
             style={{ objectPosition: charter.objectPosition }}
             quality={90}
           />
           
           <HLSVideo
-  src={charter.mobileVideo}
-  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
+  src={index === activeIndex ? charter.mobileVideo : ''}
+  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal && !videoEnded[index] ? 'opacity-100' : 'opacity-0'}`}
   style={{ objectPosition: charter.objectPosition }}
   onLoadedData={() => {
     setVideoLoaded(prev => {
+      const next = [...prev]
+      next[index] = true
+      return next
+    })
+  }}
+  onEnded={() => {
+    setVideoEnded(prev => {
       const next = [...prev]
       next[index] = true
       return next

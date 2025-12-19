@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import Hls from 'hls.js'
 
 interface HLSVideoProps {
@@ -8,6 +8,7 @@ interface HLSVideoProps {
   className?: string
   style?: React.CSSProperties
   onLoadedData?: () => void
+  onEnded?: () => void
   videoRef?: (el: HTMLVideoElement | null) => void
 }
 
@@ -17,44 +18,21 @@ export default function HLSVideo({
   className, 
   style, 
   onLoadedData,
+  onEnded,
   videoRef 
 }: HLSVideoProps) {
   const internalRef = useRef<HTMLVideoElement | null>(null)
   const hlsRef = useRef<Hls | null>(null)
-  const [shouldLoad, setShouldLoad] = useState(false)
 
   const setRef = useCallback((el: HTMLVideoElement | null) => {
     internalRef.current = el
     if (videoRef) videoRef(el)
   }, [videoRef])
 
-  // Intersection Observer - preload when near viewport
+  // Attach HLS when src is provided, keep alive once attached
   useEffect(() => {
     const video = internalRef.current
-    if (!video) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShouldLoad(true)
-          }
-        })
-      },
-      { 
-        rootMargin: '200px',
-        threshold: 0 
-      }
-    )
-
-    observer.observe(video)
-    return () => observer.disconnect()
-  }, [])
-
-  // Attach HLS once, keep alive
-  useEffect(() => {
-    const video = internalRef.current
-    if (!video || !shouldLoad || hlsRef.current) return
+    if (!video || !src || hlsRef.current) return
 
     // Safari native HLS
     if (video.canPlayType('application/vnd.apple.mpegurl')) {
@@ -81,7 +59,7 @@ export default function HLSVideo({
         }
       })
     }
-  }, [src, shouldLoad])
+  }, [src])
 
   // Only destroy on unmount
   useEffect(() => {
@@ -98,11 +76,11 @@ export default function HLSVideo({
       poster={poster}
       className={className}
       style={style}
-      loop
       muted
       playsInline
       preload="none"
       onLoadedData={onLoadedData}
+      onEnded={onEnded}
     />
   )
 }
