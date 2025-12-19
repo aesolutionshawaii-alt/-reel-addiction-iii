@@ -63,25 +63,9 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
     return () => ref?.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (video) {
-        if (index === activeIndex && isPlaying) {
-          video.play()
-        } else {
-          video.pause()
-        }
-      }
-    })
-  }, [activeIndex, isPlaying])
+  
 
-  useEffect(() => {
-    setVideoLoaded(prev => {
-      const next = [...prev]
-      next[activeIndex] = false
-      return next
-    })
-  }, [activeIndex])
+  
 
   useEffect(() => {
     const observer = new IntersectionObserver(
