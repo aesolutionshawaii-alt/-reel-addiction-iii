@@ -119,10 +119,10 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   }
 
   return (
-    <section className="pt-6 md:pt-24 pb-16 relative">
+    <section className="pt-24 md:pt-16 pb-16 relative">
       <div className="max-w-[1600px] mx-auto">
         <motion.h2
-          className="font-outfit font-medium text-[32px] md:text-[72px] mb-12 md:mb-10 px-4 md:px-[59px]"
+         className="font-outfit font-medium text-[32px] md:text-[72px] mb-20 md:mb-10 px-4 md:px-[59px] -translate-y-4 md:-translate-y-6"
           animate={{ color: isDark ? "#f7f5f2" : "#0c1e3c" }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
@@ -278,6 +278,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                         >
                           <video
                             src={charter.video}
+                            preload="none"
                             autoPlay
                             loop
                             muted
