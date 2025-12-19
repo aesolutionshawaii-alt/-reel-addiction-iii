@@ -13,6 +13,7 @@ const charters = [
 
 export default function CharterSection({ isDark = false }: { isDark?: boolean }) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
+  const [desktopVideoReady, setDesktopVideoReady] = useState<string | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
@@ -238,7 +239,10 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                       }}
                       transition={{ type: "spring", stiffness: 100, damping: 20 }}
                       onMouseEnter={() => setHoveredCard(charter.title)}
-                      onMouseLeave={() => setHoveredCard(null)}
+                      onMouseLeave={() => {
+                        setHoveredCard(null)
+                        setDesktopVideoReady(null)
+                      }}
                     >
                       <motion.div
                         className={`absolute top-0 ${charter.position === 'left' ? 'left-[-50px]' : 'right-[-50px]'} w-[950px] h-full`}
@@ -262,8 +266,8 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                         <motion.div
                           className="absolute inset-0"
                           initial={{ opacity: 0 }}
-                          animate={{ opacity: isHovered ? 1 : 0 }}
-                          transition={{ delay: isHovered ? 0.3 : 0, duration: 0.5 }}
+                          animate={{ opacity: desktopVideoReady === charter.title ? 1 : 0 }}
+                          transition={{ duration: 0.5 }}
                         >
                           {isHovered && (
                             <video
@@ -272,6 +276,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                               loop
                               muted
                               playsInline
+                              onCanPlayThrough={() => setDesktopVideoReady(charter.title)}
                               className="w-full h-full object-cover"
                               style={{ objectPosition: charter.objectPosition }}
                             />
