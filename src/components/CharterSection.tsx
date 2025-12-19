@@ -111,6 +111,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   // Debounce video loading - start loading video after scroll settles
   useEffect(() => {
     if (!hasScrolled) return // Don't load videos until section is in view
+    if (isScrolling) return // Don't trigger loading while actively scrolling
     
     if (loadTimeoutRef.current) {
       clearTimeout(loadTimeoutRef.current)
@@ -125,7 +126,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         clearTimeout(loadTimeoutRef.current)
       }
     }
-  }, [activeIndex, hasScrolled])
+  }, [activeIndex, hasScrolled, isScrolling])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
