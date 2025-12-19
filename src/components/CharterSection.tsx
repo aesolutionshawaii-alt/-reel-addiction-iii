@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import HLSVideo from './HLSVideo'
+
 const charters = [
   { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/hls/charter-34day/playlist.m3u8', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
   { title: 'Full Day', image: '/images/charter-fullday.jpg', video: '/videos/charter-fullday-web.mp4', mobileVideo: '/videos/hls/charter-fullday/playlist.m3u8', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
@@ -17,15 +18,14 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [isDesktop, setIsDesktop] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
-  const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
+  const [loadVideoIndex, setLoadVideoIndex] = useState(0) // Which video should load
   const [sectionInView, setSectionInView] = useState(false)
-  const [readyToReveal, setReadyToReveal] = useState(true)
-  const [videoEnded, setVideoEnded] = useState<boolean[]>(new Array(charters.length).fill(false))
 
-const scrollRef = useRef<HTMLDivElement>(null)
-const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
-const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
-const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
+  const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
   const getHoveredRow = () => {
     if (!hoveredCard) return null
     return charters.find(c => c.title === hoveredCard)?.row
@@ -34,8 +34,6 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 768)
   }, [])
-
-
 
   useEffect(() => {
     Object.entries(desktopVideoRefs.current).forEach(([title, video]) => {
@@ -64,26 +62,28 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
     return () => ref?.removeEventListener('scroll', handleScroll)
   }, [])
 
-  
-
-  
+  // Debounce: only set loadVideoIndex after 400ms of no scrolling
+  useEffect(() => {
+    if (loadTimeoutRef.current) {
+      clearTimeout(loadTimeoutRef.current)
+    }
+    
+    loadTimeoutRef.current = setTimeout(() => {
+      setLoadVideoIndex(activeIndex)
+    }, 400)
+    
+    return () => {
+      if (loadTimeoutRef.current) {
+        clearTimeout(loadTimeoutRef.current)
+      }
+    }
+  }, [activeIndex])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setSectionInView(true)
-          setReadyToReveal(false)
-          revealTimeoutRef.current = setTimeout(() => {
-            setReadyToReveal(true)
-          }, 500)
-        } else {
-          setSectionInView(false)
-          setReadyToReveal(false)
-          setVideoLoaded(new Array(charters.length).fill(false))
-          if (revealTimeoutRef.current) {
-            clearTimeout(revealTimeoutRef.current)
-          }
+        setSectionInView(entry.isIntersecting)
+        if (!entry.isIntersecting) {
           videoRefs.current.forEach(video => {
             if (video) {
               video.pause()
@@ -99,44 +99,24 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
       observer.observe(scrollRef.current)
     }
 
-    return () => {
-      observer.disconnect()
-      if (revealTimeoutRef.current) {
-        clearTimeout(revealTimeoutRef.current)
-      }
-    }
+    return () => observer.disconnect()
   }, [])
+
+  // Play/pause control
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return
       
-      if (index === activeIndex && sectionInView && isPlaying) {
+      // Only play the video that matches both activeIndex AND loadVideoIndex
+      if (index === activeIndex && index === loadVideoIndex && sectionInView && isPlaying) {
         video.play().catch(() => {})
       } else {
         video.pause()
       }
     })
-  }, [activeIndex, sectionInView, isPlaying])
-  useEffect(() => {
-    setVideoEnded(prev => {
-      const next = [...prev]
-      next[activeIndex] = false
-      return next
-    })
-  }, [activeIndex])
-  
-    
-  
+  }, [activeIndex, loadVideoIndex, sectionInView, isPlaying])
+
   const togglePlayback = () => {
-    videoRefs.current.forEach(video => {
-      if (video) {
-        if (isPlaying) {
-          video.pause()
-        } else {
-          video.play()
-        }
-      }
-    })
     setIsPlaying(!isPlaying)
   }
 
@@ -152,101 +132,96 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
         </motion.h2>
 
         {/* Mobile Layout */}
-<div className="md:hidden">
-  <div 
-    ref={scrollRef}
-    className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
-  >
-    <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
-      {charters.map((charter, index) => (
-        <div
-          key={charter.title}
-          className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
-        >
-          <Image
-            src={charter.image}
-            alt={charter.title}
-            fill
-            className={`object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal && !videoEnded[index] ? 'opacity-0' : 'opacity-100'}`}
-            style={{ objectPosition: charter.objectPosition }}
-            quality={90}
-          />
-          
-          <HLSVideo
-  src={index === activeIndex ? charter.mobileVideo : ''}
-  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal && !videoEnded[index] ? 'opacity-100' : 'opacity-0'}`}
-  style={{ objectPosition: charter.objectPosition }}
-  onLoadedData={() => {
-    setVideoLoaded(prev => {
-      const next = [...prev]
-      next[index] = true
-      return next
-    })
-  }}
-  onEnded={() => {
-    setVideoEnded(prev => {
-      const next = [...prev]
-      next[index] = true
-      return next
-    })
-  }}
-  videoRef={(el) => { 
-    videoRefs.current[index] = el 
-  }}
-/>
-             
-          
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
-          <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px]">
-            {charter.title}
-          </h3>
-          <div className="absolute bottom-4 left-4 right-4">
-            <p className="text-white font-outfit font-light text-[16px] leading-snug mb-2">
-              {charter.description}
-            </p>
-            <p className="text-white font-outfit font-medium text-[20px] mb-3">
-              {charter.price}
-            </p>
-            <Link
-              href="/charters"
-              className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
+        <div className="md:hidden">
+          <div 
+            ref={scrollRef}
+            className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+          >
+            <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
+              {charters.map((charter, index) => (
+                <div
+                  key={charter.title}
+                  className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
+                >
+                  <Image
+                    src={charter.image}
+                    alt={charter.title}
+                    fill
+                    className={`object-cover transition-opacity duration-300 ${
+                      index === loadVideoIndex && index === activeIndex ? 'opacity-0' : 'opacity-100'
+                    }`}
+                    style={{ objectPosition: charter.objectPosition }}
+                    quality={90}
+                    priority={index === 0}
+                  />
+                  
+                  {/* All videos rendered, but only give src to the loadVideoIndex */}
+                  <HLSVideo
+                    src={index === loadVideoIndex ? charter.mobileVideo : ''}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                      index === loadVideoIndex && index === activeIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    videoRef={(el) => { 
+                      videoRefs.current[index] = el
+                      if (el) {
+                        el.playsInline = true
+                        el.muted = true
+                        el.loop = true
+                      }
+                    }}
+                  />
+                  
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
+                  <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px]">
+                    {charter.title}
+                  </h3>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-white font-outfit font-light text-[16px] leading-snug mb-2">
+                      {charter.description}
+                    </p>
+                    <p className="text-white font-outfit font-medium text-[20px] mb-3">
+                      {charter.price}
+                    </p>
+                    <Link
+                      href="/charters"
+                      className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
+                    >
+                      Learn More →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <div className="flex items-center gap-2 px-4 h-8 rounded-full bg-white/20">
+              {charters.map((_, index) => (
+                <div
+                  key={index}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+            <button 
+              onClick={togglePlayback}
+              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
             >
-              Learn More →
-            </Link>
+              {isPlaying ? (
+                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-
-  <div className="flex items-center justify-center gap-3 mt-4">
-    <div className="flex items-center gap-2 px-4 h-8 rounded-full bg-white/20">
-      {charters.map((_, index) => (
-        <div
-          key={index}
-          className={`h-2 rounded-full transition-all duration-300 ${
-            index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
-          }`}
-        />
-      ))}
-    </div>
-    <button 
-      onClick={togglePlayback}
-      className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
-    >
-      {isPlaying ? (
-        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-        </svg>
-      ) : (
-        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      )}
-    </button>
-  </div>
-</div>
 
         {/* Desktop Layout */}
         <div className="hidden md:block">
