@@ -20,12 +20,11 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
   const [sectionInView, setSectionInView] = useState(false)
   const [readyToReveal, setReadyToReveal] = useState(true)
-  const [visitedCards, setVisitedCards] = useState<Set<number>>(new Set([0]))
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
-  const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
-  const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
+const scrollRef = useRef<HTMLDivElement>(null)
+const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
+const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const getHoveredRow = () => {
     if (!hoveredCard) return null
     return charters.find(c => c.title === hoveredCard)?.row
@@ -35,13 +34,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     setIsDesktop(window.innerWidth >= 768)
   }, [])
 
-  useEffect(() => {
-    setVisitedCards(prev => {
-      const next = new Set(prev)
-      next.add(activeIndex)
-      return next
-    })
-  }, [activeIndex])
+
 
   useEffect(() => {
     Object.entries(desktopVideoRefs.current).forEach(([title, video]) => {
@@ -154,95 +147,95 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         </motion.h2>
 
         {/* Mobile Layout */}
-        <div className="md:hidden">
-          <div 
-            ref={scrollRef}
-            className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
-          >
-            <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
-              {charters.map((charter, index) => (
-                <div
-                  key={charter.title}
-                  className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
-                >
-                  <Image
-                    src={charter.image}
-                    alt={charter.title}
-                    fill
-                    className={`object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-0' : 'opacity-100'}`}
-                    style={{ objectPosition: charter.objectPosition }}
-                    quality={90}
-                  />
-                  {visitedCards.has(index) && (
-                    <video
-                      ref={el => { videoRefs.current[index] = el }}
-                      src={charter.mobileVideo}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      onCanPlayThrough={() => {
-                        setVideoLoaded(prev => {
-                          const next = [...prev]
-                          next[index] = true
-                          return next
-                        })
-                      }}
-                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
-                      style={{ objectPosition: charter.objectPosition }}
-                    />
-                  )}
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
-                  <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px]">
-                    {charter.title}
-                  </h3>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white font-outfit font-light text-[16px] leading-snug mb-2">
-                      {charter.description}
-                    </p>
-                    <p className="text-white font-outfit font-medium text-[20px] mb-3">
-                      {charter.price}
-                    </p>
-                    <Link
-                      href="/charters"
-                      className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
-                    >
-                      Learn More →
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center gap-3 mt-4">
-            <div className="flex items-center gap-2 px-4 h-8 rounded-full bg-white/20">
-              {charters.map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
-                  }`}
-                />
-              ))}
-            </div>
-            <button 
-              onClick={togglePlayback}
-              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
+<div className="md:hidden">
+  <div 
+    ref={scrollRef}
+    className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+  >
+    <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
+      {charters.map((charter, index) => (
+        <div
+          key={charter.title}
+          className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
+        >
+          <Image
+            src={charter.image}
+            alt={charter.title}
+            fill
+            className={`object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-0' : 'opacity-100'}`}
+            style={{ objectPosition: charter.objectPosition }}
+            quality={90}
+          />
+          {index === activeIndex && sectionInView && (
+            <video
+              ref={el => { videoRefs.current[index] = el }}
+              src={charter.mobileVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              onCanPlayThrough={() => {
+                setVideoLoaded(prev => {
+                  const next = [...prev]
+                  next[index] = true
+                  return next
+                })
+              }}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
+              style={{ objectPosition: charter.objectPosition }}
+            />
+          )}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
+          <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px]">
+            {charter.title}
+          </h3>
+          <div className="absolute bottom-4 left-4 right-4">
+            <p className="text-white font-outfit font-light text-[16px] leading-snug mb-2">
+              {charter.description}
+            </p>
+            <p className="text-white font-outfit font-medium text-[20px] mb-3">
+              {charter.price}
+            </p>
+            <Link
+              href="/charters"
+              className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
             >
-              {isPlaying ? (
-                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                </svg>
-              ) : (
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-            </button>
+              Learn More →
+            </Link>
           </div>
         </div>
+      ))}
+    </div>
+  </div>
+
+  <div className="flex items-center justify-center gap-3 mt-4">
+    <div className="flex items-center gap-2 px-4 h-8 rounded-full bg-white/20">
+      {charters.map((_, index) => (
+        <div
+          key={index}
+          className={`h-2 rounded-full transition-all duration-300 ${
+            index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
+          }`}
+        />
+      ))}
+    </div>
+    <button 
+      onClick={togglePlayback}
+      className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
+    >
+      {isPlaying ? (
+        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+        </svg>
+      ) : (
+        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      )}
+    </button>
+  </div>
+</div>
 
         {/* Desktop Layout */}
         <div className="hidden md:block">
