@@ -29,10 +29,24 @@ export default function HLSVideo({
     if (videoRef) videoRef(el)
   }, [videoRef])
 
-  // Attach HLS when src is provided, keep alive once attached
+  // Aggressive destroy/recreate - only active card has HLS attached
   useEffect(() => {
     const video = internalRef.current
-    if (!video || !src || hlsRef.current) return
+    if (!video) return
+
+    // If src is empty, destroy HLS and clear video
+    if (!src) {
+      if (hlsRef.current) {
+        hlsRef.current.destroy()
+        hlsRef.current = null
+      }
+      video.src = ''
+      video.load() // Force clear
+      return
+    }
+
+    // If HLS already exists, don't recreate
+    if (hlsRef.current) return
 
     // Safari native HLS
     if (video.canPlayType('application/vnd.apple.mpegurl')) {
@@ -43,8 +57,8 @@ export default function HLSVideo({
     // Chrome/Firefox via hls.js
     if (Hls.isSupported()) {
       const hls = new Hls({
-        maxBufferLength: 10,
-        maxMaxBufferLength: 20,
+        maxBufferLength: 5,      // Reduced from 10
+        maxMaxBufferLength: 10,   // Reduced from 20
         startLevel: 0,
         enableWorker: true,
       })
@@ -61,7 +75,7 @@ export default function HLSVideo({
     }
   }, [src])
 
-  // Only destroy on unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (hlsRef.current) {
