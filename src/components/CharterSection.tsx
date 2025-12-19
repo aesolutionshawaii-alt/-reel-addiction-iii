@@ -181,7 +181,7 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
           />
           
           <HLSVideo
-  src={index === activeIndex && sectionInView ? charter.mobileVideo : ''}
+  src={charter.mobileVideo}
   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
   style={{ objectPosition: charter.objectPosition }}
   onLoadedData={() => {
