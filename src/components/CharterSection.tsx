@@ -175,6 +175,7 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
               loop
               muted
               playsInline
+              preload="none"
               onCanPlayThrough={() => {
                 setVideoLoaded(prev => {
                   const next = [...prev]
