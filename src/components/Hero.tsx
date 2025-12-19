@@ -1,11 +1,13 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [videoSrc, setVideoSrc] = useState<string | null>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -15,8 +17,34 @@ export default function Hero() {
     }
   }, [])
 
+  // Pause video when scrolled out of view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (videoRef.current) {
+          if (entry.isIntersecting) {
+            videoRef.current.play()
+          } else {
+            videoRef.current.pause()
+          }
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [videoSrc])
+
   return (
-    <section className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden bg-cover bg-center" style={{ backgroundImage: 'url(/images/hero-poster-mobile.jpg)' }}>
+    <section 
+      ref={sectionRef}
+      className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden bg-cover bg-center" 
+      style={{ backgroundImage: 'url(/images/hero-poster-mobile.jpg)' }}
+    >
       {/* Background */}
       <div className="absolute inset-0">
         {/* Poster image - desktop only, fades out when video ready */}
@@ -33,6 +61,7 @@ export default function Hero() {
         {/* Video - only loads correct version based on screen size */}
         {videoSrc && (
           <video
+            ref={videoRef}
             src={videoSrc}
             autoPlay
             loop
