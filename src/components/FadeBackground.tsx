@@ -1,17 +1,19 @@
 'use client'
-import { useRef, Children, cloneElement, isValidElement } from 'react'
+import { useRef, Children, cloneElement, isValidElement, useMemo } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 export default function FadeBackground({ children }: { children: React.ReactNode }) {
   const triggerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(triggerRef, { once: false })
   
-  const childrenWithProps = Children.map(children, child => {
-    if (isValidElement(child)) {
-      return cloneElement(child, { isDark: isInView } as any)
-    }
-    return child
-  })
+  const childrenWithProps = useMemo(() => {
+    return Children.map(children, child => {
+      if (isValidElement(child)) {
+        return cloneElement(child, { isDark: isInView } as any)
+      }
+      return child
+    })
+  }, [children, isInView])
   
   return (
     <motion.div 
