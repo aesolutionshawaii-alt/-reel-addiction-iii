@@ -20,6 +20,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
   const [sectionInView, setSectionInView] = useState(false)
   const [readyToReveal, setReadyToReveal] = useState(true)
+  const [visitedCards, setVisitedCards] = useState<Set<number>>(new Set([0]))
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
@@ -34,7 +35,14 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     setIsDesktop(window.innerWidth >= 768)
   }, [])
 
-  // Control desktop video playback
+  useEffect(() => {
+    setVisitedCards(prev => {
+      const next = new Set(prev)
+      next.add(activeIndex)
+      return next
+    })
+  }, [activeIndex])
+
   useEffect(() => {
     Object.entries(desktopVideoRefs.current).forEach(([title, video]) => {
       if (video) {
@@ -165,7 +173,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                     style={{ objectPosition: charter.objectPosition }}
                     quality={90}
                   />
-                  {index === activeIndex && sectionInView && (
+                  {visitedCards.has(index) && sectionInView && (
                     <video
                       ref={el => { videoRefs.current[index] = el }}
                       src={charter.mobileVideo}
