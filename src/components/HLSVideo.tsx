@@ -36,17 +36,22 @@ export default function HLSVideo({
         hlsInstance.current = null
       }
       video.src = ''
+      console.log('HLS: No src provided, clearing video')
       return
     }
 
+    console.log('HLS: Initializing with src:', src)
+
     // Check if native HLS support (iOS Safari)
     if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      console.log('HLS: Using native HLS support')
       video.src = src
       return
     }
 
     // Use HLS.js for other browsers
     if (Hls.isSupported()) {
+      console.log('HLS: HLS.js is supported, creating instance')
       // Destroy existing instance if any
       if (hlsInstance.current) {
         hlsInstance.current.destroy()
@@ -60,15 +65,18 @@ export default function HLSVideo({
         maxMaxBufferLength: 20,     // Cap max buffer
         maxBufferSize: 10 * 1000 * 1000, // 10MB max buffer
         maxBufferHole: 0.5,         // More aggressive gap jumping
+        autoStartLoad: true,        // Explicitly start loading segments
+        startPosition: 0,           // Start from beginning
       })
 
       hlsInstance.current = hls
       hls.loadSource(src)
       hls.attachMedia(video)
-
-      // Add detailed logging
+      
+      // Add detailed logging and force loading to start
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        console.log('HLS: Manifest parsed successfully')
+        console.log('HLS: Manifest parsed, starting load')
+        hls.startLoad() // Explicitly start loading segments
       })
 
       hls.on(Hls.Events.FRAG_LOADED, (event, data) => {
@@ -111,6 +119,7 @@ export default function HLSVideo({
       playsInline
       muted
       loop
+      preload="metadata"
       onCanPlayThrough={onLoadedData}
       onEnded={onEnded}
     />
