@@ -3,12 +3,12 @@ import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-
+import HLSVideo from './HLSVideo'
 const charters = [
-  { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/charter-34day-mobile.mp4', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
-  { title: 'Full Day', image: '/images/charter-fullday.jpg', video: '/videos/charter-fullday-web.mp4', mobileVideo: '/videos/charter-fullday-mobile.mp4', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
-  { title: 'Extravaganza', image: '/images/charter-extravaganza.jpg', video: '/videos/charter-extravaganza-web.mp4', mobileVideo: '/videos/charter-extravaganza-mobile.mp4', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
-  { title: 'Custom Trip', image: '/images/charter-custom.jpg', video: '/videos/charter-custom-web.mp4', mobileVideo: '/videos/charter-custom-mobile.mp4', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
+  { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/hls/charter-34day/playlist.m3u8', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
+  { title: 'Full Day', image: '/images/charter-fullday.jpg', video: '/videos/charter-fullday-web.mp4', mobileVideo: '/videos/hls/charter-fullday/playlist.m3u8', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
+  { title: 'Extravaganza', image: '/images/charter-extravaganza.jpg', video: '/videos/charter-extravaganza-web.mp4', mobileVideo: '/videos/hls/charter-extravaganza/playlist.m3u8', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
+  { title: 'Custom Trip', image: '/images/charter-custom.jpg', video: '/videos/charter-custom-web.mp4', mobileVideo: '/videos/hls/charter-custom/playlist.m3u8', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
 ]
 
 export default function CharterSection({ isDark = false }: { isDark?: boolean }) {
@@ -125,16 +125,10 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
     videoRefs.current.forEach((video, index) => {
       if (!video) return
       
-      if (index === activeIndex && sectionInView) {
-        // Active video - ensure it loads and plays
-        video.load()
-        if (isPlaying) {
-          video.play().catch(() => {})
-        }
+      if (index === activeIndex && sectionInView && isPlaying) {
+        video.play().catch(() => {})
       } else {
-        // Inactive video - stop it completely
         video.pause()
-        video.load() // Clear buffer
       }
     })
   }, [activeIndex, sectionInView, isPlaying])
@@ -186,13 +180,10 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
             quality={90}
           />
           
-          <video
-  ref={el => { videoRefs.current[index] = el }}
-  src={index === activeIndex && sectionInView ? charter.mobileVideo : undefined}
-  loop
-  muted
-  playsInline
-  preload="none"
+          <HLSVideo
+  src={index === activeIndex && sectionInView ? charter.mobileVideo : ''}
+  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
+  style={{ objectPosition: charter.objectPosition }}
   onLoadedData={() => {
     setVideoLoaded(prev => {
       const next = [...prev]
@@ -200,8 +191,9 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
       return next
     })
   }}
-  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
-  style={{ objectPosition: charter.objectPosition }}
+  videoRef={(el) => { 
+    videoRefs.current[index] = el 
+  }}
 />
              
           
