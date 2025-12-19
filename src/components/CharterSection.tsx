@@ -276,17 +276,17 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           animate={{ opacity: isHovered ? 1 : 0 }}
                           transition={{ delay: isHovered ? 0.3 : 0, duration: 0.5 }}
                         >
-                          <video
-  src={charter.video}
-  preload="none"
-  loop
-  muted
-  playsInline
-  onMouseEnter={(e) => e.currentTarget.play()}
-  onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
-  className="w-full h-full object-cover"
-  style={{ objectPosition: charter.objectPosition }}
-/>
+                          {isHovered && (
+  <video
+    src={charter.video}
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="w-full h-full object-cover"
+    style={{ objectPosition: charter.objectPosition }}
+  />
+)}
                         </motion.div>
                       </motion.div>
                       
