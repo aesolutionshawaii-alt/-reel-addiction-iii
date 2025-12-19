@@ -122,18 +122,25 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
     }
   }, [])
   useEffect(() => {
-    const v = videoRefs.current[activeIndex]
-    if (!v) return
-  
-    // ensure src changes take effect immediately on Safari
-    v.load()
-  
-    if (sectionInView && isPlaying) {
-      v.play().catch(() => {})
-    } else {
-      v.pause()
-    }
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return
+      
+      if (index === activeIndex && sectionInView) {
+        // Active video - ensure it loads and plays
+        video.load()
+        if (isPlaying) {
+          video.play().catch(() => {})
+        }
+      } else {
+        // Inactive video - stop it completely
+        video.pause()
+        video.load() // Clear buffer
+      }
+    })
   }, [activeIndex, sectionInView, isPlaying])
+  
+    
+  
   const togglePlayback = () => {
     videoRefs.current.forEach(video => {
       if (video) {
