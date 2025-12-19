@@ -1,98 +1,103 @@
-'use client'
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 import Hls from 'hls.js'
 
 interface HLSVideoProps {
   src: string
-  poster?: string
   className?: string
-  style?: React.CSSProperties
+  videoRef?: (el: HTMLVideoElement | null) => void
   onLoadedData?: () => void
   onEnded?: () => void
-  videoRef?: (el: HTMLVideoElement | null) => void
 }
 
 export default function HLSVideo({ 
   src, 
-  poster, 
-  className, 
-  style, 
+  className = '', 
+  videoRef,
   onLoadedData,
-  onEnded,
-  videoRef 
+  onEnded
 }: HLSVideoProps) {
-  const internalRef = useRef<HTMLVideoElement | null>(null)
-  const hlsRef = useRef<Hls | null>(null)
+  const videoElement = useRef<HTMLVideoElement>(null)
+  const hlsInstance = useRef<Hls | null>(null)
 
-  const setRef = useCallback((el: HTMLVideoElement | null) => {
-    internalRef.current = el
-    if (videoRef) videoRef(el)
-  }, [videoRef])
-
-  // Aggressive destroy/recreate - only active card has HLS attached
   useEffect(() => {
-    const video = internalRef.current
+    const video = videoElement.current
     if (!video) return
 
-    // If src is empty, destroy HLS and clear video
+    // Pass ref to parent
+    if (videoRef) {
+      videoRef(video)
+    }
+
+    // CRITICAL: Only initialize HLS if we have a src
     if (!src) {
-      if (hlsRef.current) {
-        hlsRef.current.destroy()
-        hlsRef.current = null
+      // Clean up any existing HLS instance
+      if (hlsInstance.current) {
+        hlsInstance.current.destroy()
+        hlsInstance.current = null
       }
       video.src = ''
-      video.load() // Force clear
       return
     }
 
-    // If HLS already exists, don't recreate
-    if (hlsRef.current) return
-
-    // Safari native HLS
+    // Check if native HLS support (iOS Safari)
     if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = src
       return
     }
 
-    // Chrome/Firefox via hls.js
+    // Use HLS.js for other browsers
     if (Hls.isSupported()) {
+      // Destroy existing instance if any
+      if (hlsInstance.current) {
+        hlsInstance.current.destroy()
+      }
+
       const hls = new Hls({
-        maxBufferLength: 5,      // Reduced from 10
-        maxMaxBufferLength: 10,   // Reduced from 20
-        startLevel: 0,
         enableWorker: true,
+        lowLatencyMode: false,
+        backBufferLength: 90,
       })
-      
+
+      hlsInstance.current = hls
       hls.loadSource(src)
       hls.attachMedia(video)
-      hlsRef.current = hls
 
       hls.on(Hls.Events.ERROR, (event, data) => {
         if (data.fatal) {
-          console.error('HLS fatal error:', data)
+          switch (data.type) {
+            case Hls.ErrorTypes.NETWORK_ERROR:
+              console.error('HLS network error, trying to recover...')
+              hls.startLoad()
+              break
+            case Hls.ErrorTypes.MEDIA_ERROR:
+              console.error('HLS media error, trying to recover...')
+              hls.recoverMediaError()
+              break
+            default:
+              console.error('HLS fatal error, destroying instance')
+              hls.destroy()
+              break
+          }
         }
       })
     }
-  }, [src])
 
-  // Cleanup on unmount
-  useEffect(() => {
+    // Cleanup
     return () => {
-      if (hlsRef.current) {
-        hlsRef.current.destroy()
+      if (hlsInstance.current) {
+        hlsInstance.current.destroy()
+        hlsInstance.current = null
       }
     }
-  }, [])
+  }, [src]) // FIXED: Removed videoRef from dependencies - it was causing infinite loop
 
   return (
     <video
-      ref={setRef}
-      poster={poster}
+      ref={videoElement}
       className={className}
-      style={style}
-      muted
       playsInline
-      preload="none"
+      muted
+      loop
       onLoadedData={onLoadedData}
       onEnded={onEnded}
     />

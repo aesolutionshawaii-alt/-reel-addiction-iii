@@ -528,6 +528,9 @@ video {
 .pointer-events-none {
   pointer-events: none;
 }
+.visible {
+  visibility: visible;
+}
 .fixed {
   position: fixed;
 }
@@ -603,6 +606,15 @@ video {
 }
 .z-50 {
   z-index: 50;
+}
+.z-0 {
+  z-index: 0;
+}
+.z-20 {
+  z-index: 20;
+}
+.z-30 {
+  z-index: 30;
 }
 .order-1 {
   order: 1;
@@ -1135,6 +1147,12 @@ video {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+.delay-500 {
+  transition-delay: 500ms;
+}
+.delay-300 {
+  transition-delay: 300ms;
 }
 .duration-300 {
   transition-duration: 300ms;

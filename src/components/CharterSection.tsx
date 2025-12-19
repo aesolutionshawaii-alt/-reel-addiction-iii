@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import HLSVideo from './HLSVideo'
+import HLSVideo from './HLSVideo'// Use the new component
 
 const charters = [
   { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/hls/charter-34day/playlist.m3u8', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
@@ -18,13 +18,18 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [isDesktop, setIsDesktop] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
-  const [loadVideoIndex, setLoadVideoIndex] = useState(0) // Which video should load
+  const [loadVideoIndex, setLoadVideoIndex] = useState(-1)
   const [sectionInView, setSectionInView] = useState(false)
+  const [videoLoadedStates, setVideoLoadedStates] = useState<{ [key: number]: boolean }>({})
+  const [hasScrolled, setHasScrolled] = useState(false)
+  const [isScrolling, setIsScrolling] = useState(false)
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const pageScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
@@ -54,16 +59,59 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         const cardWidth = window.innerWidth - 48
         const newIndex = Math.round(scrollLeft / cardWidth)
         setActiveIndex(Math.min(newIndex, charters.length - 1))
+        
+        // Set scrolling state
+        setIsScrolling(true)
+        
+        // Clear existing timeout
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current)
+        }
+        
+        // Set timeout to detect when scrolling stops
+        scrollTimeoutRef.current = setTimeout(() => {
+          setIsScrolling(false)
+        }, 150)
       }
     }
 
     const ref = scrollRef.current
     ref?.addEventListener('scroll', handleScroll)
-    return () => ref?.removeEventListener('scroll', handleScroll)
+    return () => {
+      ref?.removeEventListener('scroll', handleScroll)
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+    }
   }, [])
 
-  // Debounce: only set loadVideoIndex after 400ms of no scrolling
+  // Detect vertical page scroll
   useEffect(() => {
+    const handlePageScroll = () => {
+      setIsScrolling(true)
+      
+      if (pageScrollTimeoutRef.current) {
+        clearTimeout(pageScrollTimeoutRef.current)
+      }
+      
+      pageScrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false)
+      }, 150)
+    }
+
+    window.addEventListener('scroll', handlePageScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handlePageScroll)
+      if (pageScrollTimeoutRef.current) {
+        clearTimeout(pageScrollTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  // Debounce video loading - start loading video after scroll settles
+  useEffect(() => {
+    if (!hasScrolled) return // Don't load videos until section is in view
+    
     if (loadTimeoutRef.current) {
       clearTimeout(loadTimeoutRef.current)
     }
@@ -77,12 +125,17 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         clearTimeout(loadTimeoutRef.current)
       }
     }
-  }, [activeIndex])
+  }, [activeIndex, hasScrolled])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setSectionInView(entry.isIntersecting)
+        
+        if (entry.isIntersecting) {
+          setHasScrolled(true) // Allow video loading once section is visible
+        }
+        
         if (!entry.isIntersecting) {
           videoRefs.current.forEach(video => {
             if (video) {
@@ -94,30 +147,37 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       },
       { threshold: 0.1 }
     )
-
+  
     if (scrollRef.current) {
       observer.observe(scrollRef.current)
     }
-
+  
     return () => observer.disconnect()
   }, [])
 
-  // Play/pause control
+  // Control playback - only play when video is fully loaded
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return
       
-      // Only play the video that matches both activeIndex AND loadVideoIndex
-      if (index === activeIndex && index === loadVideoIndex && sectionInView && isPlaying) {
+      if (index === activeIndex && 
+          index === loadVideoIndex && 
+          sectionInView && 
+          isPlaying && 
+          videoLoadedStates[index]) {
         video.play().catch(() => {})
       } else {
         video.pause()
       }
     })
-  }, [activeIndex, loadVideoIndex, sectionInView, isPlaying])
+  }, [activeIndex, loadVideoIndex, sectionInView, isPlaying, videoLoadedStates])
 
   const togglePlayback = () => {
     setIsPlaying(!isPlaying)
+  }
+
+  const handleVideoLoaded = (index: number) => {
+    setVideoLoadedStates(prev => ({ ...prev, [index]: true }))
   }
 
   return (
@@ -138,60 +198,64 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
             className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
           >
             <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
-              {charters.map((charter, index) => (
-                <div
-                  key={charter.title}
-                  className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
-                >
-                  <Image
-                    src={charter.image}
-                    alt={charter.title}
-                    fill
-                    className={`object-cover transition-opacity duration-300 ${
-                      index === loadVideoIndex && index === activeIndex ? 'opacity-0' : 'opacity-100'
-                    }`}
-                    style={{ objectPosition: charter.objectPosition }}
-                    quality={90}
-                    priority={index === 0}
-                  />
-                  
-                  {/* All videos rendered, but only give src to the loadVideoIndex */}
-                  <HLSVideo
-                    src={index === loadVideoIndex ? charter.mobileVideo : ''}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-                      index === loadVideoIndex && index === activeIndex ? 'opacity-100' : 'opacity-0'
-                    }`}
-                    videoRef={(el) => { 
-                      videoRefs.current[index] = el
-                      if (el) {
-                        el.playsInline = true
-                        el.muted = true
-                        el.loop = true
-                      }
-                    }}
-                  />
-                  
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
-                  <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px]">
-                    {charter.title}
-                  </h3>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white font-outfit font-light text-[16px] leading-snug mb-2">
-                      {charter.description}
-                    </p>
-                    <p className="text-white font-outfit font-medium text-[20px] mb-3">
-                      {charter.price}
-                    </p>
-                    <Link
-                      href="/charters"
-                      className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
-                    >
-                      Learn More →
-                    </Link>
+              {charters.map((charter, index) => {
+                const isActiveCard = index === activeIndex
+                const shouldLoadVideo = index === loadVideoIndex
+                const videoIsReady = videoLoadedStates[index] && !isScrolling
+                
+                return (
+                  <div
+                    key={charter.title}
+                    className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
+                  >
+                    {/* Video layer - underneath poster */}
+                    <HLSVideo
+                      src={shouldLoadVideo ? charter.mobileVideo : ''}
+                      className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
+                        shouldLoadVideo && isActiveCard && videoIsReady ? 'opacity-100' : 'opacity-0'
+                      }`}
+                      videoRef={(el) => { videoRefs.current[index] = el }}
+                      onLoadedData={() => handleVideoLoaded(index)}
+                    />
+                    
+                    {/* Poster Image - on top layer */}
+                    <Image
+                      src={charter.image}
+                      alt={charter.title}
+                      fill
+                      className={`object-cover z-10 transition-opacity duration-500 ${
+                        shouldLoadVideo && isActiveCard && videoIsReady ? 'opacity-0' : 'opacity-100'
+                      }`}
+                      style={{ objectPosition: charter.objectPosition }}
+                      quality={90}
+                      priority={index === 0}
+                    />
+                    
+                    {/* Gradients - always on top */}
+                    <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
+                    <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
+                    
+                    {/* Content - always on top */}
+                    <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px] z-30">
+                      {charter.title}
+                    </h3>
+                    <div className="absolute bottom-4 left-4 right-4 z-30">
+                      <p className="text-white font-outfit font-light text-[16px] leading-snug mb-2">
+                        {charter.description}
+                      </p>
+                      <p className="text-white font-outfit font-medium text-[20px] mb-3">
+                        {charter.price}
+                      </p>
+                      <Link
+                        href="/charters"
+                        className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
+                      >
+                        Learn More →
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
 
