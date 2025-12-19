@@ -56,11 +56,24 @@ export default function HLSVideo({
         enableWorker: true,
         lowLatencyMode: false,
         backBufferLength: 90,
+        maxBufferLength: 10,        // Reduce buffer size for mobile
+        maxMaxBufferLength: 20,     // Cap max buffer
+        maxBufferSize: 10 * 1000 * 1000, // 10MB max buffer
+        maxBufferHole: 0.5,         // More aggressive gap jumping
       })
 
       hlsInstance.current = hls
       hls.loadSource(src)
       hls.attachMedia(video)
+
+      // Add detailed logging
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        console.log('HLS: Manifest parsed successfully')
+      })
+
+      hls.on(Hls.Events.FRAG_LOADED, (event, data) => {
+        console.log('HLS: Fragment loaded:', data.frag.url)
+      })
 
       hls.on(Hls.Events.ERROR, (event, data) => {
         if (data.fatal) {
@@ -98,7 +111,7 @@ export default function HLSVideo({
       playsInline
       muted
       loop
-      onLoadedData={onLoadedData}
+      onCanPlayThrough={onLoadedData}
       onEnded={onEnded}
     />
   )
