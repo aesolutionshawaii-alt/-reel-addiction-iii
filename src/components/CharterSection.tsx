@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const charters = [
   { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/charter-34day-mobile.mp4', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
@@ -270,24 +270,27 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           style={{ objectPosition: charter.objectPosition }}
                           quality={90}
                         />
-                        <motion.div
-                          className="absolute inset-0"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: isHovered ? 1 : 0 }}
-                          transition={{ delay: isHovered ? 0.3 : 0, duration: 0.5 }}
-                        >
-                          {isHovered && (
-  <video
-    src={charter.video}
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="w-full h-full object-cover"
-    style={{ objectPosition: charter.objectPosition }}
-  />
-)}
-                        </motion.div>
+                        <AnimatePresence>
+  {isHovered && (
+    <motion.div
+      className="absolute inset-0"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: 0.3, duration: 0.5 }}
+    >
+      <video
+        src={charter.video}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-cover"
+        style={{ objectPosition: charter.objectPosition }}
+      />
+    </motion.div>
+  )}
+</AnimatePresence>
                       </motion.div>
                       
                       <div
