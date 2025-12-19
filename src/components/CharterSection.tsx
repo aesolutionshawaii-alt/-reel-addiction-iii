@@ -270,27 +270,24 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           style={{ objectPosition: charter.objectPosition }}
                           quality={90}
                         />
-                        <AnimatePresence>
+                       <motion.div
+  className="absolute inset-0"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: isHovered ? 1 : 0 }}
+  transition={{ delay: isHovered ? 0.3 : 0, duration: 0.5 }}
+>
   {isHovered && (
-    <motion.div
-      className="absolute inset-0"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{  duration: 0.5 }}
-    >
-      <video
-        src={charter.video}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="w-full h-full object-cover"
-        style={{ objectPosition: charter.objectPosition }}
-      />
-    </motion.div>
+    <video
+      src={charter.video}
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="w-full h-full object-cover"
+      style={{ objectPosition: charter.objectPosition }}
+    />
   )}
-</AnimatePresence>
+</motion.div>
                       </motion.div>
                       
                       <div
