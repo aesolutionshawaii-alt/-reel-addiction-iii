@@ -168,7 +168,8 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
           />
           {index === activeIndex && sectionInView && (
             <video
-              ref={el => { videoRefs.current[index] = el }}
+            key={`video-${index}`}
+            ref={el => { videoRefs.current[index] = el }}
               src={charter.mobileVideo}
               autoPlay
               loop
