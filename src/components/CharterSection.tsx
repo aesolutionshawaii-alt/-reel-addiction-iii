@@ -173,7 +173,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                     style={{ objectPosition: charter.objectPosition }}
                     quality={90}
                   />
-                  {visitedCards.has(index) && sectionInView && (
+                  {visitedCards.has(index) && (
                     <video
                       ref={el => { videoRefs.current[index] = el }}
                       src={charter.mobileVideo}
