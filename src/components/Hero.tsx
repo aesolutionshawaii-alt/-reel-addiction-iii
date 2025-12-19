@@ -63,10 +63,11 @@ export default function Hero() {
           <video
             ref={videoRef}
             src={videoSrc}
-            autoPlay
+            autoPlay={window.innerWidth >= 768}
             loop
             muted
             playsInline
+            preload={window.innerWidth >= 768 ? "auto" : "metadata"}
             onCanPlayThrough={() => setVideoLoaded(true)}
             className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
