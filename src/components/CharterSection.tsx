@@ -121,7 +121,19 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
       }
     }
   }, [])
-
+  useEffect(() => {
+    const v = videoRefs.current[activeIndex]
+    if (!v) return
+  
+    // ensure src changes take effect immediately on Safari
+    v.load()
+  
+    if (sectionInView && isPlaying) {
+      v.play().catch(() => {})
+    } else {
+      v.pause()
+    }
+  }, [activeIndex, sectionInView, isPlaying])
   const togglePlayback = () => {
     videoRefs.current.forEach(video => {
       if (video) {
@@ -166,27 +178,26 @@ const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
             style={{ objectPosition: charter.objectPosition }}
             quality={90}
           />
-          {index === activeIndex && sectionInView && (
-            <video
-            key={`video-${index}`}
-            ref={el => { videoRefs.current[index] = el }}
-              src={charter.mobileVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="none"
-              onCanPlayThrough={() => {
-                setVideoLoaded(prev => {
-                  const next = [...prev]
-                  next[index] = true
-                  return next
-                })
-              }}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
-              style={{ objectPosition: charter.objectPosition }}
-            />
-          )}
+          
+          <video
+  ref={el => { videoRefs.current[index] = el }}
+  src={index === activeIndex && sectionInView ? charter.mobileVideo : undefined}
+  loop
+  muted
+  playsInline
+  preload="none"
+  onLoadedData={() => {
+    setVideoLoaded(prev => {
+      const next = [...prev]
+      next[index] = true
+      return next
+    })
+  }}
+  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${index === activeIndex && videoLoaded[index] && isPlaying && readyToReveal ? 'opacity-100' : 'opacity-0'}`}
+  style={{ objectPosition: charter.objectPosition }}
+/>
+             
+          
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
           <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px]">
