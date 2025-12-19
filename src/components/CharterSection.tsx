@@ -276,7 +276,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                               loop
                               muted
                               playsInline
-                              onPlaying={() => setDesktopVideoReady(charter.title)}
+                              onLoadedData={() => setDesktopVideoReady(charter.title)}
                               className="w-full h-full object-cover"
                               style={{ objectPosition: charter.objectPosition }}
                             />
