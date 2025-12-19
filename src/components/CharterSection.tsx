@@ -14,6 +14,7 @@ const charters = [
 export default function CharterSection({ isDark = false }: { isDark?: boolean }) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
   const [desktopVideoReady, setDesktopVideoReady] = useState<string | null>(null)
+  const [isDesktop, setIsDesktop] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [videoLoaded, setVideoLoaded] = useState<boolean[]>(new Array(charters.length).fill(false))
@@ -21,12 +22,30 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [readyToReveal, setReadyToReveal] = useState(true)
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
   const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
     return charters.find(c => c.title === hoveredCard)?.row
   }
+
+  useEffect(() => {
+    setIsDesktop(window.innerWidth >= 768)
+  }, [])
+
+  // Control desktop video playback
+  useEffect(() => {
+    Object.entries(desktopVideoRefs.current).forEach(([title, video]) => {
+      if (video) {
+        if (hoveredCard === title) {
+          video.play()
+        } else {
+          video.pause()
+        }
+      }
+    })
+  }, [hoveredCard])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -269,14 +288,15 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           animate={{ opacity: desktopVideoReady === charter.title ? 1 : 0 }}
                           transition={{ duration: 0.5 }}
                         >
-                          {isHovered && (
+                          {isDesktop && (
                             <video
+                              ref={el => { desktopVideoRefs.current[charter.title] = el }}
                               src={charter.video}
-                              autoPlay
                               loop
                               muted
                               playsInline
-                              onCanPlayThrough={() => setDesktopVideoReady(charter.title)}
+                              preload="auto"
+                              onPlay={() => setDesktopVideoReady(charter.title)}
                               className="w-full h-full object-cover"
                               style={{ objectPosition: charter.objectPosition }}
                             />
