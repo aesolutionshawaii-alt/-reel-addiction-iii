@@ -26,7 +26,14 @@ html, body {
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   }
 }
-
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 /* Custom components */
 @layer components {
   .btn-primary {
