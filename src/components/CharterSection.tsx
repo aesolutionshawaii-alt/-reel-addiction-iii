@@ -59,7 +59,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     const handleScroll = () => {
       if (scrollRef.current) {
         const scrollLeft = scrollRef.current.scrollLeft
-        const cardWidth = 336
+        const cardWidth = window.innerWidth - 48
         const newIndex = Math.round(scrollLeft / cardWidth)
         setActiveIndex(Math.min(newIndex, charters.length - 1))
       }
