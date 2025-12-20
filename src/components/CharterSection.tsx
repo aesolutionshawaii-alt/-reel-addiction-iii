@@ -226,7 +226,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                 const hasBeenInitialized = initializedVideos.current.has(index)
                 const videoIsReady = videoLoadedStates[index] === true
                 const videoHasEnded = videoLoadedStates[index] === 'ended'
-                const showVideo = isActiveCard && videoIsReady && !videoHasEnded
+                const showVideo = isActiveCard && videoIsReady && !videoHasEnded && isPlaying
                 
                 // Give video src if: (should load AND not initialized) OR (already initialized - keep it)
                 const videoSrc = (shouldLoadVideo && !hasBeenInitialized) || hasBeenInitialized 
