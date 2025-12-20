@@ -131,7 +131,10 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     }
     
     loadTimeoutRef.current = setTimeout(() => {
-      // Don't clear loaded states - keep videos cached
+      // Reset 'ended' state when returning to a card
+      if (videoLoadedStates[activeIndex] === 'ended') {
+        setVideoLoadedStates(prev => ({ ...prev, [activeIndex]: true }))
+      }
       setLoadVideoIndex(activeIndex)
     }, 400)
     
@@ -174,6 +177,11 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   useEffect(() => {
     const video = videoRefs.current[loadVideoIndex]
     if (!video) return
+    
+    // If returning to this video, reset to beginning
+    if (videoLoadedStates[loadVideoIndex] === true && video.currentTime > 0) {
+      video.currentTime = 0
+    }
     
     if (sectionInView && isPlaying && videoLoadedStates[loadVideoIndex] === true) {
       video.play().catch(() => {})
