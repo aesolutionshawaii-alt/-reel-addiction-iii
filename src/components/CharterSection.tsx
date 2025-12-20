@@ -220,8 +220,10 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                 const videoHasEnded = videoLoadedStates[index] === 'ended'
                 const showVideo = isActiveCard && videoIsReady && !videoHasEnded
                 
-                // Give video a src if: it should load AND hasn't been initialized yet
-                const videoSrc = shouldLoadVideo && !hasBeenInitialized ? charter.mobileVideo : ''
+                // Give video src if: (should load AND not initialized) OR (already initialized - keep it)
+                const videoSrc = (shouldLoadVideo && !hasBeenInitialized) || hasBeenInitialized 
+                  ? charter.mobileVideo 
+                  : ''
                 
                 return (
                   <div
