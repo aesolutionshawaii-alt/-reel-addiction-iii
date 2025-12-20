@@ -30,6 +30,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const pageScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const lastLoadedIndexRef = useRef<number>(-1)
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
@@ -63,6 +64,12 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         // Set scrolling state
         setIsScrolling(true)
         
+        // Cancel any pending video load
+        if (loadTimeoutRef.current) {
+          clearTimeout(loadTimeoutRef.current)
+          loadTimeoutRef.current = null
+        }
+        
         // Clear existing timeout
         if (scrollTimeoutRef.current) {
           clearTimeout(scrollTimeoutRef.current)
@@ -71,7 +78,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         // Set timeout to detect when scrolling stops
         scrollTimeoutRef.current = setTimeout(() => {
           setIsScrolling(false)
-        }, 150)
+        }, 200)
       }
     }
 
@@ -90,13 +97,19 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     const handlePageScroll = () => {
       setIsScrolling(true)
       
+      // Cancel any pending video load
+      if (loadTimeoutRef.current) {
+        clearTimeout(loadTimeoutRef.current)
+        loadTimeoutRef.current = null
+      }
+      
       if (pageScrollTimeoutRef.current) {
         clearTimeout(pageScrollTimeoutRef.current)
       }
       
       pageScrollTimeoutRef.current = setTimeout(() => {
         setIsScrolling(false)
-      }, 150)
+      }, 200)
     }
 
     window.addEventListener('scroll', handlePageScroll, { passive: true })
@@ -112,6 +125,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   useEffect(() => {
     if (!hasScrolled) return // Don't load videos until section is in view
     if (isScrolling) return // Don't trigger loading while actively scrolling
+    if (lastLoadedIndexRef.current === activeIndex) return // Already loaded this video
     
     if (loadTimeoutRef.current) {
       clearTimeout(loadTimeoutRef.current)
@@ -119,6 +133,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     
     loadTimeoutRef.current = setTimeout(() => {
       setLoadVideoIndex(activeIndex)
+      lastLoadedIndexRef.current = activeIndex
     }, 400)
     
     return () => {
