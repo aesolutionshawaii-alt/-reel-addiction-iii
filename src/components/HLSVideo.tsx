@@ -18,6 +18,7 @@ export default function HLSVideo({
 }: HLSVideoProps) {
   const videoElement = useRef<HTMLVideoElement>(null)
   const hlsInstance = useRef<Hls | null>(null)
+  const previousSrc = useRef<string>('')
 
   useEffect(() => {
     const video = videoElement.current
@@ -28,7 +29,7 @@ export default function HLSVideo({
       videoRef(video)
     }
 
-    // CRITICAL: Only initialize HLS if we have a src
+    // CRITICAL: Only initialize HLS if we have a src AND it's different from previous
     if (!src) {
       // Clean up any existing HLS instance
       if (hlsInstance.current) {
@@ -36,10 +37,18 @@ export default function HLSVideo({
         hlsInstance.current = null
       }
       video.src = ''
+      previousSrc.current = ''
       console.log('HLS: No src provided, clearing video')
       return
     }
 
+    // Don't re-initialize if src hasn't changed
+    if (src === previousSrc.current) {
+      console.log('HLS: Src unchanged, skipping re-init:', src)
+      return
+    }
+
+    previousSrc.current = src
     console.log('HLS: Initializing with src:', src)
 
     // Check if native HLS support (iOS Safari)
