@@ -30,6 +30,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const pageScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const initializedVideos = useRef<Set<number>>(new Set()) // Track which videos have been initialized
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
@@ -130,8 +131,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     }
     
     loadTimeoutRef.current = setTimeout(() => {
-      // Clear all previous loaded states - only current video can be ready
-      setVideoLoadedStates({})
+      // Don't clear loaded states - keep videos cached
       setLoadVideoIndex(activeIndex)
     }, 400)
     
@@ -215,9 +215,13 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
               {charters.map((charter, index) => {
                 const isActiveCard = index === activeIndex
                 const shouldLoadVideo = index === loadVideoIndex && !isScrolling
-                const videoIsReady = videoLoadedStates[index]
+                const hasBeenInitialized = initializedVideos.current.has(index)
+                const videoIsReady = videoLoadedStates[index] === true
                 const videoHasEnded = videoLoadedStates[index] === 'ended'
-                const showVideo = shouldLoadVideo && videoIsReady && !videoHasEnded
+                const showVideo = isActiveCard && videoIsReady && !videoHasEnded
+                
+                // Give video a src if: it should load AND hasn't been initialized yet
+                const videoSrc = shouldLoadVideo && !hasBeenInitialized ? charter.mobileVideo : ''
                 
                 return (
                   <div
@@ -237,18 +241,19 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                       priority={index === 0}
                     />
                     
-                    {/* Video - only rendered on active card when scroll settled */}
-                    {shouldLoadVideo && (
-                      <HLSVideo
-                        src={charter.mobileVideo}
-                        className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
-                          videoIsReady && !videoHasEnded ? 'opacity-100' : 'opacity-0'
-                        }`}
-                        videoRef={(el) => { videoRefs.current[index] = el }}
-                        onCanPlayThrough={() => handleVideoLoaded(index)}
-                        onEnded={() => handleVideoEnded(index)}
-                      />
-                    )}
+                    {/* Video - always in DOM, only gets src when first loaded */}
+                    <HLSVideo
+                      src={videoSrc}
+                      className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
+                        showVideo ? 'opacity-100' : 'opacity-0'
+                      }`}
+                      videoRef={(el) => { videoRefs.current[index] = el }}
+                      onCanPlayThrough={() => {
+                        initializedVideos.current.add(index)
+                        handleVideoLoaded(index)
+                      }}
+                      onEnded={() => handleVideoEnded(index)}
+                    />
                     
                     {/* Gradients - always on top */}
                     <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
