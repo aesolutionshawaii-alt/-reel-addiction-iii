@@ -119,7 +119,6 @@ export default function HLSVideo({
       className={className}
       playsInline
       muted
-      loop
       preload="metadata"
       onCanPlayThrough={onLoadedData}
       onEnded={onEnded}

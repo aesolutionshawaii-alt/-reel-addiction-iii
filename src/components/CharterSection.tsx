@@ -30,7 +30,6 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const pageScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const lastLoadedIndexRef = useRef<number>(-1)
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
@@ -125,15 +124,15 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   useEffect(() => {
     if (!hasScrolled) return // Don't load videos until section is in view
     if (isScrolling) return // Don't trigger loading while actively scrolling
-    if (lastLoadedIndexRef.current === activeIndex) return // Already loaded this video
     
     if (loadTimeoutRef.current) {
       clearTimeout(loadTimeoutRef.current)
     }
     
     loadTimeoutRef.current = setTimeout(() => {
+      // Clear all previous loaded states - only current video can be ready
+      setVideoLoadedStates({})
       setLoadVideoIndex(activeIndex)
-      lastLoadedIndexRef.current = activeIndex
     }, 400)
     
     return () => {
@@ -217,7 +216,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
               {charters.map((charter, index) => {
                 const isActiveCard = index === activeIndex
                 const shouldLoadVideo = index === loadVideoIndex
-                const videoIsReady = videoLoadedStates[index] && !isScrolling
+                const videoIsReady = videoLoadedStates[index] // Only hide poster when video actually ready
                 
                 return (
                   <div
