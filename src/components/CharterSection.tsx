@@ -20,7 +20,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [isPlaying, setIsPlaying] = useState(true)
   const [loadVideoIndex, setLoadVideoIndex] = useState(-1)
   const [sectionInView, setSectionInView] = useState(false)
-  const [videoLoadedStates, setVideoLoadedStates] = useState<{ [key: number]: boolean }>({})
+  const [videoLoadedStates, setVideoLoadedStates] = useState<{ [key: number]: boolean | 'ended' }>({})
   const [hasScrolled, setHasScrolled] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
 
@@ -170,22 +170,17 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     return () => observer.disconnect()
   }, [])
 
-  // Control playback - only play when video is fully loaded
+  // Control playback for the active video
   useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (!video) return
-      
-      if (index === activeIndex && 
-          index === loadVideoIndex && 
-          sectionInView && 
-          isPlaying && 
-          videoLoadedStates[index]) {
-        video.play().catch(() => {})
-      } else {
-        video.pause()
-      }
-    })
-  }, [activeIndex, loadVideoIndex, sectionInView, isPlaying, videoLoadedStates])
+    const video = videoRefs.current[loadVideoIndex]
+    if (!video) return
+    
+    if (sectionInView && isPlaying && videoLoadedStates[loadVideoIndex] === true) {
+      video.play().catch(() => {})
+    } else {
+      video.pause()
+    }
+  }, [loadVideoIndex, sectionInView, isPlaying, videoLoadedStates])
 
   const togglePlayback = () => {
     setIsPlaying(!isPlaying)
@@ -193,6 +188,10 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
 
   const handleVideoLoaded = (index: number) => {
     setVideoLoadedStates(prev => ({ ...prev, [index]: true }))
+  }
+
+  const handleVideoEnded = (index: number) => {
+    setVideoLoadedStates(prev => ({ ...prev, [index]: 'ended' }))
   }
 
   return (
@@ -215,36 +214,41 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
             <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
               {charters.map((charter, index) => {
                 const isActiveCard = index === activeIndex
-                const shouldLoadVideo = index === loadVideoIndex
-                const videoIsReady = videoLoadedStates[index] // Only hide poster when video actually ready
+                const shouldLoadVideo = index === loadVideoIndex && !isScrolling
+                const videoIsReady = videoLoadedStates[index]
+                const videoHasEnded = videoLoadedStates[index] === 'ended'
+                const showVideo = shouldLoadVideo && videoIsReady && !videoHasEnded
                 
                 return (
                   <div
                     key={charter.title}
                     className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
                   >
-                    {/* Video layer - underneath poster */}
-                    <HLSVideo
-                      src={shouldLoadVideo ? charter.mobileVideo : ''}
-                      className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
-                        shouldLoadVideo && isActiveCard && videoIsReady ? 'opacity-100' : 'opacity-0'
-                      }`}
-                      videoRef={(el) => { videoRefs.current[index] = el }}
-                      onLoadedData={() => handleVideoLoaded(index)}
-                    />
-                    
-                    {/* Poster Image - on top layer */}
+                    {/* Poster Image - always present, hides when video playing */}
                     <Image
                       src={charter.image}
                       alt={charter.title}
                       fill
                       className={`object-cover z-10 transition-opacity duration-500 ${
-                        shouldLoadVideo && isActiveCard && videoIsReady ? 'opacity-0' : 'opacity-100'
+                        showVideo ? 'opacity-0' : 'opacity-100'
                       }`}
                       style={{ objectPosition: charter.objectPosition }}
                       quality={90}
                       priority={index === 0}
                     />
+                    
+                    {/* Video - only rendered on active card when scroll settled */}
+                    {shouldLoadVideo && (
+                      <HLSVideo
+                        src={charter.mobileVideo}
+                        className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
+                          videoIsReady && !videoHasEnded ? 'opacity-100' : 'opacity-0'
+                        }`}
+                        videoRef={(el) => { videoRefs.current[index] = el }}
+                        onCanPlayThrough={() => handleVideoLoaded(index)}
+                        onEnded={() => handleVideoEnded(index)}
+                      />
+                    )}
                     
                     {/* Gradients - always on top */}
                     <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />

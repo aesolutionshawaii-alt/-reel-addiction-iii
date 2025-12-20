@@ -5,7 +5,7 @@ interface HLSVideoProps {
   src: string
   className?: string
   videoRef?: (el: HTMLVideoElement | null) => void
-  onLoadedData?: () => void
+  onCanPlayThrough?: () => void
   onEnded?: () => void
 }
 
@@ -13,7 +13,7 @@ export default function HLSVideo({
   src, 
   className = '', 
   videoRef,
-  onLoadedData,
+  onCanPlayThrough,
   onEnded
 }: HLSVideoProps) {
   const videoElement = useRef<HTMLVideoElement>(null)
@@ -120,7 +120,7 @@ export default function HLSVideo({
       playsInline
       muted
       preload="metadata"
-      onCanPlayThrough={onLoadedData}
+      onCanPlayThrough={onCanPlayThrough}
       onEnded={onEnded}
     />
   )
