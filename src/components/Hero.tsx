@@ -6,8 +6,22 @@ import Link from 'next/link'
 export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [videoSrc, setVideoSrc] = useState<string | null>(null)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause()
+        setIsPlaying(false)
+      } else {
+        videoRef.current.play()
+        setIsPlaying(true)
+      }
+    }
+  }
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -17,12 +31,12 @@ export default function Hero() {
     }
   }, [])
 
-  // Pause video when scrolled out of view
+  // Pause video when scrolled out of view (but remember user preference)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (videoRef.current) {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && isPlaying) {
             videoRef.current.play()
           } else {
             videoRef.current.pause()
@@ -37,7 +51,7 @@ export default function Hero() {
     }
 
     return () => observer.disconnect()
-  }, [videoSrc])
+  }, [videoSrc, isPlaying])
 
   return (
     <section 
@@ -100,6 +114,82 @@ export default function Hero() {
           <Link href="#contact" className="hover:underline">Contact</Link>
         </p>
       </nav>
+
+      {/* Mobile Hamburger Button */}
+      <button 
+        className="absolute top-4 right-4 z-30 md:hidden"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {menuOpen ? (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          ) : (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          )}
+        </svg>
+      </button>
+
+      {/* Mobile Menu Overlay */}
+      {menuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-20 md:hidden"
+          onClick={() => setMenuOpen(false)}
+        >
+          <div 
+            className="absolute top-20 right-4 bg-[#0d0d0f] rounded-lg p-6 flex flex-col gap-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Link 
+              href="#about" 
+              className="text-white font-outfit text-xl hover:text-gray-300"
+              onClick={() => setMenuOpen(false)}
+            >
+              About
+            </Link>
+            <Link 
+              href="#charters" 
+              className="text-white font-outfit text-xl hover:text-gray-300"
+              onClick={() => setMenuOpen(false)}
+            >
+              Charters
+            </Link>
+            <Link 
+              href="#fish" 
+              className="text-white font-outfit text-xl hover:text-gray-300"
+              onClick={() => setMenuOpen(false)}
+            >
+              Fish
+            </Link>
+            <Link 
+              href="#contact" 
+              className="text-white font-outfit text-xl hover:text-gray-300"
+              onClick={() => setMenuOpen(false)}
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Play/Pause Button - lower right corner */}
+      <button
+        onClick={togglePlayPause}
+        className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-20 w-8 h-8 md:w-14 md:h-14 flex items-center justify-center border-2 border-white/80 rounded-lg transition-all duration-300 hover:bg-white/10 hover:border-white group"
+        aria-label={isPlaying ? 'Pause video' : 'Play video'}
+      >
+        {isPlaying ? (
+          // Pause icon (two bars)
+          <svg className="w-3 h-3 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none">
+            <rect x="6" y="4" width="4" height="16" fill="white" className="group-hover:fill-white/90" />
+            <rect x="14" y="4" width="4" height="16" fill="white" className="group-hover:fill-white/90" />
+          </svg>
+        ) : (
+          // Play icon (triangle)
+          <svg className="w-3 h-3 md:w-6 md:h-6 ml-0.5" viewBox="0 0 24 24" fill="none">
+            <path d="M8 5v14l11-7z" fill="white" className="group-hover:fill-white/90" />
+          </svg>
+        )}
+      </button>
 
       {/* Hero Content + Buttons */}
       <div className="absolute bottom-16 md:bottom-[50px] inset-x-0 md:left-[90px] md:right-auto z-10 flex flex-col items-center md:items-start px-6 md:px-0">

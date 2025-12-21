@@ -228,7 +228,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                 const videoHasEnded = videoLoadedStates[index] === 'ended'
                 const showVideo = isActiveCard && videoIsReady && !videoHasEnded && isPlaying && !isScrolling
                 
-                // Give video src if: (should load AND not initialized) OR (already initialized - keep it)
+                // PORSCHE APPROACH: Give src if (should load AND not initialized) OR (already initialized - keep it)
                 const videoSrc = (shouldLoadVideo && !hasBeenInitialized) || hasBeenInitialized 
                   ? charter.mobileVideo 
                   : ''
@@ -251,7 +251,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                       priority={index === 0}
                     />
                     
-                    {/* Video - always in DOM, only gets src when first loaded */}
+                    {/* Video - PORSCHE APPROACH: always in DOM, keeps src after first load */}
                     <HLSVideo
                       src={videoSrc}
                       className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${

@@ -51,9 +51,10 @@ export default function HLSVideo({
     previousSrc.current = src
     console.log('HLS: Initializing with src:', src)
 
-    // Check if native HLS support (iOS Safari)
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      console.log('HLS: Using native HLS support')
+    // Check if native HLS support (Safari only - not Chrome)
+    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
+    if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
+      console.log('HLS: Using native HLS support (Safari)')
       video.src = src
       video.load() // Explicitly trigger loading for Safari
       return
