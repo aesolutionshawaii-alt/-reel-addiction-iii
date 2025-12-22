@@ -25,7 +25,9 @@ export default function CTA() {
           Ready to Fish?
         </h2>
         <Link 
-          href="#book" 
+          href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
+          target="_blank"
+          rel="noopener noreferrer"
           className="bg-[#c41e3a] hover:bg-[#a01830] text-white font-inter text-sm md:text-base px-8 py-3 md:px-10 md:py-4 rounded-lg transition-colors"
         >
           Book Your Charter

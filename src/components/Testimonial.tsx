@@ -13,7 +13,7 @@ export default function Testimonial() {
               </svg>
             </div>
             <Link
-              href="https://www.google.com/search?q=reel+addiction+iii+reviews"
+              href="https://www.google.com/search?gs_ssp=eJzj4tVP1zc0zC40yjI0LzQxYLRSNagwTzYwMDNOMktNNbEwNjSytDKoSDU1TzE3NE82MTGyNDRJTfTiK0pNzVFITEnJTC7JzM8DAJPSE-I&q=reel+addiction&oq=&gs_lcrp=EgZjaHJvbWUqDwgAEC4YJxivARjHARjqAjIPCAAQLhgnGK8BGMcBGOoCMgkIARAjGCcY6gIyCQgCECMYJxjqAjIJCAMQIxgnGOoCMgkIBBAjGCcY6gIyCQgFECMYJxjqAjIVCAYQABhCGLQCGOoCGNsFGPAFGJ4GMhUIBxAAGEIYtAIY6gIY2wUY8AUYngbSAQg5MzVqMGoxNagCCLACAfEFRkGoUXgG6Ns&sourceid=chrome&ie=UTF-8#mpd=~3411587933163909398/customers/reviews"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#c41e3a] text-white font-outfit px-6 py-3 md:px-8 md:py-4 rounded-lg hover:bg-[#a01830] transition-colors text-sm md:text-base"
