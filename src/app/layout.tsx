@@ -24,11 +24,6 @@ export const metadata: Metadata = {
   title: "Reel Addiction III | O'ahu's Premier Deep Sea Fishing Charter",
   description: "Experience world-class deep sea fishing aboard O'ahu's largest and fastest charter. SeaKeeper stabilized for smooth rides. Blue marlin, ahi, mahi mahi, and more from Ko Olina.",
   keywords: "deep sea fishing oahu, ko olina fishing charter, hawaii fishing charter, blue marlin hawaii, ahi fishing oahu, sport fishing oahu",
-  icons: {
-    icon: '/favicon.png',
-    apple: '/apple-touch-icon.png',
-  },
-  manifest: '/manifest.json',
   openGraph: {
     title: "Reel Addiction III | O'ahu's Premier Deep Sea Fishing Charter",
     description: "Experience world-class deep sea fishing aboard O'ahu's largest and fastest charter boat.",
