@@ -52,7 +52,7 @@ function ScrollCard({ card, index }: { card: typeof cards[0], index: number }) {
   )
 }
 
-export default function ExploreCards() {
+export default function ExploreCards({ isDark }: { isDark?: boolean } = {}) {
   return (
     <section className="bg-transparent px-4 md:px-8 pt-12 md:pt-24 pb-12 md:pb-20">
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[32px]">

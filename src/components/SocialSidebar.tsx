@@ -6,7 +6,7 @@ export default function SocialSidebar() {
     <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
       {/* X (Twitter) */}
       <Link 
-        href="https://twitter.com/reeladdiction3" 
+        href="https://x.com/reel_add3?s=21" 
         target="_blank"
         className="w-8 h-8 bg-white border-2 border-black rounded-full flex items-center justify-center hover:scale-110 transition-transform"
       >
@@ -17,7 +17,7 @@ export default function SocialSidebar() {
 
       {/* Facebook */}
       <Link 
-        href="https://facebook.com/reeladdictionsportfishing" 
+        href="https://www.facebook.com/profile.php?id=100092848172223" 
         target="_blank"
         className="w-8 h-8 bg-[#1877F2] rounded-full flex items-center justify-center hover:scale-110 transition-transform"
       >
@@ -28,7 +28,7 @@ export default function SocialSidebar() {
 
       {/* Instagram */}
       <Link 
-        href="https://instagram.com/reeladdictionsportfishing" 
+        href="https://www.instagram.com/reeladdictioniiisportfishing/" 
         target="_blank"
         className="w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
         style={{background: 'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)'}}
@@ -40,7 +40,7 @@ export default function SocialSidebar() {
 
       {/* YouTube */}
       <Link 
-        href="https://youtube.com/@reeladdictionsportfishing" 
+        href="https://www.youtube.com/@ReelAddictionIII-808" 
         target="_blank"
         className="flex items-center justify-center hover:scale-110 transition-transform"
       >
@@ -52,7 +52,7 @@ export default function SocialSidebar() {
 
       {/* TikTok */}
       <Link 
-        href="https://tiktok.com/@reeladdictionsportfishing" 
+        href="https://www.tiktok.com/@reeladdictioniiis?_r=1&_t=ZT-92QMw0Yfg0E" 
         target="_blank"
         className="w-8 h-8 bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform relative overflow-hidden"
       >
