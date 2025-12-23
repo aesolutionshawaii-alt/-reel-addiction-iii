@@ -57,7 +57,18 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
     }
   }
 
-  if (catches.length === 0) return null
+  if (catches.length === 0) {
+    return (
+      <section className="py-16 md:py-24">
+        <div className="max-w-[1600px] mx-auto px-5 md:px-[39px]">
+          <h2 className="font-outfit font-medium text-[48px] md:text-[72px] mb-10">
+            Recent Catches
+          </h2>
+          <p className="text-red-500">No catches found - check Sanity connection</p>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="py-16 md:py-24">
@@ -66,8 +77,8 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
           className="font-outfit font-medium text-[48px] md:text-[72px] mb-10"
           animate={{ color: isDark ? "#f7f5f2" : "#0c1e3c" }}
           transition={{ duration: 0.8 }}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
           Recent Catches
@@ -81,15 +92,14 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
               key={catchItem._id}
               className="flex-shrink-0 rounded-lg snap-center"
               style={{ padding: '8px' }}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08, duration: 0.3 }}
               whileHover={{ scale: 1.02, transition: { duration: 0.15 } }}
             >
               <div
                 className="relative w-[380px] h-[520px] rounded-lg overflow-hidden cursor-pointer"
-                style={{ transform: 'translateZ(0)' }}
                 onMouseEnter={() => setHoveredCard(catchItem._id)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
@@ -111,10 +121,9 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
 
                 <motion.div
                   className="absolute bottom-0 left-0 right-0 p-6 z-10"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0 }}
                   animate={{
                     opacity: hoveredCard === catchItem._id ? 1 : 0,
-                    y: hoveredCard === catchItem._id ? 0 : 20,
                   }}
                   transition={{ duration: 0.3 }}
                 >
