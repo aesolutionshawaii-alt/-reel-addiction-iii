@@ -33,6 +33,11 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
         const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
         setCanScrollLeft(scrollLeft > 0)
         setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+        
+        // Clear hovered card on scroll - mobile only
+        if (window.innerWidth < 768) {
+          setHoveredCard(null)
+        }
       }
     }
     
@@ -150,7 +155,7 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
           ))}
           
           {/* Spacer to center last card on mobile, blank area on desktop */}
-<div className="flex-shrink-0 w-[calc((100vw-380px)/2)] md:w-[404px]" />
+          <div className="flex-shrink-0 w-[calc((100vw-380px)/2)] md:w-[404px]" />
         </div>
       </div>
 
