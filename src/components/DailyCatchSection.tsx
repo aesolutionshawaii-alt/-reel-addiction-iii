@@ -149,8 +149,8 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
             </motion.div>
           ))}
           
-          {/* Spacer to create blank area on right - desktop only */}
-          <div className="hidden md:block flex-shrink-0 w-[404px]" />
+          {/* Spacer to center last card on mobile, blank area on desktop */}
+<div className="flex-shrink-0 w-[calc((100vw-380px)/2)] md:w-[404px]" />
         </div>
       </div>
 
