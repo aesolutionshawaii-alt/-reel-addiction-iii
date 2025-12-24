@@ -160,7 +160,7 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
       </div>
 
       {/* Scroll Navigation Buttons - desktop only */}
-      <div className="hidden md:flex gap-3 justify-end mt-6 pr-[404px]">
+      <div className="flex gap-3 justify-center md:justify-end mt-6 md:pr-[404px]">
         <button
           onClick={() => scroll('left')}
           disabled={!canScrollLeft}
