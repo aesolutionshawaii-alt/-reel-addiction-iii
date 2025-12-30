@@ -22,7 +22,7 @@ export function ParallaxImage({
   className = '' 
 }: ParallaxImageProps) {
   const [offsetY, setOffsetY] = useState(0);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,7 +84,7 @@ export function ScrollZoomImage({
     const handleScroll = () => {
       if (!ref.current) return;
       
-      const rect = ref.current.getBoundingClientRect();
+      const rect = (ref.current as HTMLDivElement).getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
       const progress = 1 - Math.max(0, Math.min(1, rect.top / windowHeight));
