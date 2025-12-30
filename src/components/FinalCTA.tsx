@@ -21,9 +21,9 @@ export default function CTA() {
       
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-end pb-16 md:pb-32 px-4">
-        <h2 className="font-outfit font-bold text-[40px] md:text-[96px] text-white text-center mb-6 md:mb-8">
-          Ready to Fish?
-        </h2>
+  <h2 className="font-outfit font-bold text-[40px] md:text-[96px] text-white text-center mb-6 md:mb-8 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+    Ready to Fish?
+  </h2>
         <Link 
           href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
           target="_blank"

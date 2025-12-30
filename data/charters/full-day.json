@@ -1,0 +1,162 @@
+{
+  "slug": "full-day",
+  "name": "Full Day Charter",
+  "shortDescription": "8 hours of deep sea fishing with Hawaii's most experienced local crew",
+  "longDescription": "Go Deeper. More Water. Bigger Fish.",
+  "duration": "8 hours",
+  "departureTime": "Varies (Captain calls night before)",
+  "returnTime": "~2:00 PM",
+  "price": 2995,
+  "maxAnglers": 6,
+  "images": {
+    "hero": "/images/charters/full-day/hero.jpg",
+    "action": "/images/charters/full-day/action.jpg",
+    "gallery": [
+      "/images/charters/full-day/gallery-1.jpg",
+      "/images/charters/full-day/gallery-2.jpg",
+      "/images/charters/full-day/gallery-3.jpg",
+      "/images/charters/full-day/gallery-4.jpg",
+      "/images/charters/full-day/gallery-5.jpg",
+      "/images/charters/full-day/gallery-6.jpg"
+    ]
+  },
+  "whatToExpect": {
+    "heading": "The Local Advantage",
+    "paragraphs": [
+      "Captain JR calls you the night before to confirm details, check the forecast, and talk strategy. He'll let you know exactly where to park, what to bring, and when to meet based on when the bait starts biting at sunrise.",
+      "We leave Ko Olina on O'ahu's west side — which puts us in deep water faster than any other harbor on the island. Five minutes out, we're catching fresh Opelu for live bait while you watch the sunrise. Then we check in with our network of captains, see what's biting, and make a plan.",
+      "But here's the thing: we're already fishing. Ko Olina gives us fishing grounds right outside the harbor, plus multiple productive FADs where we've been crushing blue marlin, striped marlin, and yellowfin tuna. We troll on the way out, live bait when we get there, and offer light tackle for those who want to feel a marlin on spinning gear.",
+      "This is a local boy crew fishing a luxury sportfishing yacht the way they grew up commercial fishing in Hawaii. Generations of knowledge. Captain JR's father still crews some days. We know these waters, we know these fish, and we go above and beyond to get you on your dream catch."
+    ]
+  },
+  "testimonial": {
+    "quote": "This is a boat that is serious about catching fish. Captain JR and his crew are true professionals. The boat is clean and the ride was smooth despite rough waters. Highly recommended.",
+    "author": "Eric S.",
+    "location": "San Francisco"
+  },
+  "targetSpecies": [
+    {
+      "name": "Blue Marlin",
+      "season": "May - September (peak)",
+      "description": "The ultimate game fish. Our FADs have been incredibly productive for blues, and we've put clients on multiple 300+ pounders this year.",
+      "image": "/images/species/blue-marlin.jpg"
+    },
+    {
+      "name": "Striped Marlin",
+      "season": "November - April",
+      "description": "Fast, acrobatic fighters that put on a show. Winter is prime time, and our local knowledge means we know exactly where they're feeding.",
+      "image": "/images/species/striped-marlin.jpg"
+    },
+    {
+      "name": "Yellowfin Tuna (Ahi)",
+      "season": "Year-round",
+      "description": "Powerful deep runners with incredible stamina. Our FADs consistently produce yellowfin from 40 to 200+ pounds.",
+      "image": "/images/species/yellowfin-tuna.jpg"
+    },
+    {
+      "name": "Mahi Mahi",
+      "season": "March - June (peak)",
+      "description": "Beautiful, acrobatic, and delicious. We often hook into schools of 20-50 pounders on the troll out to the deep grounds.",
+      "image": "/images/species/mahi-mahi.jpg"
+    },
+    {
+      "name": "Ono (Wahoo)",
+      "season": "October - March",
+      "description": "The fastest fish in the ocean. Lightning strikes on the troll, screaming runs, and some of the best eating you'll ever have.",
+      "image": "/images/species/ono.jpg"
+    }
+  ],
+  "included": [
+    "Professional local crew with generations of Hawaii fishing experience",
+    "All fishing tackle — stand-up gear and light tackle options",
+    "Fresh live Opelu bait caught daily",
+    "Ice and fish bags for your catch",
+    "Fish cleaning and filleting at the dock",
+    "Water, soft drinks, and light snacks"
+  ],
+  "toBring": [
+    "Sunscreen (reef-safe preferred)",
+    "Polarized sunglasses and hat",
+    "Camera or phone for photos",
+    "Light jacket or hoodie for early morning",
+    "Seasickness medication if prone (taken night before and morning of)",
+    "Any additional food or drinks you prefer"
+  ],
+  "experience": {
+    "heading": "What A Full Day Looks Like",
+    "timeline": [
+      {
+        "time": "Night Before",
+        "description": "Captain JR calls to confirm details, discuss weather and conditions, and let you know the exact meet time based on sunrise and bait activity."
+      },
+      {
+        "time": "Pre-Dawn",
+        "description": "Meet at Ko Olina Marina. Safety briefing covers life jackets, life raft location, comfortable spots on the boat, and crew introductions. Any questions you have, we answer."
+      },
+      {
+        "time": "Sunrise",
+        "description": "Five minutes out of the harbor, we're catching fresh Opelu for live bait while you watch one of the most incredible sunrises you'll ever see. Whales, dolphins, and seabirds are常 companions."
+      },
+      {
+        "time": "Morning",
+        "description": "We check in with our captain network, assess what's biting, and start fishing immediately. Ko Olina puts us in deep water faster than any other harbor — we're already trolling productive grounds while other boats are still running out."
+      },
+      {
+        "time": "Mid-Day",
+        "description": "Combination of live bait fishing at our productive FADs and trolling between spots. This is when the big blues and yellowfin get active. Light tackle is available if you want to feel a marlin on spinning gear."
+      },
+      {
+        "time": "Afternoon Return",
+        "description": "Back to the dock around 2pm. We clean and fillet your catch right there — you leave with coolers full of the freshest fish you've ever tasted."
+      }
+    ]
+  },
+  "faqs": [
+    {
+      "question": "What time do we actually leave?",
+      "answer": "It varies based on sunrise and when the bait starts biting — Captain JR will call you the night before with the exact meet time. Typically it's around 6am, but could be earlier or slightly later depending on conditions. The bait (Opelu) doesn't start biting until the sun begins to rise, so we time our departure accordingly."
+    },
+    {
+      "question": "Do I need a fishing license?",
+      "answer": "No fishing license is required for recreational ocean fishing in Hawaii. We handle all necessary permits and documentation."
+    },
+    {
+      "question": "What if I've never fished before?",
+      "answer": "Perfect — we specialize in first-timers. Our crew has generations of teaching experience and will guide you through every step. We've put complete beginners on their first marlin many times. It's about the experience, not the résumé."
+    },
+    {
+      "question": "What makes your crew different?",
+      "answer": "We're local boys fishing a luxury sportfishing yacht the way we grew up commercial fishing in Hawaii. Captain JR and crew have generations of knowledge in these waters — sometimes his father even crews, bringing decades more experience. We know where the fish are because we've been fishing these same grounds our entire lives. Plus we're 5-star rated on Google because we keep it fun, down-to-earth, and focused on getting you on your dream fish."
+    },
+    {
+      "question": "What happens to the fish we catch?",
+      "answer": "We clean and fillet everything you catch right at the dock at no extra charge. You take it home in coolers with ice. Many of our clients take their fresh catch to local restaurants that same evening and have it prepared for dinner — we're happy to recommend spots."
+    },
+    {
+      "question": "What's this about light tackle and spinning gear?",
+      "answer": "For those who want the ultimate challenge, we offer light tackle options including spinning gear. We've had clients land marlin on spinning rods — it's an incredible fight and something most charters won't even attempt. If you want to try it, just let us know."
+    },
+    {
+      "question": "Why fish out of Ko Olina instead of other harbors?",
+      "answer": "Ko Olina on O'ahu's west side puts us in deep water faster than anywhere else on the island. We're catching bait 5 minutes out of the harbor, and we have productive fishing grounds plus multiple FADs right outside. While other charters are still running to their spots, we're already fishing. More fishing time = better odds."
+    },
+    {
+      "question": "Will we see whales and dolphins?",
+      "answer": "During whale season (November - April), we see humpback whales almost daily. Dolphins, spinner dolphins especially, are year-round companions. Seabirds like frigate birds and tropicbirds are常 indicators that help us find feeding fish. The marine life out here is incredible."
+    }
+  ],
+  "fareharborLink": "https://fareharbor.com/embeds/book/reeladdictioniii/items/508281/",
+  "seo": {
+    "title": "Full Day Deep Sea Fishing Charter O'ahu | Reel Addiction III",
+    "description": "8 hours of premium offshore fishing with O'ahu's most experienced local crew. Target marlin, mahi, tuna and more. Ko Olina departure puts you in deep water fast.",
+    "keywords": [
+      "full day fishing charter oahu",
+      "deep sea fishing koolina",
+      "marlin fishing hawaii",
+      "offshore fishing oahu",
+      "sportfishing charter hawaii",
+      "blue marlin charter",
+      "yellowfin tuna fishing"
+    ]
+  }
+}

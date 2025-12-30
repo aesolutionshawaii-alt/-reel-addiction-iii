@@ -33,19 +33,19 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
         const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
         setCanScrollLeft(scrollLeft > 0)
         setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
-        
+
         // Clear hovered card on scroll - mobile only
         if (window.innerWidth < 768) {
           setHoveredCard(null)
         }
       }
     }
-    
+
     checkScrollability()
     const container = scrollContainerRef.current
     container?.addEventListener('scroll', checkScrollability)
     window.addEventListener('resize', checkScrollability)
-    
+
     return () => {
       container?.removeEventListener('scroll', checkScrollability)
       window.removeEventListener('resize', checkScrollability)
@@ -79,7 +79,7 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
     <section className="py-16 md:py-24">
       <div className="max-w-[1600px] mx-auto px-5 md:px-[39px]">
         <motion.h2
-          className="font-outfit font-medium text-[48px] md:text-[72px] mb-10"
+          className="font-outfit font-bold text-[48px] md:text-[72px] mb-10"
           animate={{ color: isDark ? "#f7f5f2" : "#0c1e3c" }}
           transition={{ duration: 0.8 }}
           initial={{ opacity: 0 }}
@@ -114,7 +114,7 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
                   fill
                   className="object-cover"
                 />
-                
+
                 <div className="absolute top-4 left-4 z-10">
                   <p className="text-white font-outfit text-sm tracking-widest uppercase">
                     {new Date(catchItem.date).toLocaleDateString('en-US', {
@@ -153,7 +153,7 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
               </div>
             </motion.div>
           ))}
-          
+
           {/* Spacer to center last card on mobile, blank area on desktop */}
           <div className="flex-shrink-0 w-[calc((100vw-380px)/2)] md:w-[404px]" />
         </div>
@@ -164,18 +164,17 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
         <button
           onClick={() => scroll('left')}
           disabled={!canScrollLeft}
-          className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border ${
-            canScrollLeft
+          className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border ${canScrollLeft
               ? 'bg-gray-700/30 border-gray-600/40 hover:bg-gray-600/40 hover:border-gray-500/50 cursor-pointer'
               : 'bg-gray-800/20 border-gray-700/30 cursor-not-allowed opacity-50'
-          }`}
+            }`}
           aria-label="Scroll left"
         >
-          <svg 
-            className="w-4 h-4" 
-            fill="none" 
-            stroke={isDark ? "#f7f5f2" : "#0c1e3c"} 
-            strokeWidth={2} 
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke={isDark ? "#f7f5f2" : "#0c1e3c"}
+            strokeWidth={2}
             viewBox="0 0 24 24"
           >
             <path d="M15 19l-7-7 7-7" />
@@ -184,18 +183,17 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
         <button
           onClick={() => scroll('right')}
           disabled={!canScrollRight}
-          className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border ${
-            canScrollRight
+          className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border ${canScrollRight
               ? 'bg-gray-700/30 border-gray-600/40 hover:bg-gray-600/40 hover:border-gray-500/50 cursor-pointer'
               : 'bg-gray-800/20 border-gray-700/30 cursor-not-allowed opacity-50'
-          }`}
+            }`}
           aria-label="Scroll right"
         >
-          <svg 
-            className="w-4 h-4" 
-            fill="none" 
-            stroke={isDark ? "#f7f5f2" : "#0c1e3c"} 
-            strokeWidth={2} 
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke={isDark ? "#f7f5f2" : "#0c1e3c"}
+            strokeWidth={2}
             viewBox="0 0 24 24"
           >
             <path d="M9 5l7 7-7 7" />

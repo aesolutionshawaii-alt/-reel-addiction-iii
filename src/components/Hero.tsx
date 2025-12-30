@@ -54,9 +54,9 @@ export default function Hero() {
   }, [videoSrc, isPlaying])
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden bg-cover bg-center" 
+      className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: 'url(/images/hero-poster-mobile.jpg)' }}
     >
       {/* Background */}
@@ -116,7 +116,7 @@ export default function Hero() {
       </nav>
 
       {/* Mobile Hamburger Button */}
-      <button 
+      <button
         className="absolute top-4 right-4 z-30 md:hidden"
         onClick={() => setMenuOpen(!menuOpen)}
       >
@@ -131,37 +131,37 @@ export default function Hero() {
 
       {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/80 z-20 md:hidden"
           onClick={() => setMenuOpen(false)}
         >
-          <div 
+          <div
             className="absolute top-20 right-4 bg-[#0d0d0f] rounded-lg p-6 flex flex-col gap-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <Link 
-              href="#about" 
+            <Link
+              href="#about"
               className="text-white font-outfit text-xl hover:text-gray-300"
               onClick={() => setMenuOpen(false)}
             >
               About
             </Link>
-            <Link 
-              href="#charters" 
+            <Link
+              href="#charters"
               className="text-white font-outfit text-xl hover:text-gray-300"
               onClick={() => setMenuOpen(false)}
             >
               Charters
             </Link>
-            <Link 
-              href="#fish" 
+            <Link
+              href="#fish"
               className="text-white font-outfit text-xl hover:text-gray-300"
               onClick={() => setMenuOpen(false)}
             >
               Fish
             </Link>
-            <Link 
-              href="#contact" 
+            <Link
+              href="#contact"
               className="text-white font-outfit text-xl hover:text-gray-300"
               onClick={() => setMenuOpen(false)}
             >
@@ -198,14 +198,14 @@ export default function Hero() {
           <p className="font-inter font-normal text-white text-[28px] md:text-[64px] leading-tight md:leading-normal">
             O&apos;ahu&apos;s Premier
           </p>
-          <h1 className="font-inter font-normal text-white text-[28px] md:text-[80px] leading-tight md:leading-normal tracking-tight">
+          <h1 className="font-outfit font-bold text-white text-[28px] md:text-[80px] leading-tight md:leading-normal tracking-tight">
             Deep Sea Fishing Charter
           </h1>
         </div>
 
         {/* CTA Buttons */}
         <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-[320px] md:w-auto">
-          <Link 
+          <Link
             href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
             target="_blank"
             rel="noopener noreferrer"
@@ -213,7 +213,7 @@ export default function Hero() {
           >
             Book Your Charter
           </Link>
-          <Link 
+          <Link
             href="https://www.youtube.com/@ReelAddictionIII-808"
             target="_blank"
             rel="noopener noreferrer"
@@ -221,8 +221,8 @@ export default function Hero() {
           >
             <span>Watch Now</span>
             <svg className="w-5 h-5" viewBox="0 0 56 50" preserveAspectRatio="none" fill="none">
-              <path d="M54.9 14.8c-.6-2.4-2.5-4.3-4.8-4.9C45.7 8.5 28 8.5 28 8.5s-17.7 0-22.1 1.4c-2.4.6-4.2 2.5-4.8 4.9C0 19.2 0 25 0 25s0 5.8 1.1 10.2c.6 2.4 2.5 4.3 4.8 4.9 4.4 1.4 22.1 1.4 22.1 1.4s17.7 0 22.1-1.4c2.4-.6 4.2-2.5 4.8-4.9C56 30.8 56 25 56 25s0-5.8-1.1-10.2z" stroke="#d9d9d9" strokeWidth="3" fill="none"/>
-              <path d="M22 33V17l16 8-16 8z" fill="#d9d9d9"/>
+              <path d="M54.9 14.8c-.6-2.4-2.5-4.3-4.8-4.9C45.7 8.5 28 8.5 28 8.5s-17.7 0-22.1 1.4c-2.4.6-4.2 2.5-4.8 4.9C0 19.2 0 25 0 25s0 5.8 1.1 10.2c.6 2.4 2.5 4.3 4.8 4.9 4.4 1.4 22.1 1.4 22.1 1.4s17.7 0 22.1-1.4c2.4-.6 4.2-2.5 4.8-4.9C56 30.8 56 25 56 25s0-5.8-1.1-10.2z" stroke="#d9d9d9" strokeWidth="3" fill="none" />
+              <path d="M22 33V17l16 8-16 8z" fill="#d9d9d9" />
             </svg>
           </Link>
         </div>
