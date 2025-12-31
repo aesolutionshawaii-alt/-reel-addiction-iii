@@ -12,6 +12,17 @@ const charters = [
   { title: 'Custom Trip', image: '/images/charter-custom.jpg', video: '/videos/charter-custom-web.mp4', mobileVideo: '/videos/hls/charter-custom/playlist.m3u8', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
 ]
 
+// Helper function to convert charter title to URL
+const getCharterUrl = (title: string) => {
+  const urlMap: { [key: string]: string } = {
+    '3/4 Day': '/charters/3-4-day',
+    'Full Day': '/charters/full-day',
+    'Extravaganza': '/charters/extravaganza',
+    'Custom Trip': '/charters/custom'
+  }
+  return urlMap[title] || '/charters'
+}
+
 export default function CharterSection({ isDark = false }: { isDark?: boolean }) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
   const [desktopVideoReady, setDesktopVideoReady] = useState<string | null>(null)
@@ -60,21 +71,21 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         const cardWidth = window.innerWidth - 48
         const newIndex = Math.round(scrollLeft / cardWidth)
         setActiveIndex(Math.min(newIndex, charters.length - 1))
-        
+
         // Set scrolling state
         setIsScrolling(true)
-        
+
         // Cancel any pending video load
         if (loadTimeoutRef.current) {
           clearTimeout(loadTimeoutRef.current)
           loadTimeoutRef.current = null
         }
-        
+
         // Clear existing timeout
         if (scrollTimeoutRef.current) {
           clearTimeout(scrollTimeoutRef.current)
         }
-        
+
         // Set timeout to detect when scrolling stops
         scrollTimeoutRef.current = setTimeout(() => {
           setIsScrolling(false)
@@ -96,17 +107,17 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   useEffect(() => {
     const handlePageScroll = () => {
       setIsScrolling(true)
-      
+
       // Cancel any pending video load
       if (loadTimeoutRef.current) {
         clearTimeout(loadTimeoutRef.current)
         loadTimeoutRef.current = null
       }
-      
+
       if (pageScrollTimeoutRef.current) {
         clearTimeout(pageScrollTimeoutRef.current)
       }
-      
+
       pageScrollTimeoutRef.current = setTimeout(() => {
         setIsScrolling(false)
       }, 200)
@@ -125,11 +136,11 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   useEffect(() => {
     if (!hasScrolled) return // Don't load videos until section is in view
     if (isScrolling) return // Don't trigger loading while actively scrolling
-    
+
     if (loadTimeoutRef.current) {
       clearTimeout(loadTimeoutRef.current)
     }
-    
+
     loadTimeoutRef.current = setTimeout(() => {
       // Reset 'ended' state when returning to a card
       if (videoLoadedStates[activeIndex] === 'ended') {
@@ -137,7 +148,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       }
       setLoadVideoIndex(activeIndex)
     }, 400)
-    
+
     return () => {
       if (loadTimeoutRef.current) {
         clearTimeout(loadTimeoutRef.current)
@@ -149,11 +160,11 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     const observer = new IntersectionObserver(
       ([entry]) => {
         setSectionInView(entry.isIntersecting)
-        
+
         if (entry.isIntersecting) {
           setHasScrolled(true) // Allow video loading once section is visible
         }
-        
+
         if (!entry.isIntersecting) {
           videoRefs.current.forEach(video => {
             if (video) {
@@ -165,11 +176,11 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       },
       { threshold: 0.1 }
     )
-  
+
     if (scrollRef.current) {
       observer.observe(scrollRef.current)
     }
-  
+
     return () => observer.disconnect()
   }, [])
 
@@ -177,14 +188,14 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   useEffect(() => {
     const video = videoRefs.current[loadVideoIndex]
     if (!video) return
-    
+
     // If returning to this video, reset to beginning
     if (videoLoadedStates[loadVideoIndex] === true && video.currentTime > 0) {
       video.currentTime = 0
     }
-    
+
     if (sectionInView && isPlaying && videoLoadedStates[loadVideoIndex] === true) {
-      video.play().catch(() => {})
+      video.play().catch(() => { })
     } else {
       video.pause()
     }
@@ -204,18 +215,18 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
 
   return (
     <section className="pt-24 md:pt-16 pb-16 relative">
-    <div className="max-w-[1600px] mx-auto">
-      <motion.h2
-        className="font-outfit font-bold text-[32px] md:text-[72px] mb-20 md:mb-10 px-4 md:px-[59px] -translate-y-4 md:-translate-y-6"
-        animate={{ color: isDark ? "#f7f5f2" : "#0c1e3c" }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-      >
-        A Different Kind of Charter.
-      </motion.h2>
+      <div className="max-w-[1600px] mx-auto">
+        <motion.h2
+          className="font-outfit font-bold text-[32px] md:text-[72px] mb-20 md:mb-10 px-4 md:px-[59px] -translate-y-4 md:-translate-y-6"
+          animate={{ color: isDark ? "#f7f5f2" : "#0c1e3c" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          A Different Kind of Charter.
+        </motion.h2>
 
         {/* Mobile Layout */}
         <div className="md:hidden">
-          <div 
+          <div
             ref={scrollRef}
             className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
           >
@@ -227,12 +238,12 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                 const videoIsReady = videoLoadedStates[index] === true
                 const videoHasEnded = videoLoadedStates[index] === 'ended'
                 const showVideo = isActiveCard && videoIsReady && !videoHasEnded && isPlaying && !isScrolling
-                
+
                 // PORSCHE APPROACH: Give src if (should load AND not initialized) OR (already initialized - keep it)
-                const videoSrc = (shouldLoadVideo && !hasBeenInitialized) || hasBeenInitialized 
-                  ? charter.mobileVideo 
+                const videoSrc = (shouldLoadVideo && !hasBeenInitialized) || hasBeenInitialized
+                  ? charter.mobileVideo
                   : ''
-                
+
                 return (
                   <div
                     key={charter.title}
@@ -243,20 +254,18 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                       src={charter.image}
                       alt={charter.title}
                       fill
-                      className={`object-cover z-10 transition-opacity duration-500 ${
-                        showVideo ? 'opacity-0' : 'opacity-100'
-                      }`}
+                      className={`object-cover z-10 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'
+                        }`}
                       style={{ objectPosition: charter.objectPosition }}
                       quality={90}
                       priority={index === 0}
                     />
-                    
+
                     {/* Video - PORSCHE APPROACH: always in DOM, keeps src after first load */}
                     <HLSVideo
                       src={videoSrc}
-                      className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
-                        showVideo ? 'opacity-100' : 'opacity-0'
-                      }`}
+                      className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${showVideo ? 'opacity-100' : 'opacity-0'
+                        }`}
                       videoRef={(el) => { videoRefs.current[index] = el }}
                       onCanPlayThrough={() => {
                         initializedVideos.current.add(index)
@@ -264,11 +273,11 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                       }}
                       onEnded={() => handleVideoEnded(index)}
                     />
-                    
+
                     {/* Gradients - always on top */}
                     <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
                     <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
-                    
+
                     {/* Content - always on top */}
                     <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px] z-30">
                       {charter.title}
@@ -281,7 +290,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                         {charter.price}
                       </p>
                       <Link
-                        href="/charters"
+                        href={getCharterUrl(charter.title)}
                         className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
                       >
                         Learn More →
@@ -298,13 +307,12 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
               {charters.map((_, index) => (
                 <div
                   key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
+                    }`}
                 />
               ))}
             </div>
-            <button 
+            <button
               onClick={togglePlayback}
               className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
             >
@@ -330,7 +338,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                   const isHovered = hoveredCard === charter.title
                   const hoveredRow = getHoveredRow()
                   const isSameRowHovered = hoveredRow === charter.row && !isHovered
-                  
+
                   return (
                     <motion.div
                       key={charter.title}
@@ -388,14 +396,14 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           )}
                         </motion.div>
                       </motion.div>
-                      
+
                       <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
                       <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 40%)' }} />
-                      
+
                       <h3 className="absolute top-0 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[40px] py-2">
                         {charter.title}
                       </h3>
-                      
+
                       <div className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end">
                         <div className="max-w-[450px]">
                           <p className="text-white font-outfit font-light text-[24px] leading-normal">
@@ -411,7 +419,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                           transition={{ delay: isHovered ? 0.3 : 0, duration: 0.2 }}
                         >
                           <Link
-                            href="/charters"
+                            href={getCharterUrl(charter.title)}
                             className="flex items-center justify-center w-[150px] h-10 bg-white rounded text-[#1e1e1e] font-outfit font-normal text-sm hover:bg-gray-100 transition-colors"
                           >
                             Learn More →

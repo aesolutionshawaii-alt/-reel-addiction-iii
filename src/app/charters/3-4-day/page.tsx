@@ -1,4 +1,3 @@
-// src/app/charters/full-day/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -6,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Users, DollarSign, Calendar, Check, Info } from 'lucide-react';
 import Footer from '@/components/Footer';
+
 // Define species type
 type Species = {
   name: string;
@@ -17,88 +17,55 @@ type Species = {
   hawaiiFact: string;
 };
 
-export default function FullDayCharterPage() {
+export default function ThreeFourDayCharterPage() {
   const [selectedSpecies, setSelectedSpecies] = useState<Species | null>(null);
 
   return (
-    <main className="bg-white">
+    <main className="min-h-screen bg-white">
       {/* ===== HERO SECTION ===== */}
-      <section className="relative h-screen w-full overflow-hidden">
-        <div className="absolute inset-0 h-[120vh]">
+      <section className="relative h-screen overflow-hidden">
+      <div className="animate-ken-burns absolute inset-0">
           <Image
-            src="/images/charters/full-day/hero.jpg"
-            alt="Full day deep sea fishing charter"
+            src="/images/charters/3-4-day/hero.jpg"
+            alt="Mahi Mahi fishing action"
             fill
-            className="animate-ken-burns object-cover"
-            style={{ transform: 'scale(1.2)' }}
-            sizes="100vw"
+            className="object-cover"
             priority
+            sizes="100vw"
+            quality={90}
           />
         </div>
-
-        {/* Better gradient - no hard lines */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.3) 80%, rgba(0,0,0,0.65) 100%)'
-          }}
-        />
-
-        <div className="relative z-10 flex h-full items-center justify-center px-6">
-          <div className="max-w-6xl text-center text-white">
-            {/* Using Outfit font for label */}
-            <p className="mb-6 animate-fade-in font-outfit text-sm font-bold uppercase tracking-[0.3em] text-red-500 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-              Full Day Charter
-            </p>
-
-            {/* Using Outfit font for main headline */}
-            <h1 className="mb-8 animate-fade-in-up font-outfit text-7xl font-bold leading-[0.95] text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:text-8xl lg:text-9xl">
-              Go Deeper.<br />
-              More Water.<br />
-              Bigger Fish.
-            </h1>
-
-            {/* Using Inter font for description */}
-            <p className="mb-12 animate-fade-in-up font-inter text-2xl font-light leading-relaxed text-white opacity-90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [animation-delay:200ms] md:text-3xl">
-              8-10 hours with O'ahu's most experienced local crew
-            </p>
-
-            {/* Specs with Lucide icons */}
-            <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-8 font-inter text-xl font-medium [animation-delay:400ms] animate-fade-in-up">
-              <span className="flex items-center gap-2">
-                <Clock className="h-6 w-6 text-red-500" />
-                8-10 Hours
-              </span>
-              <span className="text-white/40">|</span>
-              <span className="flex items-center gap-2">
-                <Users className="h-6 w-6 text-red-500" />
-                Up to 6 Anglers
-              </span>
-              <span className="text-white/40">|</span>
-              <span className="flex items-center gap-2 text-2xl font-bold text-red-500">
-                <DollarSign className="h-6 w-6" />
-                2,995
-              </span>
+        
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,0.6) 0%, rgba(13,13,15,0) 40%, rgba(13,13,15,0.8) 100%)' }} />
+        
+        <div className="absolute inset-x-0 bottom-32 z-10 px-6 text-center md:bottom-40">
+          <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            3/4 Day Charter
+          </p>
+          
+          <h1 className="mb-6 font-outfit text-5xl font-bold leading-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:text-7xl lg:text-8xl">
+            The Sweet Spot.
+          </h1>
+          
+          <p className="mx-auto mb-8 max-w-3xl font-inter text-xl leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] md:text-2xl">
+            5-6 hours on the water with O'ahu's most experienced local crew
+          </p>
+          
+          <div className="flex flex-wrap items-center justify-center gap-6 font-inter text-lg text-white md:gap-12 md:text-xl">
+            <div className="flex items-center gap-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+              <Clock className="h-6 w-6" />
+              <span>5-6 Hours</span>
+            </div>
+            <div className="flex items-center gap-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+              <Users className="h-6 w-6" />
+              <span>Up to 6 Anglers</span>
+            </div>
+            <div className="flex items-center gap-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+              <DollarSign className="h-6 w-6" />
+              <span>$2,495</span>
             </div>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="h-16 w-10 rounded-full border-2 border-white/60 p-2">
-            <div className="h-3 w-3 animate-pulse rounded-full bg-white mx-auto" />
-          </div>
-        </div>
-
-        {/* Sticky CTA */}
-        <a
-          href="https://fareharbor.com/embeds/book/reeladdictioniii/items/508281/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed right-8 top-8 z-50 rounded-full bg-red-600 px-10 py-5 font-outfit text-lg font-bold text-white shadow-2xl transition-all hover:bg-red-700 hover:scale-105 hover:shadow-red-600/50"
-        >
-          Book Now
-        </a>
       </section>
 
       {/* ===== STICKY SPECS BAR ===== */}
@@ -112,9 +79,9 @@ export default function FullDayCharterPage() {
               <p className="text-xs text-gray-600">Captain calls night before</p>
             </div>
           </div>
-
+          
           <div className="h-12 w-px bg-gray-300" />
-
+          
           <div className="flex items-center gap-3">
             <Users className="h-7 w-7 text-red-600" />
             <div>
@@ -122,16 +89,25 @@ export default function FullDayCharterPage() {
               <p className="text-base font-bold text-gray-900">6 People</p>
             </div>
           </div>
-
+          
           <div className="h-12 w-px bg-gray-300" />
-
+          
           <div className="flex items-center gap-3">
             <DollarSign className="h-7 w-7 text-red-600" />
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Price</p>
-              <p className="text-2xl font-bold text-red-600">$2,995</p>
+              <p className="text-2xl font-bold text-red-600">$2,495</p>
             </div>
           </div>
+          
+          <Link
+            href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-red-600 px-8 py-3 font-outfit font-bold text-white transition-all duration-300 hover:bg-red-700 hover:shadow-xl"
+          >
+            Book Now
+          </Link>
         </div>
       </div>
 
@@ -142,34 +118,34 @@ export default function FullDayCharterPage() {
             {/* Image - 60% (3 cols) */}
             <div className="relative h-[400px] lg:col-span-3 lg:h-[600px]">
               <Image
-                src="/images/charters/full-day/action.jpg"
-                alt="Deep sea fishing action"
+                src="/images/charters/3-4-day/action.jpg"
+                alt="Tourist fighting fish with crew support"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 60vw"
               />
             </div>
-
+            
             {/* Text Panel - 40% (2 cols) with dark background */}
-            <div className="flex items-center bg-[#1B3A5F] px-10 py-12 lg:col-span-2">
+            <div className="flex items-center bg-[#1B3A5F] px-10 py-16 lg:col-span-2">
               <div className="text-white">
                 <p className="mb-3 font-outfit text-xs font-bold uppercase tracking-[0.2em] text-red-400">
                   What to Expect
                 </p>
-
+                
                 <h2 className="mb-6 font-outfit text-3xl font-bold leading-tight lg:text-4xl">
-                  The Local Advantage
+                  Perfect For Visitors
                 </h2>
-
+                
                 <div className="space-y-4 font-inter text-base leading-relaxed opacity-90">
                   <p>
-                    Captain JR calls you the night before to confirm details, check the forecast, and talk strategy. He'll let you know exactly where to park, what to bring, and when to meet based on when the bait starts biting at sunrise.
+                    The 3/4 day trip is designed specifically for travelers who want the full Hawaiian sportfishing experience without sacrificing their evening plans. Fish hard in the morning, catch quality fish, and be back at the dock with plenty of time for your sunset dinner or luau.
                   </p>
                   <p>
-                    We leave Ko Olina on O'ahu's west side - which puts us in deep water faster than any other harbor on the island. Five minutes out, we're catching fresh Opelu for live bait while you watch the sunrise.
+                    We're out of Ko Olina on O'ahu's west side, which puts us in deep water faster than any other harbor. Five minutes from the dock, we're already catching fresh live bait. No long run times eating into your fishing — we maximize every minute on the water.
                   </p>
                   <p className="font-semibold opacity-100">
-                    This is a local captain and crew fishing a luxury sportfishing yacht the way they grew up commercial fishing in Hawaii. Generations of knowledge.
+                    This is the trip most of our visitors book. Enough time to find the fish and land your trophy, back early enough to enjoy the rest of your day. The sweet spot.
                   </p>
                 </div>
               </div>
@@ -183,46 +159,42 @@ export default function FullDayCharterPage() {
         <div className="mx-auto max-w-5xl px-6">
           <div className="mb-20 text-center">
             <h2 className="mb-6 font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
-              What A Full Day Looks Like
+              What A 3/4 Day Looks Like
             </h2>
             <p className="font-inter text-xl text-gray-600">
-              The authentic experience from someone who's been there
+              Half day fishing, full day experience
             </p>
           </div>
-
+          
           <div className="space-y-12">
             {[
               {
                 time: "Night Before",
-                desc: "Captain JR calls to confirm details, discuss weather and conditions, and let you know the exact meet time based on sunrise and bait activity."
+                desc: "Captain JR calls to confirm details, discuss weather, and coordinate exact meet time. He'll adjust departure based on when the bait starts biting at sunrise."
               },
               {
                 time: "Pre-Dawn",
-                desc: "Meet at Ko Olina Marina. Safety briefing covers life jackets, life raft location, comfortable spots on the boat, and crew introductions. Any questions you have, we answer."
+                desc: "Meet at Ko Olina Marina. Quick safety briefing, get comfortable on the boat, and head out. Five minutes later, we're in deep water while other boats are still running."
               },
               {
                 time: "Sunrise",
-                desc: "Five minutes out of the harbor, we're catching fresh Opelu for live bait while you watch one of the most incredible sunrises you'll ever see. Whales, dolphins, and seabirds are常 companions."
+                desc: "We catch fresh Opelu for live bait while you watch the sunrise over O'ahu. Whales breach in winter, dolphins play in the bow wake. This is why you came to Hawaii."
               },
               {
-                time: "Morning",
-                desc: "We check in with our captain network, assess what's biting, and start fishing immediately. Ko Olina puts us in deep water faster than any other harbor - we're already trolling productive grounds while other boats are still running out."
+                time: "Morning Bite",
+                desc: "The best fishing happens early. We work the productive grounds while fish are feeding actively. This is prime time — we're fishing when it matters most."
               },
               {
-                time: "Mid-Day",
-                desc: "Combination of live bait fishing at our productive FADs and trolling between spots. This is when the big blues and yellowfin get active. Light tackle is available if you want to feel a marlin on spinning gear."
-              },
-              {
-                time: "Afternoon Return",
-                desc: "Back to the dock around 2-4pm depending on the bite. We clean and fillet up to 15lbs of your catch right there - you leave with zip-locs full of the freshest fish you've ever tasted."
+                time: "Back to the Dock",
+                desc: "Return between 12:30-2pm depending on the bite. We clean and fillet your catch at the dock. You leave with coolers of fresh fish and the rest of your day ahead of you."
               }
             ].map((item, index) => (
               <div key={index} className="group flex gap-8">
                 <div className="relative flex-shrink-0">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-red-600 font-outfit text-2xl font-bold text-white shadow-lg transition-transform duration-300 group-hover:scale-125 relative z-10">
+                  <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-red-600 font-outfit text-2xl font-bold text-white shadow-lg transition-transform duration-300 group-hover:scale-125">
                     {index + 1}
                   </div>
-                  {index < 5 && (
+                  {index < 4 && (
                     <div className="absolute left-1/2 top-20 h-12 w-1 -translate-x-1/2 bg-red-200" />
                   )}
                 </div>
@@ -237,44 +209,35 @@ export default function FullDayCharterPage() {
       </section>
 
       {/* ===== TESTIMONIAL ===== */}
-      <section className="relative overflow-hidden bg-[#1B3A5F] py-32">
-        <div className="absolute inset-0 opacity-10">
-          <Image
-            src="/images/charters/full-day/hero.jpg"
-            alt="Background"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
-
-        <div className="relative mx-auto max-w-4xl px-6 text-center text-white">
-          <svg className="mx-auto mb-8 h-16 w-16 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-          </svg>
-
-          <p className="mb-8 font-playfair text-3xl font-light italic leading-relaxed">
-          Amazing trip! Great boat, great equipment, and even better Captain and Deckhand. Captain JR and Keaka went above and beyond to make sure we had a great trip. Very professional and great with the kids. A day my kids and I will never forget. We fished with them during the slow time of year and they had us on the fish all day. Highly recommend!!
-          </p>
-
-          <div>
-            <p className="font-outfit text-lg font-bold">Kelly S.</p>
-            <p className="font-inter text-sm text-white/70">San Francisco, CA</p>
-          </div>
-
-          {/* Star rating */}
-          <div className="mt-6 flex justify-center gap-1">
+      <section className="relative min-h-[600px] overflow-hidden py-32">
+        <Image
+          src="/images/charters/full-day/hero.jpg"
+          alt="Customer testimonial"
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[#1B3A5F]/80" />
+        
+        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+          <div className="mb-8 flex justify-center gap-1">
             {[...Array(5)].map((_, i) => (
-              <svg key={i} className="h-6 w-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              <svg key={i} className="h-8 w-8 fill-yellow-400" viewBox="0 0 20 20">
+                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
               </svg>
             ))}
           </div>
+          
+          <blockquote className="mb-6 font-playfair text-2xl italic leading-relaxed text-white md:text-3xl">
+            "Perfect timing for our vacation schedule. We caught fish in the morning and still made it to our sunset dinner at Roy's. Captain JR and his crew made us feel welcome and safe. Highly recommend for anyone visiting O'ahu."
+          </blockquote>
+          
+          <p className="font-inter text-lg text-white md:text-xl">— Michael & Jennifer T., San Diego</p>
         </div>
       </section>
 
-      {/* ===== TARGET SPECIES WITH MODAL ===== */}
-      <section className="py-32">
+     {/* ===== TARGET SPECIES WITH MODAL ===== */}
+     <section className="py-32">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-20 text-center">
             <h2 className="mb-6 font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
@@ -444,14 +407,13 @@ export default function FullDayCharterPage() {
           </div>
         </div>
       )}
-
-      {/* ===== WHAT'S INCLUDED ===== */}
+      {/* ===== WHAT'S INCLUDED / WHAT TO BRING ===== */}
       <section className="bg-gray-50 py-32">
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="mb-20 font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
             Everything You Need
           </h2>
-
+          
           <div className="grid gap-16 md:grid-cols-2">
             <div>
               <h3 className="mb-10 font-outfit text-3xl font-bold text-[#1B3A5F]">
@@ -460,11 +422,11 @@ export default function FullDayCharterPage() {
               <div className="space-y-6">
                 {[
                   "Professional local crew with generations of Hawaii fishing experience",
-                  "All fishing tackle - stand-up gear and light tackle options",
+                  "All fishing tackle — stand-up gear and light tackle options",
                   "Fresh live Opelu bait caught daily",
-                  "Ice and gallon zip-loc bags for your catch",
+                  "Ice and fish bags for your catch",
                   "Fish cleaning and filleting at the dock",
-
+                  "Water, soft drinks, and light snacks"
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-100">
@@ -487,7 +449,7 @@ export default function FullDayCharterPage() {
                   "Camera or phone for photos",
                   "Light jacket or hoodie for early morning",
                   "Seasickness medication if prone",
-                  "Any food or drinks you prefer"
+                  "Any additional food or drinks you prefer"
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-100">
@@ -502,124 +464,80 @@ export default function FullDayCharterPage() {
         </div>
       </section>
 
-      {/* ===== FAQ ===== */}
+      {/* ===== FAQ SECTION ===== */}
       <section className="py-32">
         <div className="mx-auto max-w-4xl px-6">
-          <div className="mb-20 text-center">
-            <h2 className="mb-6 font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
-              Frequently Asked Questions
-            </h2>
-            <p className="font-inter text-xl text-gray-600">
-              Everything you need to know before booking
-            </p>
-          </div>
-
-          <div className="space-y-4">
+          <h2 className="mb-20 text-center font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
+            Common Questions
+          </h2>
+          
+          <div className="space-y-8">
             {[
               {
-                q: "What time do we actually leave?",
-                a: "It varies based on sunrise and when the bait starts biting — Captain JR will call you the night before with the exact meet time. Typically it's around 6am, but could be earlier or slightly later depending on conditions."
+                q: "Will I still catch fish on a shorter trip?",
+                a: "Absolutely. The early morning bite is when fish are most active. We fish the prime hours and skip the slower midday period. Many of our biggest fish are caught on 3/4 day trips."
               },
               {
-                q: "What makes your crew different?",
-                a: "We're local boys fishing a luxury sportfishing yacht the way we grew up commercial fishing in Hawaii. Captain JR and crew have generations of knowledge in these waters — sometimes his father even crews. We're 5-star rated on Google because we keep it fun, down-to-earth, and focused on getting you on your dream fish."
+                q: "What time will we be back?",
+                a: "Between 12:30-2pm depending on the bite. This gives you plenty of time for afternoon activities, dinner reservations, or evening plans."
               },
               {
-                q: "Why fish out of Ko Olina?",
-                a: "Ko Olina on O'ahu's west side puts us in deep water faster than anywhere else on the island. We're catching bait 5 minutes out of the harbor, and we have productive fishing grounds plus multiple FADs right outside. More fishing time = better odds."
+                q: "Is this trip good for beginners?",
+                a: "Perfect for beginners. Our crew will teach you everything you need to know. Many of our clients have never fished before."
+              },
+              {
+                q: "What if someone gets seasick?",
+                a: "The morning ocean is typically calmer, and Ko Olina's location offers protection from trade winds. We also stay close to productive grounds, minimizing rough water time."
+              },
+              {
+                q: "Can we keep the fish we catch?",
+                a: "Yes! We clean and fillet everything you want to keep. You leave with coolers ready for your hotel, condo, or to ship home."
+              },
+              {
+                q: "Is there a restroom on the boat?",
+                a: "Yes, the boat has a private head (bathroom) available for use."
               }
-            ].map((faq, index) => (
-              <details
-                key={index}
-                className="group overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
-              >
-                <summary className="flex cursor-pointer items-center justify-between p-8 text-left transition-colors hover:bg-gray-50">
-                  <h3 className="font-outfit text-2xl font-bold text-[#1B3A5F] pr-4">
-                    {faq.q}
-                  </h3>
-                  <svg
-                    className="h-8 w-8 shrink-0 text-red-600 transition-transform group-open:rotate-180"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </summary>
-
-                <div className="border-t-2 border-gray-200 bg-gray-50 p-8">
-                  <p className="font-inter text-lg leading-relaxed text-gray-700">
-                    {faq.a}
-                  </p>
-                </div>
-              </details>
+            ].map((item, index) => (
+              <div key={index} className="rounded-2xl border-2 border-gray-200 p-8 transition-all hover:border-red-400 hover:shadow-lg">
+                <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">{item.q}</h3>
+                <p className="font-inter text-lg leading-relaxed text-gray-700">{item.a}</p>
+              </div>
             ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Link
-              href="/faqs"
-              className="inline-flex items-center gap-2 font-outfit text-lg font-semibold text-red-600 hover:text-red-700"
-            >
-              See All FAQs
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
           </div>
         </div>
       </section>
 
       {/* ===== FINAL CTA ===== */}
-      <section className="relative h-[700px] overflow-hidden">
+      <section className="relative min-h-[800px] overflow-hidden">
         <Image
           src="/images/charters/full-day/cta.jpg"
-          alt="Book your charter"
+          alt="Reel Addiction III boat"
           fill
-          className="animate-ken-burns object-cover"
+          className="object-cover"
           sizes="100vw"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.7) 100%)'
-          }}
-        />
-
-        <div className="relative z-10 flex h-full items-center justify-center px-6">
-          <div className="max-w-4xl text-center text-white">
-            <h2 className="mb-8 font-outfit text-6xl font-bold leading-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] lg:text-7xl">
-              Ready to Book Your<br />Full Day Charter?
-            </h2>
-            <p className="mb-12 font-inter text-2xl font-light leading-relaxed text-white opacity-90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-              Captain JR and crew are ready to put you on your dream fish
-            </p>
-
-            <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
-              <a
-                href="https://fareharbor.com/embeds/book/reeladdictioniii/items/508281/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative overflow-hidden rounded-full bg-red-600 px-12 py-6 font-outfit text-xl font-bold text-white shadow-2xl transition-all hover:bg-red-700 hover:scale-105 hover:shadow-red-600/50"
-              >
-                <span className="relative z-10">Book Now on FareHarbor</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-700 opacity-0 transition-opacity group-hover:opacity-100" />
-              </a>
-
-              <a
-                href="tel:8088675473"
-                className="rounded-full border-2 border-white px-12 py-6 font-outfit text-xl font-bold text-white backdrop-blur transition-all hover:bg-white hover:text-[#1B3A5F]"
-              >
-                (808) 867-FISH
-              </a>
-            </div>
-
-            <p className="mt-10 font-inter text-sm uppercase tracking-wider opacity-75">
-              5-Star Rated • Local Crew • Generations of Experience
-            </p>
-          </div>
+        <div className="absolute inset-0 bg-black/50" />
+        
+        <div className="relative z-10 flex h-full min-h-[600px] flex-col items-center justify-center px-4 text-center">
+          <h2 className="mb-8 font-outfit text-5xl font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:text-6xl lg:text-7xl">
+            Ready to Fish?
+          </h2>
+          
+          <p className="mb-12 max-w-2xl font-inter text-xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] md:text-2xl">
+            Book your 3/4 day charter and experience the best of Hawaii sportfishing
+          </p>
+          
+          <Link
+            href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-red-600 px-12 py-5 font-outfit text-xl font-bold text-white transition-all duration-300 hover:bg-red-700 hover:shadow-2xl hover:scale-105"
+          >
+            Book Your Trip
+          </Link>
         </div>
       </section>
+
       <Footer />
     </main>
   );
