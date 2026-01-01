@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Users, DollarSign, Check, Info, Shield } from 'lucide-react';
 import Footer from '@/components/Footer';
+import PremiumCarousel from '@/components/PremiumCarousel';
 
 // Define species type
 type Species = {
@@ -24,7 +25,7 @@ export default function ExtravaganzaCharterPage() {
     <main className="min-h-screen bg-white">
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-screen overflow-hidden">
-      <div className="animate-ken-burns absolute inset-0">
+        <div className="animate-ken-burns absolute inset-0">
           In your Extravaganza page, find the hero Image (around line 27):
           tsx<Image
             src="/images/charters/extravaganza/hero.jpg"
@@ -227,43 +228,31 @@ export default function ExtravaganzaCharterPage() {
         </div>
       </section>
 
-      {/* ===== RECORD DAY SECTION ===== */}
-      <section className="py-32">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-12 text-center">
-            <p className="mb-3 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-600">
-              Boat Record
-            </p>
-            <h2 className="mb-6 font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
-              14 Ahi In One Day
-            </h2>
-            <p className="mx-auto max-w-2xl font-inter text-xl text-gray-600">
-              October Extravaganza trip — this is what's possible when you fish dark to dark with O'ahu's fastest boat
-            </p>
-          </div>
-
-          <div className="overflow-hidden rounded-3xl shadow-2xl">
-            <div className="relative h-[600px] md:h-[700px]">
-              <Image
-                src="/images/charters/extravaganza/record.jpg"
-                alt="14 Yellowfin Tuna caught in one day"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 1280px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8 text-white md:bottom-12 md:left-12">
-                <p className="mb-4 font-inter text-lg md:text-xl">
-                  "We hit a feeding frenzy 42 miles out. Birds working everywhere, Ahi blowing up bait on the surface. We stayed on them all day, rotating anglers through, and brought home 14 fish. Every single one of them was quality eating size."
-                </p>
-                <p className="font-outfit text-base font-semibold md:text-lg">
-                  — Captain JR, Reel Addiction III
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ===== EPIC CATCHES CAROUSEL ===== */}
+      <PremiumCarousel
+        title="Epic Extravaganza Catches"
+        description="When you fish dark to dark, 40+ miles offshore, these are the days that happen"
+        slides={[
+          {
+            image: "/images/charters/extravaganza/record.jpg",
+            heading: "14 Ahi In One Day",
+            text: "We hit a feeding frenzy 42 miles out. Birds working everywhere, Ahi blowing up bait on the surface. We stayed on them all day, rotating anglers through, and brought home 14 fish. Every single one of them was quality eating size.",
+            stats: "42 Miles Out | October 2023 | 14 Fish"
+          },
+          {
+            image: "/images/charters/extravaganza/slide2.jpg",
+            heading: "Found The Motherlode",
+            text: "When you cover 40+ miles of ocean, you find floating debris that becomes a haven for fish. This giant log was loaded with Mahi and Ahi. We marked it and worked it until sunset, bringing home over 30 Mahi and multiple Ahi for the entire family.",
+            stats: "April 2023 | 30+ Mahi | Full Family Charter"
+          },
+          {
+            image: "/images/charters/extravaganza/slide3.jpg",
+            heading: "The Sunset Bite",
+            text: "Return client Colt (over 6' for reference) landed this Pacific Blue Marlin as the sun was setting. We were trolling home, squeezing every last minute of daylight, when this bonus fish hit. After a day of Shibi, Mahi, and Aku, the blue was the perfect finisher.",
+            stats: "March 2023 | Pacific Blue Marlin | Sunset Hookup"
+          }
+        ]}
+      />
 
       {/* ===== TESTIMONIAL ===== */}
       <section className="relative min-h-[600px] overflow-hidden py-32">
