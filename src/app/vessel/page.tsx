@@ -31,7 +31,7 @@ export default function TheVesselPage() {
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-[70vh] min-h-[600px] overflow-hidden">
         <Image
-          src="/images/vessel/hero.jpg"
+          src="/images/vessel/vessel-hero.jpg"
           alt="Reel Addiction III - 62ft Ocean Yacht"
           fill
           className="object-cover"
@@ -41,7 +41,7 @@ export default function TheVesselPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-end px-6 pb-20 text-center">
+        <div className="absolute inset-0 flex flex-col items-end justify-end px-6 pb-20 text-right md:px-16 lg:px-24">
           <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">
             62' Ocean Yacht
           </p>
@@ -109,10 +109,10 @@ export default function TheVesselPage() {
 
             <div className="relative h-[400px] overflow-hidden rounded-2xl shadow-2xl lg:h-[500px]">
               <Image
-                src="/images/vessel/seakeeper.jpg"
+                src="/images/vessel/vessel-seakeeper.jpg"
                 alt="SeaKeeper stabilizing system"
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
@@ -121,56 +121,44 @@ export default function TheVesselPage() {
       </section>
 
       {/* ===== SPEED ADVANTAGE ===== */}
-      <section className="bg-[#1B3A5F] py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <div className="relative order-2 h-[400px] overflow-hidden rounded-2xl shadow-2xl lg:order-1 lg:h-[500px]">
-              <Image
-                src="/images/vessel/speed.jpg"
-                alt="Reel Addiction III running offshore"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <div className="mb-4 flex items-center gap-2">
-                <Gauge className="h-6 w-6 text-red-400" />
-                <p className="font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">
-                  Speed Matters
-                </p>
-              </div>
-              <h2 className="mb-6 font-outfit text-4xl font-bold text-white md:text-5xl">
-                40+ MPH Gets You There First
-              </h2>
-              <div className="space-y-4 font-inter text-lg leading-relaxed text-white/80">
-                <p>
-                  Reel Addiction III is one of the fastest charter boats on O'ahu. Our twin Caterpillar motors push us to <strong className="text-white">speeds over 40 mph</strong> — that's 10-15 mph faster than most charter boats.
-                </p>
-                <p>
-                  What does speed mean for you? <strong className="text-white">More fishing time.</strong> While other boats are still running out, we're already on the fish. We can reach productive grounds 40+ miles offshore that slower boats simply can't access in a day trip.
-                </p>
-                <p>
-                  When the bite is hot 30 miles out, we're there in 45 minutes. Other boats? Over an hour. That extra time on the water translates to more fish in the box.
-                </p>
-              </div>
-
-              <div className="mt-8 flex gap-6">
-                <div>
-                  <p className="font-outfit text-5xl font-bold text-white">40+</p>
-                  <p className="font-inter text-sm text-white/60">MPH top speed</p>
-                </div>
-                <div className="h-16 w-px bg-white/20" />
-                <div>
-                  <p className="font-outfit text-5xl font-bold text-white">2x</p>
-                  <p className="font-inter text-sm text-white/60">Twin CAT motors</p>
-                </div>
-              </div>
-            </div>
+<section className="py-20">
+  <div className="mx-auto max-w-[1800px] px-6">
+    <div className="grid grid-cols-1 overflow-hidden rounded-3xl shadow-2xl lg:grid-cols-5">
+      {/* Image - 60% (3 cols) */}
+      <div className="relative h-[400px] lg:col-span-3 lg:h-[600px]">
+        <Image
+          src="/images/vessel/vessel-speed.jpg"
+          alt="Reel Addiction III running offshore"
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 60vw"
+        />
+      </div>
+      {/* Text Panel - 40% (2 cols) with dark background */}
+      <div className="flex items-center bg-[#1B3A5F] px-10 py-16 lg:col-span-2">
+        <div className="text-white">
+          <p className="mb-3 font-outfit text-xs font-bold uppercase tracking-[0.2em] text-red-400">
+            Speed Matters
+          </p>
+          <h2 className="mb-6 font-outfit text-3xl font-bold leading-tight lg:text-4xl">
+            40+ MPH Gets You There First
+          </h2>
+          <div className="space-y-4 font-inter text-base leading-relaxed opacity-90">
+            <p>
+              Reel Addiction III is one of the fastest charter boats on O'ahu. Our twin Caterpillar motors push us to speeds over 40 mph — that's 10-15 mph faster than most charter boats.
+            </p>
+            <p>
+              What does speed mean for you? More fishing time. While other boats are still running out, we're already on the fish. We can reach productive grounds 40+ miles offshore that slower boats simply can't access in a day trip.
+            </p>
+            <p className="font-semibold opacity-100">
+              When the bite is hot 30 miles out, we're there in 45 minutes. Other boats? Over an hour. That extra time on the water translates to more fish in the box.
+            </p>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ===== COMFORT & AMENITIES ===== */}
       <section className="py-20 md:py-28">
@@ -289,14 +277,14 @@ export default function TheVesselPage() {
           </p>
           <div className="overflow-hidden rounded-2xl shadow-xl">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.5!2d-158.124!3d21.336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006f7b5d5e5e5d%3A0x5e5e5e5e5e5e5e5e!2sKo%20Olina%20Marina!5e0!3m2!1sen!2sus!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.603716545786!2d-158.1207375!3d21.326669499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c0063b6ee483129%3A0xe57d717c442914ea!2sReel%20Addiction%20III%20Sport%20Fishing!5e0!3m2!1sen!2sus!4v1767325239125!5m2!1sen!2sus"
               width="100%"
               height="400"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="grayscale"
+              className=""
             />
           </div>
           <p className="mt-6 font-inter text-gray-500">
