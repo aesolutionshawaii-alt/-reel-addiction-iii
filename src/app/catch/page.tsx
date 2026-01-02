@@ -198,76 +198,60 @@ export default function TheCatchPage() {
       </section>
 
       {/* ===== WHAT TO DO WITH YOUR CATCH ===== */}
-      <section className="bg-gray-50 py-20 md:py-28">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="mb-16 text-center">
-            <h2 className="mb-6 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
-              What To Do With Your Catch
-            </h2>
-            <p className="font-inter text-lg text-gray-600">
-              We'll help you make the most of it
-            </p>
-          </div>
+<section className="bg-gray-50 py-20 md:py-28">
+  <div className="mx-auto max-w-6xl px-6">
+    <div className="mb-12 text-center">
+      <h2 className="mb-4 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
+        What To Do With Your Catch
+      </h2>
+      <p className="font-inter text-lg text-gray-600">
+        We'll help you make the most of it
+      </p>
+    </div>
 
-          <div className="grid gap-8 md:grid-cols-2">
-            {/* Resort Chef */}
-            <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
-              <div className="relative h-64">
-                <Image
-                  src="/images/catch/chef.jpg"
-                  alt="Chef preparing fresh fish"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="p-8">
-                <div className="mb-4 flex items-center gap-3">
-                  <ChefHat className="h-8 w-8 text-red-500" />
-                  <h3 className="font-outfit text-2xl font-bold text-[#1B3A5F]">Have It Prepared</h3>
-                </div>
-                <p className="mb-6 font-inter leading-relaxed text-gray-600">
-                  Staying at Ko Olina or a nearby resort? We can connect you with chefs who will prepare your catch for dinner that night. Nothing beats eating fish you caught hours earlier — prepared by a professional.
-                </p>
-                <p className="font-inter font-semibold text-[#1B3A5F]">
-                  Ask Captain JR for recommendations
-                </p>
-              </div>
-            </div>
-
-            {/* Taxidermy */}
-            <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
-              <div className="relative h-64">
-                <Image
-                  src="/images/catch/mount.jpg"
-                  alt="Mounted fish trophy"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="p-8">
-                <div className="mb-4 flex items-center gap-3">
-                  <Award className="h-8 w-8 text-red-500" />
-                  <h3 className="font-outfit text-2xl font-bold text-[#1B3A5F]">Mount Your Trophy</h3>
-                </div>
-                <p className="mb-6 font-inter leading-relaxed text-gray-600">
-                  Catch something special? We work with Gray Taxidermy — the world's largest marine taxidermy company — to create museum-quality mounts of your trophy fish. A lifetime reminder of an incredible day.
-                </p>
-                <Link
-                  href="https://www.graytaxidermy.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-inter font-semibold text-red-600 transition-colors hover:text-red-700"
-                >
-                  Visit Gray Taxidermy
-                  <ExternalLink className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
+    <div className="grid gap-6 md:grid-cols-2">
+      {/* Have It Prepared */}
+      <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
+        <Image
+          src="/images/catch/chef.jpg"
+          alt="Fresh fish fillets"
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+          <h3 className="mb-2 font-outfit text-2xl font-bold text-white md:text-3xl">
+            Have It Prepared
+          </h3>
+          <p className="font-inter text-sm leading-relaxed text-white/80 md:text-base">
+            Staying at Ko Olina? We connect you with chefs who'll prepare your catch for dinner that night. Nothing beats fish you caught hours earlier.
+          </p>
         </div>
-      </section>
+      </div>
+
+      {/* Mount Your Trophy */}
+      <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
+        <Image
+          src="/images/catch/mount.jpg"
+          alt="Trophy yellowfin tuna being measured"
+          fill
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+          <h3 className="mb-2 font-outfit text-2xl font-bold text-white md:text-3xl">
+            Mount Your Trophy
+          </h3>
+          <p className="font-inter text-sm leading-relaxed text-white/80 md:text-base">
+            We work with Gray Taxidermy — the world's largest marine taxidermy company — to create museum-quality mounts of your trophy fish.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ===== FAQ ===== */}
       <section className="py-20 md:py-28">
