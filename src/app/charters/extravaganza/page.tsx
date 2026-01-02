@@ -75,48 +75,62 @@ export default function ExtravaganzaCharterPage() {
       </section>
 
       {/* ===== STICKY SPECS BAR ===== */}
-      <div className="fixed top-0 left-0 right-0 z-40 border-b border-gray-200 bg-white/95 py-6 shadow-lg backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-around px-6 font-inter">
-          <div className="flex items-center gap-3">
-            <Clock className="h-7 w-7 text-red-600" />
+      <div className="fixed left-0 right-0 top-0 z-40 border-b border-gray-200 bg-white/95 py-3 shadow-lg backdrop-blur md:py-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-3 font-inter md:px-6">
+
+          {/* Back Arrow */}
+          <Link
+            href="/charters"
+            className="flex items-center gap-2 text-gray-600 transition-colors hover:text-red-600"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="hidden text-sm font-medium md:inline">All Charters</span>
+          </Link>
+
+          {/* Duration - Hidden on mobile */}
+          <div className="hidden items-center gap-3 lg:flex">
+            <Clock className="h-6 w-6 text-red-600" />
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Duration</p>
-              <p className="text-base font-bold text-gray-900">Dark to Dark</p>
-              <p className="text-xs text-gray-600">Sunrise to sunset</p>
+              <p className="text-sm font-bold text-gray-900">Sunrise to Sunset</p>
             </div>
           </div>
 
-          <div className="h-12 w-px bg-gray-300" />
+          <div className="hidden h-10 w-px bg-gray-300 lg:block" />
 
-          <div className="flex items-center gap-3">
-            <Shield className="h-7 w-7 text-red-600" />
+          <div className="flex items-center gap-2">
+            <Users className="h-5 w-5 text-red-600 md:h-6 md:w-6" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Guaranteed</p>
-              <p className="text-base font-bold text-gray-900">Catch or Refund</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:text-xs">Anglers</p>
+              <p className="text-sm font-bold text-gray-900 md:text-base">6 Max</p>
             </div>
           </div>
 
-          <div className="h-12 w-px bg-gray-300" />
+          <div className="h-8 w-px bg-gray-200 md:h-10" />
 
-          <div className="flex items-center gap-3">
-            <DollarSign className="h-7 w-7 text-red-600" />
+          <div className="flex items-center gap-2">
+            <DollarSign className="h-5 w-5 text-red-600 md:h-6 md:w-6" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Price</p>
-              <p className="text-2xl font-bold text-red-600">$3,300</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:text-xs">Price</p>
+              <p className="text-lg font-bold text-red-600 md:text-xl">$3,300</p>
             </div>
           </div>
+
+          <div className="h-8 w-px bg-gray-200 md:h-10" />
 
           <Link
             href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-red-600 px-8 py-3 font-outfit font-bold text-white transition-all duration-300 hover:bg-red-700 hover:shadow-xl"
+            className="rounded-lg bg-red-600 px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-red-700 md:px-5 md:py-2.5 md:text-base"
           >
             Book Now
           </Link>
+
         </div>
       </div>
-
       {/* ===== THE GUARANTEE ===== */}
       <section className="py-20">
         <div className="mx-auto max-w-[1800px] px-6">
@@ -566,7 +580,7 @@ export default function ExtravaganzaCharterPage() {
         />
         <div className="absolute inset-0 bg-black/50" />
 
-        <div className="relative z-10 flex h-full min-h-[800px] flex-col items-center justify-center px-4 text-center">
+        <div className="relative z-10 flex h-full min-h-[800px] flex-col items-center justify-start px-4 pt-24 text-center md:pt-32">
           <div className="mb-4 flex items-center gap-3">
             <Shield className="h-8 w-8 text-red-400" />
             <p className="font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">

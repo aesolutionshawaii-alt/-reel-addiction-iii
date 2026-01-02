@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Clock, Users, DollarSign, Calendar, Check, Info } from 'lucide-react';
 import Footer from '@/components/Footer';
 
+
 // Define species type
 type Species = {
   name: string;
@@ -24,7 +25,7 @@ export default function ThreeFourDayCharterPage() {
     <main className="min-h-screen bg-white">
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-screen overflow-hidden">
-      <div className="animate-ken-burns absolute inset-0">
+        <div className="animate-ken-burns absolute inset-0">
           <Image
             src="/images/charters/3-4-day/hero.jpg"
             alt="Mahi Mahi fishing action"
@@ -35,22 +36,22 @@ export default function ThreeFourDayCharterPage() {
             quality={90}
           />
         </div>
-        
+
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,0.6) 0%, rgba(13,13,15,0) 40%, rgba(13,13,15,0.8) 100%)' }} />
-        
+
         <div className="absolute inset-x-0 bottom-32 z-10 px-6 text-center md:bottom-40">
           <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             3/4 Day Charter
           </p>
-          
+
           <h1 className="mb-6 font-outfit text-5xl font-bold leading-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:text-7xl lg:text-8xl">
             The Sweet Spot.
           </h1>
-          
+
           <p className="mx-auto mb-8 max-w-3xl font-inter text-xl leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] md:text-2xl">
             5-6 hours on the water with O'ahu's most experienced local crew
           </p>
-          
+
           <div className="flex flex-wrap items-center justify-center gap-6 font-inter text-lg text-white md:gap-12 md:text-xl">
             <div className="flex items-center gap-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
               <Clock className="h-6 w-6" />
@@ -69,45 +70,60 @@ export default function ThreeFourDayCharterPage() {
       </section>
 
       {/* ===== STICKY SPECS BAR ===== */}
-      <div className="fixed top-0 left-0 right-0 z-40 border-b border-gray-200 bg-white/95 py-6 shadow-lg backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-around px-6 font-inter">
-          <div className="flex items-center gap-3">
-            <Clock className="h-7 w-7 text-red-600" />
+      <div className="fixed left-0 right-0 top-0 z-40 border-b border-gray-200 bg-white/95 py-3 shadow-lg backdrop-blur md:py-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-3 font-inter md:px-6">
+
+          {/* Back Arrow */}
+          <Link
+            href="/charters"
+            className="flex items-center gap-2 text-gray-600 transition-colors hover:text-red-600"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="hidden text-sm font-medium md:inline">All Charters</span>
+          </Link>
+
+          {/* Duration - Hidden on mobile */}
+          <div className="hidden items-center gap-3 lg:flex">
+            <Clock className="h-6 w-6 text-red-600" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Departure</p>
-              <p className="text-base font-bold text-gray-900">Varies by sunrise</p>
-              <p className="text-xs text-gray-600">Captain calls night before</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Duration</p>
+              <p className="text-sm font-bold text-gray-900">5-6 Hours</p>
             </div>
           </div>
-          
-          <div className="h-12 w-px bg-gray-300" />
-          
-          <div className="flex items-center gap-3">
-            <Users className="h-7 w-7 text-red-600" />
+
+          <div className="hidden h-10 w-px bg-gray-300 lg:block" />
+
+          <div className="flex items-center gap-2">
+            <Users className="h-5 w-5 text-red-600 md:h-6 md:w-6" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Max Anglers</p>
-              <p className="text-base font-bold text-gray-900">6 People</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:text-xs">Anglers</p>
+              <p className="text-sm font-bold text-gray-900 md:text-base">6 Max</p>
             </div>
           </div>
-          
-          <div className="h-12 w-px bg-gray-300" />
-          
-          <div className="flex items-center gap-3">
-            <DollarSign className="h-7 w-7 text-red-600" />
+
+          <div className="h-8 w-px bg-gray-200 md:h-10" />
+
+          <div className="flex items-center gap-2">
+            <DollarSign className="h-5 w-5 text-red-600 md:h-6 md:w-6" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Price</p>
-              <p className="text-2xl font-bold text-red-600">$2,495</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:text-xs">Price</p>
+              <p className="text-lg font-bold text-red-600 md:text-xl">$2,495</p>
             </div>
           </div>
-          
+
+          <div className="h-8 w-px bg-gray-200 md:h-10" />
+
           <Link
             href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-red-600 px-8 py-3 font-outfit font-bold text-white transition-all duration-300 hover:bg-red-700 hover:shadow-xl"
+            className="rounded-lg bg-red-600 px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-red-700 md:px-5 md:py-2.5 md:text-base"
           >
             Book Now
           </Link>
+
         </div>
       </div>
 
@@ -125,18 +141,18 @@ export default function ThreeFourDayCharterPage() {
                 sizes="(max-width: 1024px) 100vw, 60vw"
               />
             </div>
-            
+
             {/* Text Panel - 40% (2 cols) with dark background */}
             <div className="flex items-center bg-[#1B3A5F] px-10 py-16 lg:col-span-2">
               <div className="text-white">
                 <p className="mb-3 font-outfit text-xs font-bold uppercase tracking-[0.2em] text-red-400">
                   What to Expect
                 </p>
-                
+
                 <h2 className="mb-6 font-outfit text-3xl font-bold leading-tight lg:text-4xl">
                   Perfect For Visitors
                 </h2>
-                
+
                 <div className="space-y-4 font-inter text-base leading-relaxed opacity-90">
                   <p>
                     The 3/4 day trip is designed specifically for travelers who want the full Hawaiian sportfishing experience without sacrificing their evening plans. Fish hard in the morning, catch quality fish, and be back at the dock with plenty of time for your sunset dinner or luau.
@@ -165,7 +181,7 @@ export default function ThreeFourDayCharterPage() {
               Half day fishing, full day experience
             </p>
           </div>
-          
+
           <div className="space-y-12">
             {[
               {
@@ -218,7 +234,7 @@ export default function ThreeFourDayCharterPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-[#1B3A5F]/80" />
-        
+
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <div className="mb-8 flex justify-center gap-1">
             {[...Array(5)].map((_, i) => (
@@ -227,17 +243,17 @@ export default function ThreeFourDayCharterPage() {
               </svg>
             ))}
           </div>
-          
+
           <blockquote className="mb-6 font-playfair text-2xl italic leading-relaxed text-white md:text-3xl">
             "Perfect timing for our vacation schedule. We caught fish in the morning and still made it to our sunset dinner at Roy's. Captain JR and his crew made us feel welcome and safe. Highly recommend for anyone visiting O'ahu."
           </blockquote>
-          
+
           <p className="font-inter text-lg text-white md:text-xl">— Michael & Jennifer T., San Diego</p>
         </div>
       </section>
 
-     {/* ===== TARGET SPECIES WITH MODAL ===== */}
-     <section className="py-32">
+      {/* ===== TARGET SPECIES WITH MODAL ===== */}
+      <section className="py-32">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-20 text-center">
             <h2 className="mb-6 font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
@@ -413,7 +429,7 @@ export default function ThreeFourDayCharterPage() {
           <h2 className="mb-20 font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
             Everything You Need
           </h2>
-          
+
           <div className="grid gap-16 md:grid-cols-2">
             <div>
               <h3 className="mb-10 font-outfit text-3xl font-bold text-[#1B3A5F]">
@@ -470,7 +486,7 @@ export default function ThreeFourDayCharterPage() {
           <h2 className="mb-20 text-center font-outfit text-5xl font-bold text-[#1B3A5F] lg:text-6xl">
             Common Questions
           </h2>
-          
+
           <div className="space-y-8">
             {[
               {
@@ -517,16 +533,16 @@ export default function ThreeFourDayCharterPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/50" />
-        
+
         <div className="relative z-10 flex h-full min-h-[600px] flex-col items-center justify-center px-4 text-center">
           <h2 className="mb-8 font-outfit text-5xl font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:text-6xl lg:text-7xl">
             Ready to Fish?
           </h2>
-          
+
           <p className="mb-12 max-w-2xl font-inter text-xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] md:text-2xl">
             Book your 3/4 day charter and experience the best of Hawaii sportfishing
           </p>
-          
+
           <Link
             href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
             target="_blank"

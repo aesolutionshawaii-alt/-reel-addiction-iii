@@ -100,16 +100,15 @@ export default function PremiumCarousel({ title, description, slides }: PremiumC
       </div>
 
       {/* Carousel Container */}
-      <div className="overflow-hidden px-[10%]" ref={emblaRef}>
+      <div className="overflow-hidden px-4 md:px-[10%]" ref={emblaRef}>
         <div className="flex">
           {slides.map((slide, index) => (
             <div
               key={index}
-              className="min-w-0 shrink-0 grow-0 px-4"
-              style={{ flexBasis: '80%' }}
+              className="min-w-0 shrink-0 grow-0 basis-[95%] px-2 md:basis-[80%] md:px-4"
             >
               {/* Slide Content - Image left, Text right */}
-              <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
+              <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-2 lg:gap-20">
                 {/* Image */}
                 <div className="relative w-full overflow-hidden rounded-lg" style={{ aspectRatio: '4/3' }}>
                   <Image

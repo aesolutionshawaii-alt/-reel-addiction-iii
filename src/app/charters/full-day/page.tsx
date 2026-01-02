@@ -83,55 +83,64 @@ export default function FullDayCharterPage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="h-16 w-10 rounded-full border-2 border-white/60 p-2">
-            <div className="h-3 w-3 animate-pulse rounded-full bg-white mx-auto" />
-          </div>
-        </div>
 
-        {/* Sticky CTA */}
-        <a
-          href="https://fareharbor.com/embeds/book/reeladdictioniii/items/508281/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed right-8 top-8 z-50 rounded-full bg-red-600 px-10 py-5 font-outfit text-lg font-bold text-white shadow-2xl transition-all hover:bg-red-700 hover:scale-105 hover:shadow-red-600/50"
-        >
-          Book Now
-        </a>
       </section>
 
       {/* ===== STICKY SPECS BAR ===== */}
-      <div className="fixed top-0 left-0 right-0 z-40 border-b border-gray-200 bg-white/95 py-6 shadow-lg backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-around px-6 font-inter">
-          <div className="flex items-center gap-3">
-            <Clock className="h-7 w-7 text-red-600" />
+      <div className="fixed left-0 right-0 top-0 z-40 border-b border-gray-200 bg-white/95 py-3 shadow-lg backdrop-blur md:py-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-3 font-inter md:px-6">
+
+          {/* Back Arrow */}
+          <Link
+            href="/charters"
+            className="flex items-center gap-2 text-gray-600 transition-colors hover:text-red-600"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="hidden text-sm font-medium md:inline">All Charters</span>
+          </Link>
+
+          {/* Duration - Hidden on mobile */}
+          <div className="hidden items-center gap-3 lg:flex">
+            <Clock className="h-6 w-6 text-red-600" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Departure</p>
-              <p className="text-base font-bold text-gray-900">Varies by sunrise</p>
-              <p className="text-xs text-gray-600">Captain calls night before</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Duration</p>
+              <p className="text-sm font-bold text-gray-900">10-12 Hours</p>
             </div>
           </div>
 
-          <div className="h-12 w-px bg-gray-300" />
+          <div className="hidden h-10 w-px bg-gray-300 lg:block" />
 
-          <div className="flex items-center gap-3">
-            <Users className="h-7 w-7 text-red-600" />
+          <div className="flex items-center gap-2">
+            <Users className="h-5 w-5 text-red-600 md:h-6 md:w-6" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Max Anglers</p>
-              <p className="text-base font-bold text-gray-900">6 People</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:text-xs">Anglers</p>
+              <p className="text-sm font-bold text-gray-900 md:text-base">6 Max</p>
             </div>
           </div>
 
-          <div className="h-12 w-px bg-gray-300" />
+          <div className="h-8 w-px bg-gray-200 md:h-10" />
 
-          <div className="flex items-center gap-3">
-            <DollarSign className="h-7 w-7 text-red-600" />
+          <div className="flex items-center gap-2">
+            <DollarSign className="h-5 w-5 text-red-600 md:h-6 md:w-6" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Price</p>
-              <p className="text-2xl font-bold text-red-600">$2,995</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:text-xs">Price</p>
+              <p className="text-lg font-bold text-red-600 md:text-xl">$2,995</p>
             </div>
           </div>
+
+          <div className="h-8 w-px bg-gray-200 md:h-10" />
+
+          <Link
+            href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg bg-red-600 px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-red-700 md:px-5 md:py-2.5 md:text-base"
+          >
+            Book Now
+          </Link>
+
         </div>
       </div>
 
@@ -254,7 +263,7 @@ export default function FullDayCharterPage() {
           </svg>
 
           <p className="mb-8 font-playfair text-3xl font-light italic leading-relaxed">
-          Amazing trip! Great boat, great equipment, and even better Captain and Deckhand. Captain JR and Keaka went above and beyond to make sure we had a great trip. Very professional and great with the kids. A day my kids and I will never forget. We fished with them during the slow time of year and they had us on the fish all day. Highly recommend!!
+            Amazing trip! Great boat, great equipment, and even better Captain and Deckhand. Captain JR and Keaka went above and beyond to make sure we had a great trip. Very professional and great with the kids. A day my kids and I will never forget. We fished with them during the slow time of year and they had us on the fish all day. Highly recommend!!
           </p>
 
           <div>
