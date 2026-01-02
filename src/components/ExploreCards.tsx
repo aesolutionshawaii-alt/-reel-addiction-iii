@@ -5,9 +5,9 @@ import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 const cards = [
-  { title: 'The Vessel', image: '/images/vessel.jpg', href: '/about', position: 'object-center' },
+  { title: 'The Vessel', image: '/images/vessel.jpg', href: '/vessel', position: 'object-center' },
   { title: 'The Experience', image: '/images/experience.jpg', href: '/charters', position: 'object-center' },
-  { title: 'The Catch', image: '/images/catch.jpg', href: '/fish', position: 'object-bottom' },
+  { title: 'The Catch', image: '/images/catch.jpg', href: '/catch', position: 'object-bottom' },
 ]
 
 const MotionLink = motion.create(Link)

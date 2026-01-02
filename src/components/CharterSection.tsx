@@ -18,7 +18,7 @@ const getCharterUrl = (title: string) => {
     '3/4 Day': '/charters/3-4-day',
     'Full Day': '/charters/full-day',
     'Extravaganza': '/charters/extravaganza',
-    'Custom Trip': '/charters/custom'
+    'Custom Trip': '/custom'
   }
   return urlMap[title] || '/charters'
 }
