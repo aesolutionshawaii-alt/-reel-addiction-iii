@@ -1,15 +1,16 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { CldImage } from 'next-cloudinary'
 import HLSVideo from './HLSVideo'// Use the new component
+import CloudinaryImage from '@/components/CloudinaryImage';
 
 const charters = [
-  { title: '3/4 Day', image: '/images/charter-34day.jpg', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/hls/charter-34day/playlist.m3u8', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
-  { title: 'Full Day', image: '/images/charter-fullday.jpg', video: '/videos/charter-fullday-web.mp4', mobileVideo: '/videos/hls/charter-fullday/playlist.m3u8', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
-  { title: 'Extravaganza', image: '/images/charter-extravaganza.jpg', video: '/videos/charter-extravaganza-web.mp4', mobileVideo: '/videos/hls/charter-extravaganza/playlist.m3u8', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
-  { title: 'Custom Trip', image: '/images/charter-custom.jpg', video: '/videos/charter-custom-web.mp4', mobileVideo: '/videos/hls/charter-custom/playlist.m3u8', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
+  { title: '3/4 Day', image: 'images/charter-34day', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/hls/charter-34day/playlist.m3u8', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
+  { title: 'Full Day', image: 'images/charter-fullday', video: '/videos/charter-fullday-web.mp4', mobileVideo: '/videos/hls/charter-fullday/playlist.m3u8', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
+  { title: 'Extravaganza', image: 'images/charter-extravaganza', video: '/videos/charter-extravaganza-web.mp4', mobileVideo: '/videos/hls/charter-extravaganza/playlist.m3u8', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
+  { title: 'Custom Trip', image: 'images/charter-custom', video: '/videos/charter-custom-web.mp4', mobileVideo: '/videos/hls/charter-custom/playlist.m3u8', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
 ]
 
 // Helper function to convert charter title to URL
@@ -250,14 +251,13 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                     className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
                   >
                     {/* Poster Image - always present, hides when video playing */}
-                    <Image
+                    <CloudinaryImage
                       src={charter.image}
                       alt={charter.title}
                       fill
                       className={`object-cover z-10 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'
                         }`}
                       style={{ objectPosition: charter.objectPosition }}
-                      quality={90}
                       priority={index === 0}
                     />
 
@@ -367,13 +367,12 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                         }}
                         transition={{ type: "spring", stiffness: 100, damping: 20 }}
                       >
-                        <Image
+                        <CloudinaryImage
                           src={charter.image}
                           alt={charter.title}
                           fill
                           className="object-cover"
                           style={{ objectPosition: charter.objectPosition }}
-                          quality={90}
                         />
                         <motion.div
                           className="absolute inset-0"

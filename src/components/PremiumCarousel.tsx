@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type CarouselSlide = {
@@ -111,13 +111,12 @@ export default function PremiumCarousel({ title, description, slides }: PremiumC
               <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-2 lg:gap-20">
                 {/* Image */}
                 <div className="relative w-full overflow-hidden rounded-lg" style={{ aspectRatio: '4/3' }}>
-                  <Image
+                  <CloudinaryImage
                     src={slide.image}
                     alt={slide.heading}
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 80vw, 40vw"
-                    quality={90}
                     priority={index === 0}
                   />
                 </div>

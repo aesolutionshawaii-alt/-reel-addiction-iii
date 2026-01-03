@@ -1,13 +1,14 @@
 'use client'
 import { useRef } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { CldImage } from 'next-cloudinary'
+import CloudinaryImage from '@/components/CloudinaryImage';
 
 const cards = [
-  { title: 'The Vessel', image: '/images/vessel.jpg', href: '/vessel', position: 'object-center' },
-  { title: 'The Experience', image: '/images/experience.jpg', href: '/charters', position: 'object-center' },
-  { title: 'The Catch', image: '/images/catch.jpg', href: '/catch', position: 'object-bottom' },
+  { title: 'The Vessel', image: 'images/vessel', href: '/vessel', position: 'object-center' },
+  { title: 'The Experience', image: 'images/experience', href: '/charters', position: 'object-center' },
+  { title: 'The Catch', image: 'images/catch', href: '/catch', position: 'object-bottom' },
 ]
 
 const MotionLink = motion.create(Link)
@@ -18,7 +19,6 @@ function ScrollCard({ card, index }: { card: typeof cards[0], index: number }) {
     target: ref,
     offset: ["start end", "start 0.75"]
   })
-  
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1])
   const y = useTransform(scrollYProgress, [0, 1], [50, 0])
 
@@ -29,12 +29,11 @@ function ScrollCard({ card, index }: { card: typeof cards[0], index: number }) {
       style={{ opacity, y }}
       className="group relative w-full max-w-[340px] md:max-w-none md:w-[380px] h-[245px] md:h-[275px] rounded-lg overflow-hidden"
     >
-      <Image
+      <CloudinaryImage
         src={card.image}
         alt={card.title}
         fill
         className={`object-cover transition-transform duration-500 group-hover:scale-105 ${card.position}`}
-        quality={90}
       />
       <div 
         className="absolute inset-0 rounded-lg"

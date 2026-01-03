@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Fish, Utensils, Award, Scale, Snowflake, Sun, ChefHat, ExternalLink } from 'lucide-react';
 import Footer from '@/components/Footer';
@@ -21,14 +21,13 @@ export default function TheCatchPage() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
-        <Image
-          src="/images/catch/hero.jpg"
+        <CloudinaryImage
+          src="catch/hero"
           alt="Fresh caught fish being filleted"
           fill
           className="object-cover"
           priority
           sizes="100vw"
-          quality={90}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
 
@@ -213,8 +212,8 @@ export default function TheCatchPage() {
             {/* Resort Chef */}
             <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
               <div className="relative h-64">
-                <Image
-                  src="/images/catch/chef.jpg"
+                <CloudinaryImage
+                  src="catch/chef"
                   alt="Chef preparing fresh fish"
                   fill
                   className="object-cover"
@@ -238,8 +237,8 @@ export default function TheCatchPage() {
             {/* Taxidermy */}
             <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
               <div className="relative h-64">
-                <Image
-                  src="/images/catch/mount.jpg"
+                <CloudinaryImage
+                  src="catch/mount"
                   alt="Mounted fish trophy"
                   fill
                   className="object-cover"

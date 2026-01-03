@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Clock, Users, DollarSign, Check, Info, Shield } from 'lucide-react';
 import Footer from '@/components/Footer';
@@ -26,16 +26,14 @@ export default function ExtravaganzaCharterPage() {
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-screen overflow-hidden">
         <div className="animate-ken-burns absolute inset-0">
-          In your Extravaganza page, find the hero Image (around line 27):
-          tsx<Image
-            src="/images/charters/extravaganza/hero.jpg"
+          <CloudinaryImage
+            src="charters/extravaganza/hero"
             alt="Trophy Yellowfin Tuna"
             fill
             className="object-cover"
             style={{ objectPosition: 'center 20%' }}
             priority
             sizes="100vw"
-            quality={90}
           />
         </div>
 
@@ -137,8 +135,8 @@ export default function ExtravaganzaCharterPage() {
           <div className="grid grid-cols-1 overflow-hidden rounded-3xl shadow-2xl lg:grid-cols-5">
             {/* Image - 60% (3 cols) */}
             <div className="relative h-[400px] lg:col-span-3 lg:h-[600px]">
-              <Image
-                src="/images/charters/extravaganza/action.jpg"
+              <CloudinaryImage
+                src="charters/extravaganza/action"
                 alt="Birds working bait offshore"
                 fill
                 className="object-cover"
@@ -248,19 +246,19 @@ export default function ExtravaganzaCharterPage() {
         description="When you fish dark to dark, 40+ miles offshore, these are the days that happen"
         slides={[
           {
-            image: "/images/charters/extravaganza/record.jpg",
+            image: "charters/extravaganza/record",
             heading: "14 Ahi In One Day",
             text: "We hit a feeding frenzy 42 miles out. Birds working everywhere, Ahi blowing up bait on the surface. We stayed on them all day, rotating anglers through, and brought home 14 fish. Every single one of them was quality eating size.",
             stats: "42 Miles Out | October 2023 | 14 Fish"
           },
           {
-            image: "/images/charters/extravaganza/slide2.jpg",
+            image: "charters/extravaganza/slide2",
             heading: "Found The Motherlode",
             text: "When you cover 40+ miles of ocean, you find floating debris that becomes a haven for fish. This giant log was loaded with Mahi and Ahi. We marked it and worked it until sunset, bringing home over 30 Mahi and multiple Ahi for the entire family.",
             stats: "April 2023 | 30+ Mahi | Full Family Charter"
           },
           {
-            image: "/images/charters/extravaganza/slide3.jpg",
+            image: "charters/extravaganza/slide3",
             heading: "The Sunset Bite",
             text: "Return client Colt (over 6' for reference) landed this Pacific Blue Marlin as the sun was setting. We were trolling home, squeezing every last minute of daylight, when this bonus fish hit. After a day of Shibi, Mahi, and Aku, the blue was the perfect finisher.",
             stats: "March 2023 | Pacific Blue Marlin | Sunset Hookup"
@@ -270,8 +268,8 @@ export default function ExtravaganzaCharterPage() {
 
       {/* ===== TESTIMONIAL ===== */}
       <section className="relative min-h-[600px] overflow-hidden py-32">
-        <Image
-          src="/images/charters/extravaganza/testimonial.jpg"
+        <CloudinaryImage
+          src="charters/extravaganza/testimonial"
           alt="Customer testimonial"
           fill
           className="object-cover"
@@ -313,7 +311,7 @@ export default function ExtravaganzaCharterPage() {
               {
                 name: "Blue Marlin",
                 season: "May - September (peak)",
-                image: "/images/species/blue-marlin.jpg",
+                image: "species/blue-marlin",
                 description: "The ultimate game fish. Extended hours mean we can stay with a blue marlin through a long fight without worrying about running out of daylight.",
                 techniques: "Live bait fishing with Opelu, high-speed trolling, watching for birds. We have time to deploy every technique and wait for the right opportunity.",
                 size: "Average 200-400 lbs, trophy fish 500+ lbs",
@@ -322,7 +320,7 @@ export default function ExtravaganzaCharterPage() {
               {
                 name: "Striped Marlin",
                 season: "November - April",
-                image: "/images/species/striped-marlin.jpg",
+                image: "species/striped-marlin",
                 description: "Winter marlin that love to jump. The long day means we can chase striped marlin through multiple areas if needed.",
                 techniques: "High-speed trolling with lures and teasers. Stripes attack surface baits aggressively, making for spectacular visual strikes.",
                 size: "80-150 lbs average",
@@ -331,7 +329,7 @@ export default function ExtravaganzaCharterPage() {
               {
                 name: "Yellowfin Tuna (Ahi)",
                 season: "Year-round",
-                image: "/images/species/yellowfin-tuna.jpg",
+                image: "species/yellowfin-tuna",
                 description: "Our most consistent fish. The boat record — 14 in one day — was set on an Extravaganza trip. Maximum time = maximum opportunities.",
                 techniques: "Trolling, chunking, live baiting, vertical jigging. We use every technique and have time to find the schools.",
                 size: "40-100 lbs average, occasional giants over 200 lbs",
@@ -340,7 +338,7 @@ export default function ExtravaganzaCharterPage() {
               {
                 name: "Mahi Mahi (Dorado)",
                 season: "March - June (peak)",
-                image: "/images/species/mahi-mahi.jpg",
+                image: "species/mahi-mahi",
                 description: "Colorful and aggressive. When we find a school of Mahi, the long day means everyone gets multiple hookups.",
                 techniques: "Trolling near debris and weed lines. Once we find one, there's usually a school, and we have all day to work them.",
                 size: "15-30 lbs average, bulls can reach 50+ lbs",
@@ -349,7 +347,7 @@ export default function ExtravaganzaCharterPage() {
               {
                 name: "Ono (Wahoo)",
                 season: "October - March",
-                image: "/images/species/ono.jpg",
+                image: "species/ono",
                 description: "The fastest fish in the ocean. Our boat speed and extended range put us over prime Ono grounds that other boats can't reach.",
                 techniques: "High-speed trolling with wire line and deep divers. Ono make blistering runs that test your equipment.",
                 size: "25-50 lbs average",
@@ -358,7 +356,7 @@ export default function ExtravaganzaCharterPage() {
               {
                 name: "Aku (Skipjack Tuna)",
                 season: "Peak April-September, available year-round",
-                image: "/images/species/aku.jpg",
+                image: "species/aku",
                 description: "Traditional poke fish. Great on light tackle and perfect for the table. Extended trips often produce Aku bonanzas.",
                 techniques: "Trolling with small feathers, chunking, live baiting when we find schools.",
                 size: "5-15 lbs",
@@ -371,7 +369,7 @@ export default function ExtravaganzaCharterPage() {
                 className="group relative cursor-pointer overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl"
               >
                 <div className="relative h-96">
-                  <Image
+                  <CloudinaryImage
                     src={species.image}
                     alt={species.name}
                     fill
@@ -425,7 +423,7 @@ export default function ExtravaganzaCharterPage() {
             </button>
 
             <div className="relative h-96">
-              <Image
+              <CloudinaryImage
                 src={selectedSpecies.image}
                 alt={selectedSpecies.name}
                 fill
@@ -571,8 +569,8 @@ export default function ExtravaganzaCharterPage() {
 
       {/* ===== FINAL CTA ===== */}
       <section className="relative min-h-[800px] overflow-hidden">
-        <Image
-          src="/images/charters/full-day/cta.jpg"
+        <CloudinaryImage
+          src="charters/full-day/cta"
           alt="Reel Addiction III boat"
           fill
           className="object-cover"

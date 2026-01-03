@@ -1,4 +1,6 @@
 'use client'
+import { CldImage } from 'next-cloudinary'
+import CloudinaryImage from '@/components/CloudinaryImage';
 
 export default function SeaKeeper() {
   return (
@@ -15,10 +17,12 @@ export default function SeaKeeper() {
             </p>
           </div>
           <div className="flex justify-center md:justify-end">
-            <img 
-              src="/images/Seakeeper-logo.png" 
+            <CloudinaryImage 
+              src="images/Seakeeper-logo" 
               alt="SeaKeeper" 
-              className="w-48 md:w-[500px]"
+              width={500}
+              height={200}
+              className="w-48 md:w-[500px] h-auto"
             />
           </div>
         </div>

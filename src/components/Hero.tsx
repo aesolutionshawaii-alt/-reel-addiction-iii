@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { CldImage } from 'next-cloudinary'
+import CloudinaryImage from '@/components/CloudinaryImage';
 
 export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false)
@@ -57,14 +59,14 @@ export default function Hero() {
     <section
       ref={sectionRef}
       className="relative h-[100svh] md:h-screen md:min-h-[800px] w-full overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: 'url(/images/hero-poster-mobile.jpg)' }}
+      style={{ backgroundImage: 'url(https://res.cloudinary.com/dmu9szrap/image/upload/f_auto,q_auto/images/hero-poster-mobile)' }}
     >
       {/* Background */}
       <div className="absolute inset-0">
         {/* Poster image - desktop only, fades out when video ready */}
         <div className={`absolute inset-0 transition-opacity duration-500 hidden md:block ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}>
-          <Image
-            src="/images/hero-boat.jpg"
+          <CloudinaryImage
+            src="images/hero-boat"
             alt="Reel Addiction III"
             fill
             className="object-cover object-bottom"

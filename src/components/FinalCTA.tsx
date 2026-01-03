@@ -3,28 +3,28 @@ import Link from 'next/link'
 
 export default function CTA() {
   return (
-    <section className="relative h-[500px] md:h-[1000px]">
+    <section className="relative h-[600px] md:h-[1100px]">
       {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/cta-group.jpg')" }}
+      <div
+        className="absolute inset-0 bg-cover bg-[center_20%]"
+        style={{ backgroundImage: "url('https://res.cloudinary.com/dmu9szrap/image/upload/f_auto,q_auto/images/cta-group')" }}
       />
-      
+
       {/* Bottom gradient - fades to black */}
-      <div 
+      <div
         className="absolute inset-0"
-        style={{ 
+        style={{
           background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 14%)',
           opacity: 0.8
         }}
       />
-      
+
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-end pb-16 md:pb-32 px-4">
-  <h2 className="font-outfit font-bold text-[40px] md:text-[96px] text-white text-center mb-6 md:mb-8 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-    Ready to Fish?
-  </h2>
-        <Link 
+        <h2 className="font-outfit font-bold text-[40px] md:text-[96px] text-white text-center mb-6 md:mb-8 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+          Ready to Fish?
+        </h2>
+        <Link
           href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
           target="_blank"
           rel="noopener noreferrer"

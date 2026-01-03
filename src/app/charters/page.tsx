@@ -1,9 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { Clock, Users, DollarSign, Shield, ChevronRight, Check } from 'lucide-react';
+import { Clock, Users, Shield, ChevronRight, Check } from 'lucide-react';
 import Footer from '@/components/Footer';
+import CloudinaryImage from '@/components/CloudinaryImage';
 
 const charters = [
     {
@@ -13,7 +13,7 @@ const charters = [
         duration: '5-6 Hours',
         price: '$2,495',
         maxAnglers: 6,
-        image: '/images/charters/3-4-day/hero.jpg',
+        image: 'charters/34-day/hero',
         href: '/charters/3-4-day',
         highlights: [
             'Best for vacationers',
@@ -30,7 +30,7 @@ const charters = [
         duration: '10-12 Hours',
         price: '$2,995',
         maxAnglers: 6,
-        image: '/images/charters/full-day/hero.jpg',
+        image: 'charters/full-day/hero',
         href: '/charters/full-day',
         highlights: [
             'All-day fishing',
@@ -47,7 +47,7 @@ const charters = [
         duration: 'Sunrise to Sunset',
         price: '$3,300',
         maxAnglers: 6,
-        image: '/images/charters/extravaganza/hero.jpg',
+        image: 'charters/extravaganza/hero',
         href: '/charters/extravaganza',
         highlights: [
             'Catch guarantee',
@@ -73,16 +73,16 @@ export default function ChartersPage() {
                 </svg>
                 <span className="hidden sm:inline">Home</span>
             </Link>
+
             {/* ===== HERO SECTION ===== */}
             <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
-                <Image
-                    src="/images/charters/charters-hero.jpg"
+                <CloudinaryImage
+                    src="charters/charters-hero"
                     alt="Reel Addiction III offshore fishing"
                     fill
                     className="object-cover object-top md:object-[center_30%]"
                     priority
                     sizes="100vw"
-                    quality={90}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
 
@@ -120,7 +120,7 @@ export default function ChartersPage() {
 
                                 {/* Image */}
                                 <div className="relative h-64 overflow-hidden">
-                                    <Image
+                                    <CloudinaryImage
                                         src={charter.image}
                                         alt={charter.name}
                                         fill

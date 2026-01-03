@@ -1,6 +1,5 @@
 'use client';
-
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Fish, Utensils, Award, Scale, Snowflake, Sun, ChefHat, ExternalLink } from 'lucide-react';
 import Footer from '@/components/Footer';
@@ -21,17 +20,15 @@ export default function TheCatchPage() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
-        <Image
-          src="/images/catch/hero.jpg"
+        <CloudinaryImage
+          src="catch/hero"
           alt="Fresh caught fish being filleted"
           fill
           className="object-cover"
           priority
           sizes="100vw"
-          quality={90}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
-
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
           <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">
             Fresh, Not Frozen
@@ -198,60 +195,60 @@ export default function TheCatchPage() {
       </section>
 
       {/* ===== WHAT TO DO WITH YOUR CATCH ===== */}
-<section className="bg-gray-50 py-20 md:py-28">
-  <div className="mx-auto max-w-6xl px-6">
-    <div className="mb-12 text-center">
-      <h2 className="mb-4 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
-        What To Do With Your Catch
-      </h2>
-      <p className="font-inter text-lg text-gray-600">
-        We'll help you make the most of it
-      </p>
-    </div>
+      <section className="bg-gray-50 py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
+              What To Do With Your Catch
+            </h2>
+            <p className="font-inter text-lg text-gray-600">
+              We'll help you make the most of it
+            </p>
+          </div>
 
-    <div className="grid gap-6 md:grid-cols-2">
-      {/* Have It Prepared */}
-      <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
-        <Image
-          src="/images/catch/chef.jpg"
-          alt="Fresh fish fillets"
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-          <h3 className="mb-2 font-outfit text-2xl font-bold text-white md:text-3xl">
-            Have It Prepared
-          </h3>
-          <p className="font-inter text-sm leading-relaxed text-white/80 md:text-base">
-            Staying at Ko Olina? We connect you with chefs who'll prepare your catch for dinner that night. Nothing beats fish you caught hours earlier.
-          </p>
-        </div>
-      </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Have It Prepared */}
+            <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
+              <CloudinaryImage
+                src="catch/chef"
+                alt="Fresh fish fillets"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                <h3 className="mb-2 font-outfit text-2xl font-bold text-white md:text-3xl">
+                  Have It Prepared
+                </h3>
+                <p className="font-inter text-sm leading-relaxed text-white/80 md:text-base">
+                  Staying at Ko Olina? We connect you with chefs who'll prepare your catch for dinner that night. Nothing beats fish you caught hours earlier.
+                </p>
+              </div>
+            </div>
 
-      {/* Mount Your Trophy */}
-      <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
-        <Image
-          src="/images/catch/mount.jpg"
-          alt="Trophy yellowfin tuna being measured"
-          fill
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-          <h3 className="mb-2 font-outfit text-2xl font-bold text-white md:text-3xl">
-            Mount Your Trophy
-          </h3>
-          <p className="font-inter text-sm leading-relaxed text-white/80 md:text-base">
-            We work with Gray Taxidermy — the world's largest marine taxidermy company — to create museum-quality mounts of your trophy fish.
-          </p>
+            {/* Mount Your Trophy */}
+            <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
+              <CloudinaryImage
+                src="catch/mount"
+                alt="Trophy yellowfin tuna being measured"
+                fill
+                className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                <h3 className="mb-2 font-outfit text-2xl font-bold text-white md:text-3xl">
+                  Mount Your Trophy
+                </h3>
+                <p className="font-inter text-sm leading-relaxed text-white/80 md:text-base">
+                  We work with Gray Taxidermy — the world's largest marine taxidermy company — to create museum-quality mounts of your trophy fish.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* ===== FAQ ===== */}
       <section className="py-20 md:py-28">

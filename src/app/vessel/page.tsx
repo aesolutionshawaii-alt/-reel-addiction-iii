@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Gauge, Anchor, Wind, Snowflake, Users, Bath, Bed, Waves, Shield, Award } from 'lucide-react';
 import Footer from '@/components/Footer';
@@ -30,14 +30,13 @@ export default function TheVesselPage() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-[70vh] min-h-[600px] overflow-hidden">
-        <Image
-          src="/images/vessel/vessel-hero.jpg"
+        <CloudinaryImage
+          src="vessel/vessel-hero"
           alt="Reel Addiction III - 62ft Ocean Yacht"
           fill
           className="object-cover"
           priority
           sizes="100vw"
-          quality={90}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
 
@@ -108,8 +107,8 @@ export default function TheVesselPage() {
             </div>
 
             <div className="relative h-[400px] overflow-hidden rounded-2xl shadow-2xl lg:h-[500px]">
-              <Image
-                src="/images/vessel/vessel-seakeeper.jpg"
+              <CloudinaryImage
+                src="vessel/vessel-seakeeper"
                 alt="SeaKeeper stabilizing system"
                 fill
                 className="object-contain"
@@ -126,8 +125,8 @@ export default function TheVesselPage() {
     <div className="grid grid-cols-1 overflow-hidden rounded-3xl shadow-2xl lg:grid-cols-5">
       {/* Image - 60% (3 cols) */}
       <div className="relative h-[400px] lg:col-span-3 lg:h-[600px]">
-        <Image
-          src="/images/vessel/vessel-speed.jpg"
+        <CloudinaryImage
+          src="vessel/vessel-speed"
           alt="Reel Addiction III running offshore"
           fill
           className="object-cover"
@@ -222,8 +221,8 @@ export default function TheVesselPage() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="relative h-[500px] overflow-hidden rounded-2xl shadow-2xl">
-              <Image
-                src="/images/vessel/captain-jr.jpg"
+              <CloudinaryImage
+                src="vessel/captain-jr"
                 alt="Captain JR"
                 fill
                 className="object-cover"

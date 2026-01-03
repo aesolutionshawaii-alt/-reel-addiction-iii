@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Clock, Users, DollarSign, Calendar, Check, Info } from 'lucide-react';
 import Footer from '@/components/Footer';
@@ -25,8 +25,8 @@ export default function FullDayCharterPage() {
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-screen w-full overflow-hidden">
         <div className="absolute inset-0 h-[120vh]">
-          <Image
-            src="/images/charters/full-day/hero.jpg"
+          <CloudinaryImage
+            src="charters/full-day/hero"
             alt="Full day deep sea fishing charter"
             fill
             className="animate-ken-burns object-cover"
@@ -150,8 +150,8 @@ export default function FullDayCharterPage() {
           <div className="grid grid-cols-1 overflow-hidden rounded-3xl shadow-2xl lg:grid-cols-5">
             {/* Image - 60% (3 cols) */}
             <div className="relative h-[400px] lg:col-span-3 lg:h-[600px]">
-              <Image
-                src="/images/charters/full-day/action.jpg"
+              <CloudinaryImage
+                src="charters/full-day/action"
                 alt="Deep sea fishing action"
                 fill
                 className="object-cover"
@@ -248,8 +248,8 @@ export default function FullDayCharterPage() {
       {/* ===== TESTIMONIAL ===== */}
       <section className="relative overflow-hidden bg-[#1B3A5F] py-32">
         <div className="absolute inset-0 opacity-10">
-          <Image
-            src="/images/charters/full-day/hero.jpg"
+          <CloudinaryImage
+            src="charters/full-day/hero"
             alt="Background"
             fill
             className="object-cover"
@@ -300,7 +300,7 @@ export default function FullDayCharterPage() {
               {
                 name: "Blue Marlin",
                 season: "May - September (peak)",
-                image: "/images/species/blue-marlin.jpg",
+                image: "species/blue-marlin",
                 description: "The ultimate game fish and the crown jewel of Hawaii sportfishing. Blue marlin are powerful, acrobatic fighters that can reach massive sizes and provide the fight of a lifetime.",
                 techniques: "Live bait fishing with Opelu, high-speed trolling with lures, and watching for birds working bait schools. We focus on productive FADs and known feeding areas where blues hunt.",
                 size: "Average 200-400 lbs, trophy fish 500+ lbs",
@@ -309,7 +309,7 @@ export default function FullDayCharterPage() {
               {
                 name: "Striped Marlin",
                 season: "November - April",
-                image: "/images/species/striped-marlin.jpg",
+                image: "species/striped-marlin",
                 description: "Fast, acrobatic, and aggressive. Striped marlin put on an incredible aerial show and are known for their beautiful vertical stripes that light up when they're hunting.",
                 techniques: "High-speed trolling, live bait with flying fish or small tuna. They love to attack surface lures and will often 'light up' and circle the bait before striking.",
                 size: "Average 80-150 lbs, can reach 200+ lbs",
@@ -318,7 +318,7 @@ export default function FullDayCharterPage() {
               {
                 name: "Yellowfin Tuna (Ahi)",
                 season: "Year-round",
-                image: "/images/species/yellowfin-tuna.jpg",
+                image: "species/yellowfin-tuna",
                 description: "Powerful, fast, and delicious. Yellowfin tuna are prized both as sport fish and for their incredible meat quality. They fight hard and dive deep.",
                 techniques: "Live bait fishing, chunk fishing around FADs, high-speed trolling. We often find them feeding under birds or around floating debris and FADs.",
                 size: "Average 40-100 lbs, trophy fish 150-250 lbs",
@@ -327,7 +327,7 @@ export default function FullDayCharterPage() {
               {
                 name: "Mahi Mahi (Dorado)",
                 season: "March - June (peak)",
-                image: "/images/species/mahi-mahi.jpg",
+                image: "species/mahi-mahi",
                 description: "The most colorful fish in the ocean with brilliant greens, golds, and blues. Mahi mahi are aggressive feeders, acrobatic jumpers, and absolutely delicious.",
                 techniques: "Trolling near floating debris and weed lines, live bait fishing. Often found in schools, so where there's one, there's usually more.",
                 size: "Average 15-30 lbs, bulls can reach 50-60 lbs",
@@ -336,7 +336,7 @@ export default function FullDayCharterPage() {
               {
                 name: "Ono (Wahoo)",
                 season: "October - March",
-                image: "/images/species/ono.jpg",
+                image: "species/ono",
                 description: "The fastest fish in the ocean with blistering runs that will scream line off your reel. Ono are sleek, powerful, and have razor-sharp teeth.",
                 techniques: "High-speed trolling is most effective. Ono love wire line and strike fast-moving lures. They often hit without warning and make incredible first runs.",
                 size: "Average 25-50 lbs, can reach 80-100 lbs",
@@ -345,7 +345,7 @@ export default function FullDayCharterPage() {
               {
                 name: "Aku (Skipjack Tuna)",
                 season: "Peak April-September, available year-round",
-                image: "/images/species/aku.jpg",
+                image: "species/aku",
                 description: "Hardworking school fish that are the backbone of Hawaii's fishing culture. Aku are aggressive feeders that attack in packs and provide non-stop action.",
                 techniques: "Live bait fishing, chumming, and trolling small lures. When you find a school, it's game on with multiple hookups and constant action.",
                 size: "Average 5-15 lbs, larger fish reach 20-25 lbs",
@@ -358,7 +358,7 @@ export default function FullDayCharterPage() {
                 className="group relative cursor-pointer overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl"
               >
                 <div className="relative h-96">
-                  <Image
+                  <CloudinaryImage
                     src={species.image}
                     alt={species.name}
                     fill
@@ -414,7 +414,7 @@ export default function FullDayCharterPage() {
             </button>
 
             <div className="relative h-96 w-full">
-              <Image
+              <CloudinaryImage
                 src={selectedSpecies.image}
                 alt={selectedSpecies.name}
                 fill
@@ -581,8 +581,8 @@ export default function FullDayCharterPage() {
 
       {/* ===== FINAL CTA ===== */}
       <section className="relative h-[700px] overflow-hidden">
-        <Image
-          src="/images/charters/full-day/cta.jpg"
+        <CloudinaryImage
+          src="charters/full-day/cta"
           alt="Book your charter"
           fill
           className="animate-ken-burns object-cover"
