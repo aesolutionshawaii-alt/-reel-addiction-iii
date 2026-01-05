@@ -1,7 +1,7 @@
 import Hero from '@/components/Hero'
 import ExploreCards from '@/components/ExploreCards'
-import CharterSection from '@/components/CharterSection'
-import DailyCatchSection from '@/components/DailyCatchSection'  
+import CharterSectionV2 from '@/components/CharterSectionV2'
+import DailyCatchSection from '@/components/DailyCatchSection'
 import Testimonial from '@/components/Testimonial'
 import SeaKeeperSection from '@/components/SeaKeeperSection'
 import FinalCTA from '@/components/FinalCTA'
@@ -16,7 +16,7 @@ export default function Home() {
       <Hero />
       <FadeBackground>
         <ExploreCards />
-        <CharterSection />
+        <CharterSectionV2 />
         <DailyCatchSection />
       </FadeBackground>
       <Testimonial />
