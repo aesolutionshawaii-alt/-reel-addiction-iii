@@ -4,10 +4,15 @@ import Link from 'next/link'
 export default function CTA() {
   return (
     <section className="relative h-[600px] md:h-[1100px]">
-      {/* Background Image */}
+      {/* Desktop background */}
       <div
-        className="absolute inset-0 bg-cover bg-[center_20%]"
+        className="absolute inset-0 bg-cover bg-[center_20%] hidden md:block"
         style={{ backgroundImage: "url('https://res.cloudinary.com/dmu9szrap/image/upload/f_auto,q_auto/images/cta-group')" }}
+      />
+      {/* Mobile background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center md:hidden"
+        style={{ backgroundImage: "url('https://res.cloudinary.com/dmu9szrap/image/upload/f_auto,q_auto/images/cta-group-mobile')" }}
       />
 
       {/* Bottom gradient - fades to black */}
@@ -20,7 +25,7 @@ export default function CTA() {
       />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-end pb-16 md:pb-32 px-4">
+      <div className="relative z-10 h-full flex flex-col items-center justify-end pb-32 md:pb-32 px-4">
         <h2 className="font-outfit font-bold text-[40px] md:text-[96px] text-white text-center mb-6 md:mb-8 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
           Ready to Fish?
         </h2>
