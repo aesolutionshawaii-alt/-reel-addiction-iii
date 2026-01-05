@@ -67,16 +67,24 @@ export default function Hero() {
       {/* Background */}
       <div className="absolute inset-0">
         {/* Poster image - desktop only, fades out when video ready */}
-        <div className={`absolute inset-0 transition-opacity duration-500 hidden md:block ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`absolute inset-0 transition-opacity duration-500 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}>
+          {/* Mobile poster */}
+          <CloudinaryImage
+            src="images/hero-poster-mobile"
+            alt="Reel Addiction III"
+            fill
+            className="object-cover object-bottom md:hidden"
+            priority
+          />
+          {/* Desktop poster */}
           <CloudinaryImage
             src="images/hero-boat"
             alt="Reel Addiction III"
             fill
-            className="object-cover object-bottom"
+            className="object-cover object-bottom hidden md:block"
             priority
           />
         </div>
-
         {/* Video - only loads correct version based on screen size */}
         {videoSrc && (
           <video
