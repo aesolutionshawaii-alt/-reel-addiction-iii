@@ -20,6 +20,7 @@ const playfair = Playfair_Display({
   display: 'swap',
 })
 
+
 export const metadata: Metadata = {
   title: "Reel Addiction III | O'ahu's Premier Deep Sea Fishing Charter",
   description: "Experience world-class deep sea fishing aboard O'ahu's largest and fastest charter. SeaKeeper stabilized for smooth rides. Blue marlin, ahi, mahi mahi, and more from Ko Olina.",
@@ -49,6 +50,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} ${playfair.variable}`}>
+      <head>
+        <link
+          rel="preload"
+          href="/videos/hero-mobile-720-noaudio.mp4"
+          as="video"
+          type="video/mp4"
+          media="(max-width: 767px)"
+        />
+        <link
+          rel="preload"
+          href="/videos/hero-video.mp4"
+          as="video"
+          type="video/mp4"
+          media="(min-width: 768px)"
+        />
+      </head>
       <body className="font-inter text-navy bg-offwhite">{children}</body>
     </html>
   )

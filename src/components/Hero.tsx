@@ -24,7 +24,10 @@ export default function Hero() {
       }
     }
   }
-
+  useEffect(() => {
+    console.log('Hero MOUNTED')
+    return () => console.log('Hero UNMOUNTED')
+  }, [])
   useEffect(() => {
     if (window.innerWidth < 768) {
       setVideoSrc('/videos/hero-mobile-720-noaudio.mp4')
