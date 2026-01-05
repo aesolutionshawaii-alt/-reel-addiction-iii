@@ -5,13 +5,15 @@ import { CldImage, CldImageProps } from 'next-cloudinary';
 export default function CloudinaryImage(props: CldImageProps) {
   const [loaded, setLoaded] = useState(false);
   
-  // Priority images show immediately - no fade needed
-  if (props.priority) {
+  // Priority images OR images with explicit opacity classes - no fade logic
+  const hasOpacityClass = props.className?.includes('opacity-');
+  
+  if (props.priority || hasOpacityClass) {
     return (
       <CldImage
         {...props}
         format="avif"
-        loading="eager"
+        loading={props.priority ? 'eager' : 'lazy'}
         decoding="async"
       />
     );
