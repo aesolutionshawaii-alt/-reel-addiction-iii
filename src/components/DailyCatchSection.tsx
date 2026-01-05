@@ -28,22 +28,25 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
   }, [])
 
   useEffect(() => {
-    const checkScrollability = () => {
-      if (scrollContainerRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
-        setCanScrollLeft(scrollLeft > 0)
-        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    let ticking = false
 
-        // Clear hovered card on scroll - mobile only
-        if (window.innerWidth < 768) {
-          setHoveredCard(null)
-        }
+    const checkScrollability = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (scrollContainerRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+            setCanScrollLeft(scrollLeft > 0)
+            setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+          }
+          ticking = false
+        })
+        ticking = true
       }
     }
 
     checkScrollability()
     const container = scrollContainerRef.current
-    container?.addEventListener('scroll', checkScrollability)
+    container?.addEventListener('scroll', checkScrollability, { passive: true })
     window.addEventListener('resize', checkScrollability)
 
     return () => {
@@ -51,7 +54,6 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
       window.removeEventListener('resize', checkScrollability)
     }
   }, [catches])
-
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const scrollAmount = 400
@@ -116,7 +118,10 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
                 />
 
                 <div className="absolute top-4 left-4 z-10">
-                  <p className="text-white font-outfit text-sm tracking-widest uppercase">
+                  <p
+                    className="text-white font-outfit text-sm tracking-widest uppercase"
+                    style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}
+                  >
                     {new Date(catchItem.date).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
@@ -133,7 +138,10 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
                   transition={{ duration: 0.3 }}
                 >
                   {catchItem.caption && (
-                    <p className="text-white font-outfit text-lg leading-snug mb-3">
+                    <p
+                      className="text-white font-outfit text-lg leading-snug mb-3"
+                      style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}
+                    >
                       {catchItem.caption}
                     </p>
                   )}
@@ -143,6 +151,8 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
                         <span
                           key={species}
                           className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-outfit uppercase tracking-wider"
+                          style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}
+
                         >
                           {species.replace('-', ' ')}
                         </span>
@@ -165,8 +175,8 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
           onClick={() => scroll('left')}
           disabled={!canScrollLeft}
           className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border ${canScrollLeft
-              ? 'bg-gray-700/30 border-gray-600/40 hover:bg-gray-600/40 hover:border-gray-500/50 cursor-pointer'
-              : 'bg-gray-800/20 border-gray-700/30 cursor-not-allowed opacity-50'
+            ? 'bg-gray-700/30 border-gray-600/40 hover:bg-gray-600/40 hover:border-gray-500/50 cursor-pointer'
+            : 'bg-gray-800/20 border-gray-700/30 cursor-not-allowed opacity-50'
             }`}
           aria-label="Scroll left"
         >
@@ -184,8 +194,8 @@ export default function DailyCatchSection({ isDark = false }: { isDark?: boolean
           onClick={() => scroll('right')}
           disabled={!canScrollRight}
           className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border ${canScrollRight
-              ? 'bg-gray-700/30 border-gray-600/40 hover:bg-gray-600/40 hover:border-gray-500/50 cursor-pointer'
-              : 'bg-gray-800/20 border-gray-700/30 cursor-not-allowed opacity-50'
+            ? 'bg-gray-700/30 border-gray-600/40 hover:bg-gray-600/40 hover:border-gray-500/50 cursor-pointer'
+            : 'bg-gray-800/20 border-gray-700/30 cursor-not-allowed opacity-50'
             }`}
           aria-label="Scroll right"
         >
