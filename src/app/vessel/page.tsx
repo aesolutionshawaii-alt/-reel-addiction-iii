@@ -111,7 +111,7 @@ export default function TheVesselPage() {
                 src="vessel/vessel-seakeeper"
                 alt="SeaKeeper stabilizing system"
                 fill
-                className="object-contain"
+                className="object-contain object-bottom"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>

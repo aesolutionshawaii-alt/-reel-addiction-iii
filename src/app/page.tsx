@@ -17,7 +17,7 @@ export default function Home() {
       <FadeBackground>
         <ExploreCards />
         <CharterSection />
-        
+        <DailyCatchSection />
       </FadeBackground>
       <Testimonial />
       <SeaKeeperSection />
