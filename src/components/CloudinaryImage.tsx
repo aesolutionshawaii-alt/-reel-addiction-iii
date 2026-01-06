@@ -18,7 +18,7 @@ export default function CloudinaryImage(props: CldImageProps) {
       className={`${props.className || ''} ${
         isHomepage 
           ? '' 
-          : `transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`
+          : `transition-opacity duration-300 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`
       }`}
     />
   );
