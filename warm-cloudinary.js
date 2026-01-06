@@ -16,20 +16,9 @@ const FOLDERS = [
   'vessel'
 ];
 
-// Transformations to pre-generate (matching what your site uses)
-const EAGER_TRANSFORMS = [
-  { width: 640, crop: 'scale', quality: 'auto', format: 'avif' },
-  { width: 750, crop: 'scale', quality: 'auto', format: 'avif' },
-  { width: 1080, crop: 'scale', quality: 'auto', format: 'avif' },
-  { width: 1200, crop: 'scale', quality: 'auto', format: 'avif' },
-  { width: 1920, crop: 'scale', quality: 'auto', format: 'avif' },
-  // Also generate WebP for browsers that don't support AVIF
-  { width: 640, crop: 'scale', quality: 'auto', format: 'webp' },
-  { width: 750, crop: 'scale', quality: 'auto', format: 'webp' },
-  { width: 1080, crop: 'scale', quality: 'auto', format: 'webp' },
-  { width: 1200, crop: 'scale', quality: 'auto', format: 'webp' },
-  { width: 1920, crop: 'scale', quality: 'auto', format: 'webp' },
-];
+// Transformations to match what Next.js/next-cloudinary actually requests
+// Format: c_limit,w_WIDTH/f_avif/q_auto (chained, not combined)
+const WIDTHS = [640, 750, 828, 1080, 1200, 1920];
 
 async function getAllImages(folder) {
   const images = [];
@@ -52,9 +41,26 @@ async function getAllImages(folder) {
 
 async function warmImage(publicId) {
   try {
+    // Build eager transformations to match Next.js URL format exactly
+    // Next.js requests: c_limit,w_1920/f_avif/q_auto
+    const eagerTransforms = WIDTHS.flatMap(width => [
+      // AVIF format (most browsers)
+      { 
+        raw_transformation: `c_limit,w_${width}/f_avif/q_auto`
+      },
+      // WebP fallback
+      { 
+        raw_transformation: `c_limit,w_${width}/f_webp/q_auto`
+      },
+      // Auto format (let Cloudinary decide)
+      {
+        raw_transformation: `c_limit,w_${width}/f_auto/q_auto`
+      }
+    ]);
+
     await cloudinary.uploader.explicit(publicId, {
       type: 'upload',
-      eager: EAGER_TRANSFORMS,
+      eager: eagerTransforms,
       eager_async: true
     });
     console.log(`✓ Warmed: ${publicId}`);
@@ -66,8 +72,8 @@ async function warmImage(publicId) {
 }
 
 async function main() {
-  console.log('🔥 Cloudinary Image Warmer');
-  console.log('==========================\n');
+  console.log('🔥 Cloudinary Image Warmer (Next.js Format)');
+  console.log('============================================\n');
 
   let totalImages = 0;
   let successCount = 0;
@@ -87,19 +93,20 @@ async function main() {
         else failCount++;
         
         // Small delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 200));
       }
     } catch (error) {
       console.error(`   Error scanning ${folder}: ${error.message}`);
     }
   }
 
-  console.log('\n==========================');
+  console.log('\n============================================');
   console.log(`🏁 Complete!`);
-  console.log(`   Total: ${totalImages}`);
+  console.log(`   Total images: ${totalImages}`);
   console.log(`   Success: ${successCount}`);
   console.log(`   Failed: ${failCount}`);
-  console.log(`\n   Transformations generated: ${successCount * EAGER_TRANSFORMS.length}`);
+  console.log(`   Transformations per image: ${WIDTHS.length * 3}`);
+  console.log(`   Total transformations: ${successCount * WIDTHS.length * 3}`);
 }
 
 main();
