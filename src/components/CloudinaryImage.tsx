@@ -7,6 +7,10 @@ export default function CloudinaryImage(props: CldImageProps) {
   const pathname = usePathname();
   const isHomepage = pathname === '/';
   const [isLoaded, setIsLoaded] = useState(false);
+  
+  // Only apply fade-in to full-screen hero images (those with fill prop and priority)
+  const isHeroImage = props.fill && props.priority;
+  const shouldFade = !isHomepage && isHeroImage;
 
   return (
     <CldImage
@@ -16,9 +20,9 @@ export default function CloudinaryImage(props: CldImageProps) {
       decoding="async"
       onLoad={() => setIsLoaded(true)}
       className={`${props.className || ''} ${
-        isHomepage 
-          ? '' 
-          : `transition-opacity duration-300 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`
+        shouldFade 
+          ? `transition-opacity duration-300 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`
+          : ''
       }`}
     />
   );
