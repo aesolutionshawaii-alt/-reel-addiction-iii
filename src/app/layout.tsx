@@ -20,7 +20,6 @@ const playfair = Playfair_Display({
   display: 'swap',
 })
 
-
 export const metadata: Metadata = {
   title: "Reel Addiction III | O'ahu's Premier Deep Sea Fishing Charter",
   description: "Experience world-class deep sea fishing aboard O'ahu's largest and fastest charter. SeaKeeper stabilized for smooth rides. Blue marlin, ahi, mahi mahi, and more from Ko Olina.",
@@ -51,6 +50,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} ${playfair.variable}`}>
       <head>
+        {/* Preconnect to Cloudinary - eliminates ~500ms connection overhead */}
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        
         <link
           rel="preload"
           href="/videos/hero-mobile-720-noaudio.mp4"
