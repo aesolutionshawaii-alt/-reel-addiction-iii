@@ -13,18 +13,20 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-white"><InnerNavigation />
+    <main className="min-h-screen bg-white">
+      <InnerNavigation />
+      
       {/* Hero Section */}
       <section className="relative h-[40vh] min-h-[350px] overflow-hidden">
         <CloudinaryImage
-          src="contact/hero"
+          src="images/contact/contact-hero"
           alt="Ko Olina Marina at sunset"
           fill
           className="object-cover"
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
+        <div className="absolute inset-0 bg-black/30" />
 
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
           <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">
@@ -116,7 +118,7 @@ export default function ContactPage() {
               </div>
 
               {/* Quick Book Card */}
-              <div className="rounded-2xl bg-[#1B3A5F] p-8">
+              <div className="bg-[#1B3A5F] p-8">
                 <h3 className="mb-2 font-outfit text-xl font-bold text-white">
                   Ready to Book?
                 </h3>
@@ -127,7 +129,7 @@ export default function ContactPage() {
                   href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block rounded-full bg-red-600 px-8 py-3 font-outfit font-bold text-white transition-colors hover:bg-red-700"
+                  className="inline-block bg-red-600 px-8 py-3 font-outfit font-bold text-white transition-colors hover:bg-red-700"
                 >
                   Book Now
                 </Link>
@@ -135,7 +137,7 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Form */}
-            <div className="rounded-2xl border-2 border-gray-200 bg-gray-50 p-8">
+            <div className="border-2 border-gray-200 bg-gray-50 p-8 self-start">
               <ContactForm />
             </div>
           </div>
@@ -148,7 +150,7 @@ export default function ContactPage() {
           <h2 className="mb-8 text-center font-outfit text-3xl font-bold text-[#1B3A5F]">
             Find Us at Ko Olina Marina
           </h2>
-          <div className="aspect-video overflow-hidden rounded-2xl shadow-lg">
+          <div className="aspect-video overflow-hidden shadow-lg">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3717.5!2d-158.128!3d21.329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006f7e7a8a4e5d%3A0x3a7e8f8a8a8a8a8a!2sKo%20Olina%20Marina!5e0!3m2!1sen!2sus!4v1234567890"
               width="100%"

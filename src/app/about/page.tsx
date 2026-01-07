@@ -29,11 +29,11 @@ export default function AboutPage() {
 
       {/* Captain Bio Section */}
       <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-12 md:grid-cols-2 items-center">
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative aspect-[3/2] rounded-2xl overflow-hidden shadow-2xl self-center">
               <CloudinaryImage
-                src="about/captain-jr"
+                src="images/About/captain-jr-optimized"
                 alt="Captain JR"
                 fill
                 className="object-cover"
@@ -51,28 +51,107 @@ export default function AboutPage() {
                 </h2>
               </div>
 
-              <div className="space-y-4 font-inter text-lg leading-relaxed text-gray-700">
+              <div className="space-y-6 -mt-8">
                 <p>
-                  Born and raised in Hawaii, Captain JR has been fishing these waters 
-                  his entire life. What started as a passion inherited from his father 
-                  has become a lifelong dedication to sharing the thrill of Hawaiian 
+                  Raised in Hawaii, Captain JR has been fishing these waters
+                  his entire life. What started as a passion inherited from his father
+                  has become a lifelong dedication to sharing the thrill of Hawaiian
                   sportfishing with visitors from around the world.
                 </p>
                 <p>
-                  With thousands of successful charters under his belt, Captain JR knows 
-                  exactly where the fish are and how to put you on them. His intimate 
-                  knowledge of Oahu's coastline, currents, and seasonal patterns gives 
-                  Reel Addiction III guests the best possible chance at landing the fish 
+                  With thousands of successful charters under his belt, Captain JR knows
+                  exactly where the fish are and how to put you on them. His intimate
+                  knowledge of Oahu's coastline, currents, and seasonal patterns gives
+                  Reel Addiction III guests the best possible chance at landing the fish
                   of a lifetime.
                 </p>
                 <p>
-                  More than just a fishing captain, JR is a storyteller, a teacher, and 
-                  an ambassador for Hawaii's maritime heritage. Every trip is an opportunity 
-                  to share the traditions, techniques, and aloha spirit that make Hawaiian 
+                  More than just a fishing captain, JR is a storyteller, a teacher, and
+                  an ambassador for Hawaii's maritime heritage. Every trip is an opportunity
+                  to share the traditions, techniques, and aloha spirit that make Hawaiian
                   fishing truly special.
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+      {/* Owner Section */}
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="h-px bg-gray-200" />
+
+          <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center py-12">
+            {/* Portrait */}
+            <div className="relative flex-shrink-0 w-64 md:w-72 aspect-[4/5] overflow-hidden">
+              <CloudinaryImage
+                src="images/About/crew-mike"
+                alt="Mike - Owner"
+                fill
+                className="object-cover"
+                sizes="288px"
+              />
+            </div>
+
+            {/* Text content - flex-1 lets it fill available space */}
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="font-outfit text-3xl md:text-4xl font-bold text-[#1B3A5F] mb-4">
+                The Vision Behind Reel Addiction III
+              </h2>
+              <p className="font-inter text-lg text-gray-600 leading-relaxed mb-6">
+                Mike's lifelong passion for fishing and the Hawaiian Islands led him to build
+                something special. His vision was simple: the best boat, the best crew, and an
+                experience guests remember forever.
+              </p>
+              <p className="font-inter font-semibold text-gray-800">
+                Meet the team that makes it happen.{' '}
+                <a href="#captain" className="text-blue-600 hover:text-blue-700">Captain JR</a>
+                {' · '}
+                <a href="#crew" className="text-blue-600 hover:text-blue-700">The Crew</a>
+              </p>
+            </div>
+          </div>
+
+          <div className="h-px bg-gray-200" />
+        </div>
+      </section>
+
+      {/* Meet The Crew */}
+      <section className="py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mb-12 text-center">
+            <h2 className="font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
+              Meet The Crew
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {[
+              { name: 'Mo', role: 'Engineer', image: 'images/About/crew-mo' },
+              { name: 'Bubba', role: 'Deckhand', image: 'images/About/crew-bubba' },
+              { name: 'Bully', role: 'Deckhand', image: 'images/About/crew-bully' },
+              { name: 'Keaka', role: 'Deckhand', image: 'images/About/crew-keaka' },
+              { name: 'Herbie', role: 'Deckhand', image: 'images/About/crew-herbie' },
+              { name: 'Matt', role: 'Deckhand', image: 'images/About/crew-matt' },
+            ].map((member) => (
+              <div
+                key={member.name}
+                className="group relative aspect-[4/5] overflow-hidden cursor-pointer"
+              >
+                <CloudinaryImage
+                  src={member.image}
+                  alt={`${member.name} - ${member.role}`}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <p className="font-outfit text-xl font-bold text-white">{member.name}</p>
+                  <p className="font-inter text-sm text-white/80">{member.role}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -85,7 +164,7 @@ export default function AboutPage() {
               Our Philosophy
             </h2>
             <p className="font-inter text-xl text-gray-600">
-              Every charter is personal. Whether you're a seasoned angler or 
+              Every charter is personal. Whether you're a seasoned angler or
               first-time fisherman, we tailor the experience to you.
             </p>
           </div>
@@ -136,43 +215,41 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Vessel Teaser */}
-      <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-12 md:grid-cols-2 items-center">
-            <div className="space-y-6">
-              <h2 className="font-outfit text-4xl font-bold text-[#1B3A5F]">
+      {/* Vessel Teaser - Full Bleed */}
+      <section className="relative h-[500px] md:h-[600px] overflow-hidden">
+        <CloudinaryImage
+          src="images/About/vessel-16x9"
+          alt="Reel Addiction III on the water"
+          fill
+          className="object-cover object-[center_60%]"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+
+        <div className="relative h-full flex items-center">
+          <div className="px-8 md:px-16 w-full">
+            <div className="max-w-lg">
+              <h2 className="mb-4 font-outfit text-3xl font-bold text-white md:text-4xl lg:text-5xl">
                 The Vessel
               </h2>
-              <p className="font-inter text-lg leading-relaxed text-gray-700">
-                Reel Addiction III is a custom-built sportfishing vessel designed 
-                specifically for Hawaii's offshore waters. Equipped with top-of-the-line 
-                tackle, electronics, and amenities, she's ready to chase everything from 
-                mahi-mahi to marlin.
+              <p className="mb-4 font-inter text-lg text-white/80">
+                Reel Addiction III is a custom-built sportfishing vessel designed
+                specifically for Hawaii's offshore waters. Equipped with top-of-the-line
+                tackle, electronics, and amenities.
               </p>
-              <p className="font-inter text-lg leading-relaxed text-gray-700">
-                With SeaKeeper stabilization for smooth rides even in rough seas, 
+              <p className="mb-8 font-inter text-lg text-white/80">
+                With SeaKeeper stabilization for smooth rides even in rough seas,
                 you'll fish in comfort all day long.
               </p>
               <Link
                 href="/vessel"
-                className="inline-flex items-center gap-2 font-outfit text-lg font-semibold text-red-600 hover:text-red-700 transition-colors"
+                className="inline-flex items-center gap-2 font-outfit text-lg font-semibold text-white hover:text-red-400 transition-colors"
               >
                 View Full Vessel Specs
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
-            </div>
-
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
-              <CloudinaryImage
-                src="vessel/exterior"
-                alt="Reel Addiction III sportfishing boat"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
             </div>
           </div>
         </div>
