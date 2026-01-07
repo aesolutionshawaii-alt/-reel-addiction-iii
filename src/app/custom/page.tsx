@@ -1,10 +1,15 @@
-'use client';
-
+import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Heart, Briefcase, Compass, Users, Anchor, Phone, Star, Gift } from 'lucide-react';
 import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
+
+export const metadata: Metadata = {
+  title: "Custom Charters | Reel Addiction III - Private Events & Memorials",
+  description: "Custom charter experiences on Oahu's finest vessel. Memorial services, corporate events, celebrations, and inter-island overnighters. Contact Captain JR.",
+};
+
 const customCharters = [
   {
     icon: Heart,

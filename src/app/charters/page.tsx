@@ -1,13 +1,14 @@
-'use client';
-
+import { Metadata } from 'next';
 import Link from 'next/link';
-import { Clock, Users, Shield, ChevronRight, Check, Ship, ChevronDown } from 'lucide-react';
+import { Clock, Users, Shield, ChevronRight, Check } from 'lucide-react';
 import Footer from '@/components/Footer';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import InnerNavigation from '@/components/InnerNavigation';
-import { useRef } from 'react'
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 
+export const metadata: Metadata = {
+  title: "Fishing Charters | Reel Addiction III - Ko Olina, Oahu",
+  description: "Choose your Hawaiian fishing adventure. 3/4 day, full day, or Extravaganza charters departing from Ko Olina Marina. Hawaii's only guaranteed charter.",
+};
 
 const charters = [
     {

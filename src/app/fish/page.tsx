@@ -1,10 +1,15 @@
-'use client';
-
+import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
-import { Fish, Utensils, Award, Scale, Snowflake, Sun, ChefHat, ExternalLink } from 'lucide-react';
+import { Fish, Snowflake, Sun, ChefHat, Award, Scale, ExternalLink } from 'lucide-react';
 import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
+
+export const metadata: Metadata = {
+  title: "Your Catch | Reel Addiction III - Hawaii Fish Policy",
+  description: "Learn about our fish policy, what happens to your catch, and how Hawaii's day-boat fishery works differently. Fresh fish, fair split, local tradition.",
+};
+
 export default function TheCatchPage() {
   return (
     <main className="min-h-screen bg-white"><InnerNavigation />

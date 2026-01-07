@@ -1,10 +1,15 @@
-'use client';
-
+import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Gauge, Anchor, Wind, Snowflake, Users, Bath, Bed, Waves, Shield, Award } from 'lucide-react';
 import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
+
+export const metadata: Metadata = {
+  title: "The Vessel | Reel Addiction III - 62' Ocean Yacht",
+  description: "Meet Reel Addiction III, Oahu's largest and fastest charter fishing boat. 62' Ocean yacht with SeaKeeper stabilization, 3 staterooms, and 40+ mph speed.",
+};
+
 const specs = [
   { icon: Anchor, label: 'Length', value: '62 ft', detail: 'Ocean Yacht' },
   { icon: Gauge, label: 'Top Speed', value: '40+ mph', detail: 'Fastest in Ko Olina' },
