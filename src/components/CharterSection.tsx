@@ -201,6 +201,28 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       video.pause()
     }
   }, [loadVideoIndex, sectionInView, isPlaying, videoLoadedStates])
+  // Pause/resume videos when mobile menu opens/closes
+  useEffect(() => {
+    const handlePauseAll = () => {
+      console.log('CHARTER: Received pauseAllVideos');
+      setIsPlaying(false);
+      videoRefs.current.forEach(video => {
+        if (video) video.pause();
+      });
+    };
+
+    const handleResumeAll = () => {
+      console.log('CHARTER: Received resumeAllVideos');
+      setIsPlaying(true);
+    };
+
+    window.addEventListener('pauseAllVideos', handlePauseAll);
+    window.addEventListener('resumeAllVideos', handleResumeAll);
+    return () => {
+      window.removeEventListener('pauseAllVideos', handlePauseAll);
+      window.removeEventListener('resumeAllVideos', handleResumeAll);
+    };
+  }, []);
 
   const togglePlayback = () => {
     setIsPlaying(!isPlaying)

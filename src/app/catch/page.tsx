@@ -1,38 +1,17 @@
-'use client';
+
+import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Fish, Utensils, Award, Scale, Snowflake, Sun, ChefHat, ExternalLink } from 'lucide-react';
 import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
-
-import { useScroll, useTransform, motion } from 'framer-motion';
-import { useRef } from 'react';
-function HeroContent() {
-  const ref = useRef(null);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 50]);
-
-  return (
-    <motion.div
-      ref={ref}
-      style={{ y }}
-      className="absolute inset-0 flex flex-col items-start justify-end pb-16 px-8 text-left md:pb-20 md:px-16"
-    >
-      <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400 opacity-0 animate-fade-in-up [animation-delay:200ms]">
-        Fresh, Not Frozen
-      </p>
-      <h1 className="mb-6 font-outfit text-5xl font-bold text-white drop-shadow-lg md:text-6xl lg:text-7xl opacity-0 animate-fade-in-up [animation-delay:400ms]">
-        Your Catch
-      </h1>
-      <p className="max-w-2xl font-inter text-xl text-white/90 md:text-2xl opacity-0 animate-fade-in-up [animation-delay:600ms]">
-        How Hawaii does fish differently
-      </p>
-    </motion.div>
-  );
-}
+import CatchHeroContent from '@/components/CatchHeroContent';
+export const metadata: Metadata = {
+  title: "Your Catch | Reel Addiction III - Hawaii Fish Policy",
+  description: "Learn about our fish policy, what happens to your catch, and how Hawaii's day-boat fishery works differently. Fresh fish, fair split, local tradition.",
+};
 export default function TheCatchPage() {
-  return (
-    <main className="min-h-screen bg-white"><InnerNavigation />
+  return (<main className="min-h-screen bg-white"><InnerNavigation />
 
 
       {/* ===== HERO SECTION ===== */}
@@ -47,7 +26,7 @@ export default function TheCatchPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
 
-        <HeroContent />
+        <CatchHeroContent />
       </section>
 
       {/* ===== INTRO - A DIFFERENT KIND OF FISHERY ===== */}
@@ -131,7 +110,7 @@ export default function TheCatchPage() {
 
       {/* ===== THE POLICY ===== */}
       <section className="bg-gray-50 py-20 md:py-28">
-        <div className="mx-auto px-6 lg:px-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-20">
           <div className="mb-16 text-center">
             <h2 className="mb-6 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
               Our Fish Policy
@@ -141,38 +120,41 @@ export default function TheCatchPage() {
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3">
-            {/* 15 lbs */}
-            <div className="rounded-2xl bg-white p-8 shadow-lg">
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <Scale className="h-8 w-8 text-green-600" />
+          <div className="relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-[#1B3A5F]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative grid gap-8 md:grid-cols-3">
+              {/* 15 lbs */}
+              <div className="rounded-2xl bg-white p-8 shadow-lg">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                  <Scale className="h-8 w-8 text-green-600" />
+                </div>
+                <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">15 lbs of Whole Fish</h3>
+                <p className="font-inter leading-relaxed text-gray-600">
+                  You're entitled to 15 pounds of whole fish per charter. That's a lot more than it sounds — enough for multiple meals for your whole group.
+                </p>
               </div>
-              <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">15 lbs of Whole Fish</h3>
-              <p className="font-inter leading-relaxed text-gray-600">
-                You're entitled to 15 pounds of whole fish per charter. That's a lot more than it sounds — enough for multiple meals for your whole group.
-              </p>
-            </div>
 
-            {/* Captain Selects */}
-            <div className="rounded-2xl bg-white p-8 shadow-lg">
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
-                <Fish className="h-8 w-8 text-blue-600" />
+              {/* Captain Selects */}
+              <div className="rounded-2xl bg-white p-8 shadow-lg">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
+                  <Fish className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">Captain Selects</h3>
+                <p className="font-inter leading-relaxed text-gray-600">
+                  Captain JR picks which fish to fillet based on eating quality. He knows which fish will taste best tonight and which ones are better suited for the crew.
+                </p>
               </div>
-              <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">Captain Selects</h3>
-              <p className="font-inter leading-relaxed text-gray-600">
-                Captain JR picks which fish to fillet based on eating quality. He knows which fish will taste best tonight and which ones are better suited for the crew.
-              </p>
-            </div>
 
-            {/* 100+ lbs */}
-            <div className="rounded-2xl bg-white p-8 shadow-lg">
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-yellow-100">
-                <Award className="h-8 w-8 text-yellow-600" />
+              {/* 100+ lbs */}
+              <div className="rounded-2xl bg-white p-8 shadow-lg">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-yellow-100">
+                  <Award className="h-8 w-8 text-yellow-600" />
+                </div>
+                <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">Trophy Fish (100+ lbs)</h3>
+                <p className="font-inter leading-relaxed text-gray-600">
+                  Fish over 100 pounds stay with the boat and crew. These giants are rare, celebrated, and often released. You get the photos, the story, and the bragging rights.
+                </p>
               </div>
-              <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">Trophy Fish (100+ lbs)</h3>
-              <p className="font-inter leading-relaxed text-gray-600">
-                Fish over 100 pounds stay with the boat and crew. These giants are rare, celebrated, and often released. You get the photos, the story, and the bragging rights.
-              </p>
             </div>
           </div>
         </div>
@@ -281,8 +263,8 @@ export default function TheCatchPage() {
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <CloudinaryImage
-                src="catch/crew-fillet"
-                alt="Crew filleting fish at the dock"
+                src="catch/crew-tradition"
+                alt="Crew landing a tuna fish "
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"

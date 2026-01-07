@@ -3,6 +3,7 @@ import Link from 'next/link';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
+import AboutHeroContent from '@/components/AboutHeroContent';
 export const metadata: Metadata = {
   title: "About Us | Reel Addiction III - O'ahu Deep Sea Fishing",
   description: "Meet Captain JR and the crew of Reel Addiction III. Premium deep sea fishing charters from Ko Olina Marina, Oahu. Generations of Hawaii fishing experience.",
@@ -14,26 +15,16 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
         <CloudinaryImage
-          src="about/hero"
+          src="images/About/about-hero-crew-v3"
           alt="Captain JR and crew aboard Reel Addiction III"
           fill
-          className="object-cover"
+          className="object-cover object-top"
           priority
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-          <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">
-            Our Story
-          </p>
-          <h1 className="mb-6 font-outfit text-5xl font-bold text-white drop-shadow-lg md:text-6xl lg:text-7xl">
-            About Us
-          </h1>
-          <p className="max-w-2xl font-inter text-xl text-white/90 md:text-2xl">
-            Local crew. Generations of experience. Fishing done right.
-          </p>
-        </div>
+        <AboutHeroContent />
       </section>
 
       {/* Captain Bio Section */}
