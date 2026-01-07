@@ -54,20 +54,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
         
-        <link
-          rel="preload"
-          href="/videos/hero-mobile-720-noaudio.mp4"
-          as="video"
-          type="video/mp4"
-          media="(max-width: 767px)"
-        />
-        <link
-          rel="preload"
-          href="/videos/hero-video.mp4"
-          as="video"
-          type="video/mp4"
-          media="(min-width: 768px)"
-        />
+        
       </head>
       <body className="font-inter text-navy bg-offwhite">{children}</body>
     </html>
