@@ -4,20 +4,11 @@ import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Fish, Utensils, Award, Scale, Snowflake, Sun, ChefHat, ExternalLink } from 'lucide-react';
 import Footer from '@/components/Footer';
-
+import InnerNavigation from '@/components/InnerNavigation';
 export default function TheCatchPage() {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Back to Home */}
-      <Link
-        href="/"
-        className="fixed left-4 top-4 z-50 flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-gray-700 shadow-lg backdrop-blur transition-colors hover:bg-white hover:text-red-600"
-      >
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-        <span className="hidden sm:inline">Home</span>
-      </Link>
+    <main className="min-h-screen bg-white"><InnerNavigation />
+      
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-[60vh] min-h-[500px] overflow-hidden">

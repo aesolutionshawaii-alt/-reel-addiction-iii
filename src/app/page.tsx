@@ -8,10 +8,11 @@ import FinalCTA from '@/components/FinalCTA'
 import Footer from '@/components/Footer'
 import SocialSidebar from '@/components/SocialSidebar'
 import FadeBackground from '@/components/FadeBackground'
-
+import InnerNavigation from '@/components/InnerNavigation'
 export default function Home() {
   return (
     <main>
+      <InnerNavigation />
       <SocialSidebar />
       <Hero />
       <FadeBackground>

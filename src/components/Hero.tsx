@@ -104,29 +104,9 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-[49%]" />
       </div>
 
-      {/* Logo */}
-      <Link href="/" className="absolute top-4 left-4 md:top-[31px] md:left-[38px] z-10">
-        <Image
-          src="/images/logo-white.png"
-          alt="Reel Addiction III"
-          width={252}
-          height={68}
-          className="w-[150px] h-[40px] md:w-[252px] md:h-[68px] object-contain"
-        />
-      </Link>
+      
 
-      {/* Navigation - desktop only */}
-      <nav className="absolute top-[31px] right-[38px] z-10 hidden md:block">
-        <p className="font-outfit font-normal text-[#f7f5f2] text-base">
-          <Link href="#about" className="hover:underline">About</Link>
-          <span className="mx-2">|</span>
-          <Link href="#charters" className="hover:underline">Charters</Link>
-          <span className="mx-2">|</span>
-          <Link href="#fish" className="hover:underline">Fish</Link>
-          <span className="mx-2">|</span>
-          <Link href="#contact" className="hover:underline">Contact</Link>
-        </p>
-      </nav>
+     
 
       {/* Mobile Hamburger Button */}
       <button

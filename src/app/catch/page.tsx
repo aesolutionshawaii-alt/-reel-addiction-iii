@@ -3,20 +3,11 @@ import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Fish, Utensils, Award, Scale, Snowflake, Sun, ChefHat, ExternalLink } from 'lucide-react';
 import Footer from '@/components/Footer';
-
+import InnerNavigation from '@/components/InnerNavigation';
 export default function TheCatchPage() {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Back to Home */}
-      <Link
-        href="/"
-        className="fixed left-4 top-4 z-50 flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-gray-700 shadow-lg backdrop-blur transition-colors hover:bg-white hover:text-red-600"
-      >
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-        <span className="hidden sm:inline">Home</span>
-      </Link>
+    <main className="min-h-screen bg-white"><InnerNavigation />
+     
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
@@ -92,6 +83,42 @@ export default function TheCatchPage() {
             <p className="font-inter text-lg leading-relaxed md:text-xl">
               In Hawaii, fish is eaten <span className="font-bold">fresh or raw</span>. Ahi poke, sashimi, grilled mahi — these dishes depend on fish that's never been frozen. Our local troll day-boat fishing means your catch goes from ocean to plate in hours, not months. <span className="font-bold">This is how fish is meant to be eaten.</span>
             </p>
+          </div>
+          {/* Species We Target */}
+          <div className="mt-16">
+            <h3 className="mb-8 text-center font-outfit text-2xl font-bold text-[#1B3A5F]">
+              What You'll Target
+            </h3>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+              {[
+                { slug: 'ahi', name: 'Ahi', hawaiian: 'Yellowfin Tuna', image: 'species/yellowfin-tuna' },
+                { slug: 'pacific-blue-marlin', name: "A'u", hawaiian: 'Blue Marlin', image: 'species/blue-marlin' },
+                { slug: 'mahi-mahi', name: 'Mahi Mahi', hawaiian: 'Dorado', image: 'species/mahi-mahi' },
+                { slug: 'ono', name: 'Ono', hawaiian: 'Wahoo', image: 'species/ono' },
+                { slug: 'striped-marlin', name: 'Nairagi', hawaiian: 'Striped Marlin', image: 'species/striped-marlin' },
+                { slug: 'aku', name: 'Aku', hawaiian: 'Skipjack', image: 'species/aku' },
+              ].map((fish) => (
+                <Link
+                  key={fish.slug}
+                  href={`/fish/${fish.slug}`}
+                  className="group rounded-xl border-2 border-gray-200 bg-white p-3 transition-all hover:border-red-400 hover:shadow-lg"
+                >
+                  <div className="relative mb-2 aspect-square overflow-hidden rounded-lg">
+                    <CloudinaryImage
+                      src={fish.image}
+                      alt={fish.hawaiian}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      sizes="(max-width: 768px) 50vw, 16vw"
+                    />
+                  </div>
+                  <p className="font-outfit text-sm font-bold text-[#1B3A5F] group-hover:text-red-600 transition-colors">
+                    {fish.name}
+                  </p>
+                  <p className="font-inter text-xs text-gray-500">{fish.hawaiian}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
