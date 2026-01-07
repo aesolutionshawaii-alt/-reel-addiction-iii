@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
-export default function InnerNavigation() {
+export default function InnerNavigation({ disablePrefetch = false }: { disablePrefetch?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -52,6 +52,7 @@ export default function InnerNavigation() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={disablePrefetch ? false : undefined}
                 className={`font-outfit text-[13px] font-medium uppercase tracking-[0.15em] transition-colors duration-300 ${
                   scrolled
                     ? pathname === link.href
@@ -69,6 +70,7 @@ export default function InnerNavigation() {
             {/* CTA */}
             <Link
               href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
+              prefetch={disablePrefetch ? false : undefined}
               target="_blank"
               rel="noopener noreferrer"
               className={`font-outfit text-[13px] font-semibold uppercase tracking-[0.1em] px-5 py-2.5 rounded-full transition-all duration-300 ${
@@ -82,14 +84,14 @@ export default function InnerNavigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <MobileMenu scrolled={scrolled} pathname={pathname} />
+          <MobileMenu scrolled={scrolled} pathname={pathname} disablePrefetch={disablePrefetch} />
         </div>
       </nav>
     </header>
   );
 }
 
-function MobileMenu({ scrolled, pathname }: { scrolled: boolean; pathname: string | null }) {
+function MobileMenu({ scrolled, pathname, disablePrefetch }: { scrolled: boolean; pathname: string | null; disablePrefetch: boolean }) {
   const [open, setOpen] = useState(false);
 
   // Close on route change
@@ -148,6 +150,7 @@ function MobileMenu({ scrolled, pathname }: { scrolled: boolean; pathname: strin
             <Link
               key={link.href}
               href={link.href}
+              prefetch={disablePrefetch ? false : undefined}
               onClick={() => setOpen(false)}
               className={`font-outfit text-2xl font-medium tracking-wide transition-all duration-300 ${
                 pathname === link.href ? 'text-red-400' : 'text-white/80 hover:text-white'
@@ -164,6 +167,7 @@ function MobileMenu({ scrolled, pathname }: { scrolled: boolean; pathname: strin
 
           <Link
             href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
+            prefetch={disablePrefetch ? false : undefined}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}

@@ -12,7 +12,7 @@ import InnerNavigation from '@/components/InnerNavigation'
 export default function Home() {
   return (
     <main>
-      <InnerNavigation />
+      <InnerNavigation disablePrefetch />
       <SocialSidebar />
       <Hero />
       <FadeBackground>
