@@ -8,10 +8,16 @@ import CloudinaryImage from '@/components/CloudinaryImage';
 export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [videoSrc, setVideoSrc] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)  // null = not determined yet
   const [isPlaying, setIsPlaying] = useState(true)
-  const [menuOpen, setMenuOpen] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const isPlayingRef = useRef(isPlaying)
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    isPlayingRef.current = isPlaying
+  }, [isPlaying])
 
   const togglePlayPause = () => {
     if (videoRef.current) {
@@ -24,24 +30,27 @@ export default function Hero() {
       }
     }
   }
+
   useEffect(() => {
     console.log('Hero MOUNTED')
     return () => console.log('Hero UNMOUNTED')
   }, [])
+
+  // Determine mobile/desktop once on mount
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      setVideoSrc('/videos/hero-mobile-720-noaudio.mp4')
-    } else {
-      setVideoSrc('/videos/hero-video.mp4')
-    }
+    const mobile = window.innerWidth < 768
+    setIsMobile(mobile)
+    setVideoSrc(mobile ? '/videos/hero-mobile-720-noaudio.mp4' : '/videos/hero-video.mp4')
   }, [])
 
-  // Pause video when scrolled out of view (but remember user preference)
+  // Pause video when scrolled out of view (use ref to avoid re-creating observer)
   useEffect(() => {
+    if (!videoSrc) return
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (videoRef.current) {
-          if (entry.isIntersecting && isPlaying) {
+          if (entry.isIntersecting && isPlayingRef.current) {
             videoRef.current.play()
           } else {
             videoRef.current.pause()
@@ -56,7 +65,7 @@ export default function Hero() {
     }
 
     return () => observer.disconnect()
-  }, [videoSrc, isPlaying])
+  }, [videoSrc])
 
   return (
     <section
@@ -66,7 +75,7 @@ export default function Hero() {
     >
       {/* Background */}
       <div className="absolute inset-0">
-        {/* Poster image - desktop only, fades out when video ready */}
+        {/* Poster image - fades out when video ready */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}>
           {/* Mobile poster */}
           <CloudinaryImage
@@ -85,16 +94,17 @@ export default function Hero() {
             priority
           />
         </div>
-        {/* Video - only loads correct version based on screen size */}
-        {videoSrc && (
+
+        {/* Video - only renders after we know mobile/desktop */}
+        {videoSrc && isMobile !== null && (
           <video
             ref={videoRef}
             src={videoSrc}
-            autoPlay={window.innerWidth >= 768}
+            autoPlay={!isMobile}
             loop
             muted
             playsInline
-            preload={window.innerWidth >= 768 ? "auto" : "metadata"}
+            preload={isMobile ? "metadata" : "auto"}
             onCanPlayThrough={() => setVideoLoaded(true)}
             className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
@@ -104,66 +114,6 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-[49%]" />
       </div>
 
-      
-
-     
-
-      {/* Mobile Hamburger Button */}
-      <button
-        className="absolute top-4 right-4 z-30 md:hidden"
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          {menuOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </button>
-
-      {/* Mobile Menu Overlay */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/80 z-20 md:hidden"
-          onClick={() => setMenuOpen(false)}
-        >
-          <div
-            className="absolute top-20 right-4 bg-[#0d0d0f] rounded-lg p-6 flex flex-col gap-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Link
-              href="#about"
-              className="text-white font-outfit text-xl hover:text-gray-300"
-              onClick={() => setMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              href="#charters"
-              className="text-white font-outfit text-xl hover:text-gray-300"
-              onClick={() => setMenuOpen(false)}
-            >
-              Charters
-            </Link>
-            <Link
-              href="#fish"
-              className="text-white font-outfit text-xl hover:text-gray-300"
-              onClick={() => setMenuOpen(false)}
-            >
-              Fish
-            </Link>
-            <Link
-              href="#contact"
-              className="text-white font-outfit text-xl hover:text-gray-300"
-              onClick={() => setMenuOpen(false)}
-            >
-              Contact
-            </Link>
-          </div>
-        </div>
-      )}
-
       {/* Play/Pause Button - lower right corner */}
       <button
         onClick={togglePlayPause}
@@ -171,13 +121,11 @@ export default function Hero() {
         aria-label={isPlaying ? 'Pause video' : 'Play video'}
       >
         {isPlaying ? (
-          // Pause icon (two bars)
           <svg className="w-3 h-3 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none">
             <rect x="6" y="4" width="4" height="16" fill="white" className="group-hover:fill-white/90" />
             <rect x="14" y="4" width="4" height="16" fill="white" className="group-hover:fill-white/90" />
           </svg>
         ) : (
-          // Play icon (triangle)
           <svg className="w-3 h-3 md:w-6 md:h-6 ml-0.5" viewBox="0 0 24 24" fill="none">
             <path d="M8 5v14l11-7z" fill="white" className="group-hover:fill-white/90" />
           </svg>
@@ -186,7 +134,6 @@ export default function Hero() {
 
       {/* Hero Content + Buttons */}
       <div className="absolute bottom-16 md:bottom-[50px] inset-x-0 md:left-[90px] md:right-auto z-10 flex flex-col items-center md:items-start px-6 md:px-0">
-        {/* Text block */}
         <div className="text-left mb-6 w-[340px] md:w-auto">
           <p className="font-inter font-normal text-white text-[28px] md:text-[64px] leading-tight md:leading-normal">
             O&apos;ahu&apos;s Premier
@@ -196,7 +143,6 @@ export default function Hero() {
           </h1>
         </div>
 
-        {/* CTA Buttons */}
         <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-[320px] md:w-auto">
           <Link
             href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
