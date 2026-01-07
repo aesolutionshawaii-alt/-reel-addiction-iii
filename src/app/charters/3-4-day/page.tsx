@@ -1,26 +1,73 @@
-'use client';
-
-import { useState } from 'react';
+import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
-import { Clock, Users, DollarSign, Calendar, Check, Info } from 'lucide-react';
+import { Clock, Users, DollarSign, Check, Info } from 'lucide-react';
 import Footer from '@/components/Footer';
+import SpeciesGrid from '@/components/SpeciesGrid';
 
-
-// Define species type
-type Species = {
-  name: string;
-  season: string;
-  image: string;
-  description: string;
-  techniques: string;
-  size: string;
-  hawaiiFact: string;
+export const metadata: Metadata = {
+  title: "3/4 Day Charter | Reel Addiction III - Ko Olina, Oahu",
+  description: "The perfect balance of fishing and vacation time. 5-6 hours on the water with O'ahu's most experienced local crew. Book your 3/4 day charter from Ko Olina.",
 };
 
-export default function ThreeFourDayCharterPage() {
-  const [selectedSpecies, setSelectedSpecies] = useState<Species | null>(null);
+const targetSpecies = [
+  {
+    name: "Blue Marlin",
+    season: "May - September (peak)",
+    image: "species/blue-marlin",
+    description: "The ultimate game fish and the crown jewel of Hawaii sportfishing. Blue marlin are powerful, acrobatic fighters that can reach massive sizes and provide the fight of a lifetime.",
+    techniques: "Live bait fishing with Opelu, high-speed trolling with lures, and watching for birds working bait schools. We focus on productive FADs and known feeding areas where blues hunt.",
+    size: "Average 200-400 lbs, trophy fish 500+ lbs",
+    hawaiiFact: "In Hawaii, blue marlin are called 'A'u and are deeply respected. We practice mostly catch-and-release for these magnificent fish, though smaller ones are sometimes kept for poke and sashimi."
+  },
+  {
+    name: "Striped Marlin",
+    season: "November - April",
+    image: "species/striped-marlin",
+    description: "Fast, acrobatic, and aggressive. Striped marlin put on an incredible aerial show and are known for their beautiful vertical stripes that light up when they're hunting.",
+    techniques: "High-speed trolling, live bait with flying fish or small tuna. They love to attack surface lures and will often 'light up' and circle the bait before striking.",
+    size: "Average 80-150 lbs, can reach 200+ lbs",
+    hawaiiFact: "Striped marlin are winter visitors to Hawaii waters. Local crews know specific temperature breaks and current edges where they concentrate during the cooler months."
+  },
+  {
+    name: "Yellowfin Tuna (Ahi)",
+    season: "Year-round",
+    image: "species/yellowfin-tuna",
+    description: "Powerful, fast, and delicious. Yellowfin tuna are prized both as sport fish and for their incredible meat quality. They fight hard and dive deep.",
+    techniques: "Live bait fishing, chunk fishing around FADs, high-speed trolling. We often find them feeding under birds or around floating debris and FADs.",
+    size: "Average 40-100 lbs, trophy fish 150-250 lbs",
+    hawaiiFact: "Ahi is the Hawaiian name and it's the most sought-after fish in local markets. Fresh ahi poke is a Hawaiian staple, and nothing beats sashimi from a fish you just caught."
+  },
+  {
+    name: "Mahi Mahi (Dorado)",
+    season: "March - June (peak)",
+    image: "species/mahi-mahi",
+    description: "The most colorful fish in the ocean with brilliant greens, golds, and blues. Mahi mahi are aggressive feeders, acrobatic jumpers, and absolutely delicious.",
+    techniques: "Trolling near floating debris and weed lines, live bait fishing. Often found in schools, so where there's one, there's usually more.",
+    size: "Average 15-30 lbs, bulls can reach 50-60 lbs",
+    hawaiiFact: "Mahi mahi means 'strong-strong' in Hawaiian. It's one of the most sustainable fish to catch and eat. Grilled mahi with local fruit salsa is a Hawaii favorite."
+  },
+  {
+    name: "Ono (Wahoo)",
+    season: "October - March",
+    image: "species/ono",
+    description: "The fastest fish in the ocean with blistering runs that will scream line off your reel. Ono are sleek, powerful, and have razor-sharp teeth.",
+    techniques: "High-speed trolling is most effective. Ono love wire line and strike fast-moving lures. They often hit without warning and make incredible first runs.",
+    size: "Average 25-50 lbs, can reach 80-100 lbs",
+    hawaiiFact: "Ono means 'delicious' in Hawaiian, and they earned that name. The white, flaky meat is considered some of the best eating in the ocean. Perfect for fish tacos or grilled."
+  },
+  {
+    name: "Aku (Skipjack Tuna)",
+    season: "Peak April-September, available year-round",
+    image: "species/aku",
+    description: "Hardworking school fish that are the backbone of Hawaii's fishing culture. Aku are aggressive feeders that attack in packs and provide non-stop action.",
+    techniques: "Live bait fishing, chumming, and trolling small lures. When you find a school, it's game on with multiple hookups and constant action.",
+    size: "Average 5-15 lbs, larger fish reach 20-25 lbs",
+    hawaiiFact: "Aku is essential to Hawaiian cuisine and culture. It's the traditional fish for poke, and old-timers say the best way to eat it is raw with sea salt, inamona (roasted kukui nut), and limu (seaweed)."
+  }
+];
 
+export default function ThreeFourDayCharterPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* ===== HERO SECTION ===== */}
@@ -263,165 +310,10 @@ export default function ThreeFourDayCharterPage() {
             </p>
           </div>
 
-          {/* Grid layout */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                name: "Blue Marlin",
-                season: "May - September (peak)",
-                image: "species/blue-marlin",
-                description: "The ultimate game fish and the crown jewel of Hawaii sportfishing. Blue marlin are powerful, acrobatic fighters that can reach massive sizes and provide the fight of a lifetime.",
-                techniques: "Live bait fishing with Opelu, high-speed trolling with lures, and watching for birds working bait schools. We focus on productive FADs and known feeding areas where blues hunt.",
-                size: "Average 200-400 lbs, trophy fish 500+ lbs",
-                hawaiiFact: "In Hawaii, blue marlin are called 'A'u and are deeply respected. We practice mostly catch-and-release for these magnificent fish, though smaller ones are sometimes kept for poke and sashimi."
-              },
-              {
-                name: "Striped Marlin",
-                season: "November - April",
-                image: "species/striped-marlin",
-                description: "Fast, acrobatic, and aggressive. Striped marlin put on an incredible aerial show and are known for their beautiful vertical stripes that light up when they're hunting.",
-                techniques: "High-speed trolling, live bait with flying fish or small tuna. They love to attack surface lures and will often 'light up' and circle the bait before striking.",
-                size: "Average 80-150 lbs, can reach 200+ lbs",
-                hawaiiFact: "Striped marlin are winter visitors to Hawaii waters. Local crews know specific temperature breaks and current edges where they concentrate during the cooler months."
-              },
-              {
-                name: "Yellowfin Tuna (Ahi)",
-                season: "Year-round",
-                image: "species/yellowfin-tuna",
-                description: "Powerful, fast, and delicious. Yellowfin tuna are prized both as sport fish and for their incredible meat quality. They fight hard and dive deep.",
-                techniques: "Live bait fishing, chunk fishing around FADs, high-speed trolling. We often find them feeding under birds or around floating debris and FADs.",
-                size: "Average 40-100 lbs, trophy fish 150-250 lbs",
-                hawaiiFact: "Ahi is the Hawaiian name and it's the most sought-after fish in local markets. Fresh ahi poke is a Hawaiian staple, and nothing beats sashimi from a fish you just caught."
-              },
-              {
-                name: "Mahi Mahi (Dorado)",
-                season: "March - June (peak)",
-                image: "species/mahi-mahi",
-                description: "The most colorful fish in the ocean with brilliant greens, golds, and blues. Mahi mahi are aggressive feeders, acrobatic jumpers, and absolutely delicious.",
-                techniques: "Trolling near floating debris and weed lines, live bait fishing. Often found in schools, so where there's one, there's usually more.",
-                size: "Average 15-30 lbs, bulls can reach 50-60 lbs",
-                hawaiiFact: "Mahi mahi means 'strong-strong' in Hawaiian. It's one of the most sustainable fish to catch and eat. Grilled mahi with local fruit salsa is a Hawaii favorite."
-              },
-              {
-                name: "Ono (Wahoo)",
-                season: "October - March",
-                image: "species/ono",
-                description: "The fastest fish in the ocean with blistering runs that will scream line off your reel. Ono are sleek, powerful, and have razor-sharp teeth.",
-                techniques: "High-speed trolling is most effective. Ono love wire line and strike fast-moving lures. They often hit without warning and make incredible first runs.",
-                size: "Average 25-50 lbs, can reach 80-100 lbs",
-                hawaiiFact: "Ono means 'delicious' in Hawaiian, and they earned that name. The white, flaky meat is considered some of the best eating in the ocean. Perfect for fish tacos or grilled."
-              },
-              {
-                name: "Aku (Skipjack Tuna)",
-                season: "Peak April-September, available year-round",
-                image: "species/aku",
-                description: "Hardworking school fish that are the backbone of Hawaii's fishing culture. Aku are aggressive feeders that attack in packs and provide non-stop action.",
-                techniques: "Live bait fishing, chumming, and trolling small lures. When you find a school, it's game on with multiple hookups and constant action.",
-                size: "Average 5-15 lbs, larger fish reach 20-25 lbs",
-                hawaiiFact: "Aku is essential to Hawaiian cuisine and culture. It's the traditional fish for poke, and old-timers say the best way to eat it is raw with sea salt, inamona (roasted kukui nut), and limu (seaweed)."
-              }
-            ].map((species, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedSpecies(species)}
-                className="group relative cursor-pointer overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl"
-              >
-                <div className="relative h-96">
-                  <CloudinaryImage
-                    src={species.image}
-                    alt={species.name}
-                    fill
-                    className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div
-                    className="absolute inset-0 transition-all duration-500"
-                    style={{
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0) 70%)'
-                    }}
-                  />
-
-                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white transition-transform duration-500 group-hover:-translate-y-2">
-                    <h3 className="mb-2 font-outfit text-3xl font-bold transition-all duration-300 group-hover:text-red-400">
-                      {species.name}
-                    </h3>
-                    <p className="font-inter text-sm font-semibold text-red-400 transition-all duration-300 group-hover:text-red-300">
-                      {species.season}
-                    </p>
-
-                    <div className="mt-4 flex items-center gap-2 font-inter text-sm font-semibold opacity-0 transition-all duration-300 group-hover:opacity-100">
-                      <span>Click to Learn More</span>
-                      <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <SpeciesGrid species={targetSpecies} />
         </div>
       </section>
 
-      {/* Species Modal */}
-      {selectedSpecies && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
-          onClick={() => setSelectedSpecies(null)}
-        >
-          <div
-            className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedSpecies(null)}
-              className="absolute right-6 top-6 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-lg transition-all hover:bg-red-600 hover:text-white"
-            >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            <div className="relative h-96 w-full">
-              <CloudinaryImage
-                src={selectedSpecies.image}
-                alt={selectedSpecies.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 1024px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                <h2 className="mb-2 font-outfit text-5xl font-bold">{selectedSpecies.name}</h2>
-                <p className="font-inter text-xl font-semibold text-red-400">{selectedSpecies.season}</p>
-              </div>
-            </div>
-
-            <div className="p-8 md:p-12">
-              <div className="mb-8">
-                <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">About This Fish</h3>
-                <p className="font-inter text-lg leading-relaxed text-gray-700">{selectedSpecies.description}</p>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">Average Size</h3>
-                <p className="font-inter text-lg leading-relaxed text-gray-700">{selectedSpecies.size}</p>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">How We Target Them</h3>
-                <p className="font-inter text-lg leading-relaxed text-gray-700">{selectedSpecies.techniques}</p>
-              </div>
-
-              <div className="rounded-2xl bg-[#1B3A5F] p-8 text-white">
-                <h3 className="mb-3 font-outfit text-2xl font-bold">Hawaii Connection</h3>
-                <p className="font-inter text-lg leading-relaxed opacity-90">{selectedSpecies.hawaiiFact}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
       {/* ===== WHAT'S INCLUDED / WHAT TO BRING ===== */}
       <section className="bg-gray-50 py-32">
         <div className="mx-auto max-w-7xl px-6">

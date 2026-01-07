@@ -1,26 +1,74 @@
-'use client';
-
-import { useState } from 'react';
+import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { Clock, Users, DollarSign, Check, Info, Shield } from 'lucide-react';
 import Footer from '@/components/Footer';
 import PremiumCarousel from '@/components/PremiumCarousel';
+import SpeciesGrid from '@/components/SpeciesGrid';
 
-// Define species type
-type Species = {
-  name: string;
-  season: string;
-  image: string;
-  description: string;
-  techniques: string;
-  size: string;
-  hawaiiFact: string;
+export const metadata: Metadata = {
+  title: "Extravaganza Charter | Reel Addiction III - Hawaii's Only Guaranteed Charter",
+  description: "Dark to dark, 40+ miles offshore. The ultimate O'ahu fishing experience with Hawaii's only catch guarantee. Book the Extravaganza charter from Ko Olina.",
 };
 
-export default function ExtravaganzaCharterPage() {
-  const [selectedSpecies, setSelectedSpecies] = useState<Species | null>(null);
+const targetSpecies = [
+  {
+    name: "Blue Marlin",
+    season: "May - September (peak)",
+    image: "species/blue-marlin",
+    description: "The ultimate game fish. Extended hours mean we can stay with a blue marlin through a long fight without worrying about running out of daylight.",
+    techniques: "Live bait fishing with Opelu, high-speed trolling, watching for birds. We have time to deploy every technique and wait for the right opportunity.",
+    size: "Average 200-400 lbs, trophy fish 500+ lbs",
+    hawaiiFact: "Blue marlin fishing in Hawaii is world-class. The extended day gives us the best chance to connect with these magnificent fish."
+  },
+  {
+    name: "Striped Marlin",
+    season: "November - April",
+    image: "species/striped-marlin",
+    description: "Winter marlin that love to jump. The long day means we can chase striped marlin through multiple areas if needed.",
+    techniques: "High-speed trolling with lures and teasers. Stripes attack surface baits aggressively, making for spectacular visual strikes.",
+    size: "80-150 lbs average",
+    hawaiiFact: "Winter marlin fishing targets striped marlin when blues are less active. Dark to dark gives us the full winter bite window."
+  },
+  {
+    name: "Yellowfin Tuna (Ahi)",
+    season: "Year-round",
+    image: "species/yellowfin-tuna",
+    description: "Our most consistent fish. The boat record — 14 in one day — was set on an Extravaganza trip. Maximum time = maximum opportunities.",
+    techniques: "Trolling, chunking, live baiting, vertical jigging. We use every technique and have time to find the schools.",
+    size: "40-100 lbs average, occasional giants over 200 lbs",
+    hawaiiFact: "Ahi is Hawaii's premier eating fish. The extended day means we can fill the cooler with premium sashimi-grade tuna."
+  },
+  {
+    name: "Mahi Mahi (Dorado)",
+    season: "March - June (peak)",
+    image: "species/mahi-mahi",
+    description: "Colorful and aggressive. When we find a school of Mahi, the long day means everyone gets multiple hookups.",
+    techniques: "Trolling near debris and weed lines. Once we find one, there's usually a school, and we have all day to work them.",
+    size: "15-30 lbs average, bulls can reach 50+ lbs",
+    hawaiiFact: "Mahi Mahi are fast-growing and sustainable. Perfect for filling coolers on an extended trip."
+  },
+  {
+    name: "Ono (Wahoo)",
+    season: "October - March",
+    image: "species/ono",
+    description: "The fastest fish in the ocean. Our boat speed and extended range put us over prime Ono grounds that other boats can't reach.",
+    techniques: "High-speed trolling with wire line and deep divers. Ono make blistering runs that test your equipment.",
+    size: "25-50 lbs average",
+    hawaiiFact: "'Ono' means delicious — and they are. The mild white meat is highly prized in Hawaii."
+  },
+  {
+    name: "Aku (Skipjack Tuna)",
+    season: "Peak April-September, available year-round",
+    image: "species/aku",
+    description: "Traditional poke fish. Great on light tackle and perfect for the table. Extended trips often produce Aku bonanzas.",
+    techniques: "Trolling with small feathers, chunking, live baiting when we find schools.",
+    size: "5-15 lbs",
+    hawaiiFact: "Aku is the traditional Hawaiian poke fish, mixed with inamona and limu for authentic island flavor."
+  }
+];
 
+export default function ExtravaganzaCharterPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* ===== HERO SECTION ===== */}
@@ -294,7 +342,7 @@ export default function ExtravaganzaCharterPage() {
         </div>
       </section>
 
-      {/* ===== TARGET SPECIES - COPY FROM FULL DAY PAGE ===== */}
+      {/* ===== TARGET SPECIES ===== */}
       <section className="py-32">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-20 text-center">
@@ -306,161 +354,9 @@ export default function ExtravaganzaCharterPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                name: "Blue Marlin",
-                season: "May - September (peak)",
-                image: "species/blue-marlin",
-                description: "The ultimate game fish. Extended hours mean we can stay with a blue marlin through a long fight without worrying about running out of daylight.",
-                techniques: "Live bait fishing with Opelu, high-speed trolling, watching for birds. We have time to deploy every technique and wait for the right opportunity.",
-                size: "Average 200-400 lbs, trophy fish 500+ lbs",
-                hawaiiFact: "Blue marlin fishing in Hawaii is world-class. The extended day gives us the best chance to connect with these magnificent fish."
-              },
-              {
-                name: "Striped Marlin",
-                season: "November - April",
-                image: "species/striped-marlin",
-                description: "Winter marlin that love to jump. The long day means we can chase striped marlin through multiple areas if needed.",
-                techniques: "High-speed trolling with lures and teasers. Stripes attack surface baits aggressively, making for spectacular visual strikes.",
-                size: "80-150 lbs average",
-                hawaiiFact: "Winter marlin fishing targets striped marlin when blues are less active. Dark to dark gives us the full winter bite window."
-              },
-              {
-                name: "Yellowfin Tuna (Ahi)",
-                season: "Year-round",
-                image: "species/yellowfin-tuna",
-                description: "Our most consistent fish. The boat record — 14 in one day — was set on an Extravaganza trip. Maximum time = maximum opportunities.",
-                techniques: "Trolling, chunking, live baiting, vertical jigging. We use every technique and have time to find the schools.",
-                size: "40-100 lbs average, occasional giants over 200 lbs",
-                hawaiiFact: "Ahi is Hawaii's premier eating fish. The extended day means we can fill the cooler with premium sashimi-grade tuna."
-              },
-              {
-                name: "Mahi Mahi (Dorado)",
-                season: "March - June (peak)",
-                image: "species/mahi-mahi",
-                description: "Colorful and aggressive. When we find a school of Mahi, the long day means everyone gets multiple hookups.",
-                techniques: "Trolling near debris and weed lines. Once we find one, there's usually a school, and we have all day to work them.",
-                size: "15-30 lbs average, bulls can reach 50+ lbs",
-                hawaiiFact: "Mahi Mahi are fast-growing and sustainable. Perfect for filling coolers on an extended trip."
-              },
-              {
-                name: "Ono (Wahoo)",
-                season: "October - March",
-                image: "species/ono",
-                description: "The fastest fish in the ocean. Our boat speed and extended range put us over prime Ono grounds that other boats can't reach.",
-                techniques: "High-speed trolling with wire line and deep divers. Ono make blistering runs that test your equipment.",
-                size: "25-50 lbs average",
-                hawaiiFact: "'Ono' means delicious — and they are. The mild white meat is highly prized in Hawaii."
-              },
-              {
-                name: "Aku (Skipjack Tuna)",
-                season: "Peak April-September, available year-round",
-                image: "species/aku",
-                description: "Traditional poke fish. Great on light tackle and perfect for the table. Extended trips often produce Aku bonanzas.",
-                techniques: "Trolling with small feathers, chunking, live baiting when we find schools.",
-                size: "5-15 lbs",
-                hawaiiFact: "Aku is the traditional Hawaiian poke fish, mixed with inamona and limu for authentic island flavor."
-              }
-            ].map((species, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedSpecies(species)}
-                className="group relative cursor-pointer overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl"
-              >
-                <div className="relative h-96">
-                  <CloudinaryImage
-                    src={species.image}
-                    alt={species.name}
-                    fill
-                    className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div
-                    className="absolute inset-0 transition-all duration-500"
-                    style={{
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0) 70%)'
-                    }}
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white transition-transform duration-500 group-hover:-translate-y-2">
-                    <h3 className="mb-2 font-outfit text-3xl font-bold transition-all duration-300 group-hover:text-red-400">
-                      {species.name}
-                    </h3>
-                    <p className="font-inter text-sm font-semibold text-red-400 transition-all duration-300 group-hover:text-red-300">
-                      {species.season}
-                    </p>
-                    <div className="mt-4 flex items-center gap-2 font-inter text-sm font-semibold opacity-0 transition-all duration-300 group-hover:opacity-100">
-                      <span>Click to Learn More</span>
-                      <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <SpeciesGrid species={targetSpecies} />
         </div>
       </section>
-
-      {/* Species Modal */}
-      {selectedSpecies && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
-          onClick={() => setSelectedSpecies(null)}
-        >
-          <div
-            className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedSpecies(null)}
-              className="absolute right-6 top-6 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-gray-800 transition-all hover:bg-white hover:scale-110"
-            >
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            <div className="relative h-96">
-              <CloudinaryImage
-                src={selectedSpecies.image}
-                alt={selectedSpecies.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 896px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-8 left-8">
-                <h2 className="mb-2 font-outfit text-5xl font-bold text-white">{selectedSpecies.name}</h2>
-                <p className="font-inter text-xl font-semibold text-red-400">{selectedSpecies.season}</p>
-              </div>
-            </div>
-
-            <div className="p-12">
-              <div className="mb-8">
-                <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">About This Fish</h3>
-                <p className="font-inter text-lg leading-relaxed text-gray-700">{selectedSpecies.description}</p>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">How We Catch Them</h3>
-                <p className="font-inter text-lg leading-relaxed text-gray-700">{selectedSpecies.techniques}</p>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">Size Range</h3>
-                <p className="font-inter text-lg leading-relaxed text-gray-700">{selectedSpecies.size}</p>
-              </div>
-
-              <div className="rounded-2xl bg-red-50 p-8">
-                <h3 className="mb-4 font-outfit text-2xl font-bold text-[#1B3A5F]">Hawaii Connection</h3>
-                <p className="font-inter text-lg leading-relaxed text-gray-700">{selectedSpecies.hawaiiFact}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ===== WHAT'S INCLUDED / WHAT TO BRING ===== */}
       <section className="bg-gray-50 py-32">

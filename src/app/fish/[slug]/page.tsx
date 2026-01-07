@@ -1,7 +1,5 @@
-'use client';
-
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { species, getSpeciesBySlug } from '@/data/species';
 import CloudinaryImage from '@/components/CloudinaryImage';
@@ -9,9 +7,34 @@ import Footer from '@/components/Footer';
 import { Calendar, Ruler, Target } from 'lucide-react';
 import InnerNavigation from '@/components/InnerNavigation';
 
-export default function FishSpeciesPage() {
-  const params = useParams();
-  const slug = params.slug as string;
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  return species.map((s) => ({
+    slug: s.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const fish = getSpeciesBySlug(slug);
+
+  if (!fish) {
+    return {
+      title: 'Species Not Found | Reel Addiction III',
+    };
+  }
+
+  return {
+    title: `${fish.hawaiianName} (${fish.name}) | Reel Addiction III - Hawaii Fishing`,
+    description: `Target ${fish.name} on your Hawaiian fishing charter. ${fish.description.slice(0, 150)}...`,
+  };
+}
+
+export default async function FishSpeciesPage({ params }: PageProps) {
+  const { slug } = await params;
   const fish = getSpeciesBySlug(slug);
 
   if (!fish) {
