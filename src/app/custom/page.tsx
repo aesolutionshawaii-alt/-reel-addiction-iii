@@ -17,7 +17,7 @@ const customCharters = [
     subtitle: 'Ash Scatterings at Sea',
     description: 'Honor your loved one with a dignified ocean memorial. We provide a peaceful, private setting for families to scatter ashes in Hawaii\'s beautiful waters. Captain JR and crew handle every detail with the respect and care your family deserves.',
     features: ['Private charter for your family', 'Flowers and lei available', 'Flexible timing and location', 'Calm, protected waters'],
-    image: 'custom/memorial',
+    image: 'images/custom/custom-memorial',
   },
   {
     icon: Briefcase,
@@ -25,7 +25,8 @@ const customCharters = [
     subtitle: 'Team Building & Client Entertainment',
     description: 'Impress clients or reward your team with a day on the water. Nothing builds relationships like shared adventure. Our 62\' yacht comfortably hosts groups for fishing, cruising, or a combination of both.',
     features: ['Up to 6 guests plus crew', 'Fishing or cruising options', 'Catering can be arranged', 'Perfect for team building'],
-    image: 'custom/corporate',
+    image: 'images/custom/custom-corporate',
+    aspectRatio: '4/5',
   },
   {
     icon: Compass,
@@ -33,7 +34,7 @@ const customCharters = [
     subtitle: 'Multi-Day Adventures',
     description: 'Take the ultimate Hawaiian fishing adventure with an overnight trip to neighboring islands or remote fishing grounds. Three staterooms and full amenities make extended trips comfortable.',
     features: ['3 private staterooms', '3 full bathrooms', 'Extended range capability', 'Custom itineraries'],
-    image: 'custom/overnight',
+    image: 'images/custom/custom-overnight',
   },
   {
     icon: Users,
@@ -41,7 +42,7 @@ const customCharters = [
     subtitle: 'Birthdays, Anniversaries & More',
     description: 'Celebrate life\'s milestones on the water. Whether it\'s a birthday, anniversary, bachelor party, or just a special day with friends and family, we\'ll make it memorable.',
     features: ['Customized experiences', 'Sunset cruises available', 'Fishing or leisure', 'Photo opportunities'],
-    image: 'custom/celebration',
+    image: 'images/custom/custom-celebration',
   },
   {
     icon: Anchor,
@@ -49,7 +50,7 @@ const customCharters = [
     subtitle: 'Event & Vessel Support',
     description: 'Need escort services for a special event, race, or vessel transport? Reel Addiction III is fast, capable, and professionally crewed for any marine support needs.',
     features: ['Fast response capability', 'Professional crew', 'Communication equipped', 'Flexible scheduling'],
-    image: 'custom/escort',
+    image: 'images/custom/custom-escort',
   },
   {
     icon: Gift,
@@ -57,19 +58,20 @@ const customCharters = [
     subtitle: 'Supporting Local Causes',
     description: 'We regularly donate trips to local charities and fundraisers. If you\'re organizing a benefit auction or community event, reach out about a donated charter package.',
     features: ['Auction packages available', 'Local causes supported', 'Flexible trip options', 'Great auction item'],
-    image: 'custom/charity',
+    image: 'images/custom/custom-charity',
   },
+
 ];
 
 export default function CustomChartersPage() {
   return (
     <main className="min-h-screen bg-white"><InnerNavigation />
-      
+
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
         <CloudinaryImage
-          src="custom/hero"
+          src="images/custom/custom-hero"
           alt="Reel Addiction III at sunset"
           fill
           className="object-cover"
@@ -110,14 +112,15 @@ export default function CustomChartersPage() {
             {customCharters.map((charter, index) => (
               <div
                 key={index}
-                className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-16 ${
-                  index % 2 === 1 ? 'lg:direction-rtl' : ''
-                }`}
+                className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-16 ${index % 2 === 1 ? 'lg:direction-rtl' : ''
+                  }`}
               >
                 {/* Image */}
-                <div className={`relative h-[350px] overflow-hidden rounded-2xl shadow-xl md:h-[450px] ${
-                  index % 2 === 1 ? 'lg:order-2' : ''
-                }`}>
+                <div
+                  className={`relative overflow-hidden rounded-2xl shadow-xl ${!charter.aspectRatio ? 'h-[350px] md:h-[450px]' : ''
+                    } ${index % 2 === 1 ? 'lg:order-2' : ''}`}
+                  style={charter.aspectRatio ? { aspectRatio: charter.aspectRatio } : undefined}
+                >
                   <CloudinaryImage
                     src={charter.image}
                     alt={charter.title}
@@ -149,7 +152,7 @@ export default function CustomChartersPage() {
                   </p>
 
                   <ul className="grid grid-cols-2 gap-3">
-                    {charter.features.map((feature, featureIndex) => (
+                    {charter.features?.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center gap-2">
                         <Star className="h-4 w-4 shrink-0 text-red-500" />
                         <span className="font-inter text-sm text-gray-700">{feature}</span>
