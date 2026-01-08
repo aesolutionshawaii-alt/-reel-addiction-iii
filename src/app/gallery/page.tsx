@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import HeroImage from '@/components/HeroImage';
+
 import CloudinaryImage from '@/components/CloudinaryImage';
 import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
@@ -31,13 +33,11 @@ export default async function GalleryPage() {
     <main className="min-h-screen bg-white"><InnerNavigation />
       {/* Hero Section */}
       <section className="relative h-[70vh] min-h-[550px] overflow-hidden">
-        <CloudinaryImage
+        <HeroImage
           src="images/gallery-hero"
-          alt="Trophy catches from Reel Addiction III"
-          fill
-          className="object-cover object-top"
-          priority
-          sizes="100vw"
+          mobileSrc="images/gallery-hero-mobile"
+          alt="Gallery"
+          objectPosition="center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
 

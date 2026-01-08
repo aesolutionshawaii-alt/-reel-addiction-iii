@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
+import HeroImage from '@/components/HeroImage';
 import Link from 'next/link';
 import { Gauge, Anchor, Wind, Snowflake, Users, Bath, Bed, Waves, Shield, Award } from 'lucide-react';
 import Footer from '@/components/Footer';
@@ -23,17 +24,15 @@ const specs = [
 export default function TheVesselPage() {
   return (
     <main className="min-h-screen bg-white"><InnerNavigation />
-      
+
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative h-[70vh] min-h-[600px] overflow-hidden">
-        <CloudinaryImage
+        <HeroImage
           src="vessel/vessel-hero"
+          mobileSrc="vessel/vessel-hero-mobile"
           alt="Reel Addiction III - 62ft Ocean Yacht"
-          fill
-          className="object-cover object-right"
-          priority
-          sizes="100vw"
+          objectPosition="right"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
 
@@ -107,44 +106,44 @@ export default function TheVesselPage() {
       </section>
 
       {/* ===== SPEED ADVANTAGE ===== */}
-<section className="py-20">
-  <div className="mx-auto max-w-[1800px] px-6">
-    <div className="grid grid-cols-1 overflow-hidden rounded-3xl shadow-2xl lg:grid-cols-5">
-      {/* Image - 60% (3 cols) */}
-      <div className="relative h-[400px] lg:col-span-3 lg:h-[600px]">
-        <CloudinaryImage
-          src="vessel/vessel-speed"
-          alt="Reel Addiction III running offshore"
-          fill
-          className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 60vw"
-        />
-      </div>
-      {/* Text Panel - 40% (2 cols) with dark background */}
-      <div className="flex items-center bg-[#1B3A5F] px-10 py-16 lg:col-span-2">
-        <div className="text-white">
-          <p className="mb-3 font-outfit text-xs font-bold uppercase tracking-[0.2em] text-red-400">
-            Speed Matters
-          </p>
-          <h2 className="mb-6 font-outfit text-3xl font-bold leading-tight lg:text-4xl">
-            40+ MPH Gets You There First
-          </h2>
-          <div className="space-y-4 font-inter text-base leading-relaxed opacity-90">
-            <p>
-              Reel Addiction III is one of the fastest charter boats on O'ahu. Our twin Caterpillar motors push us to speeds over 40 mph — that's 10-15 mph faster than most charter boats.
-            </p>
-            <p>
-              What does speed mean for you? More fishing time. While other boats are still running out, we're already on the fish. We can reach productive grounds 40+ miles offshore that slower boats simply can't access in a day trip.
-            </p>
-            <p className="font-semibold opacity-100">
-              When the bite is hot 30 miles out, we're there in 45 minutes. Other boats? Over an hour. That extra time on the water translates to more fish in the box.
-            </p>
+      <section className="py-20">
+        <div className="mx-auto max-w-[1800px] px-6">
+          <div className="grid grid-cols-1 overflow-hidden rounded-3xl shadow-2xl lg:grid-cols-5">
+            {/* Image - 60% (3 cols) */}
+            <div className="relative h-[400px] lg:col-span-3 lg:h-[600px]">
+              <CloudinaryImage
+                src="vessel/vessel-speed"
+                alt="Reel Addiction III running offshore"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+              />
+            </div>
+            {/* Text Panel - 40% (2 cols) with dark background */}
+            <div className="flex items-center bg-[#1B3A5F] px-10 py-16 lg:col-span-2">
+              <div className="text-white">
+                <p className="mb-3 font-outfit text-xs font-bold uppercase tracking-[0.2em] text-red-400">
+                  Speed Matters
+                </p>
+                <h2 className="mb-6 font-outfit text-3xl font-bold leading-tight lg:text-4xl">
+                  40+ MPH Gets You There First
+                </h2>
+                <div className="space-y-4 font-inter text-base leading-relaxed opacity-90">
+                  <p>
+                    Reel Addiction III is one of the fastest charter boats on O'ahu. Our twin Caterpillar motors push us to speeds over 40 mph — that's 10-15 mph faster than most charter boats.
+                  </p>
+                  <p>
+                    What does speed mean for you? More fishing time. While other boats are still running out, we're already on the fish. We can reach productive grounds 40+ miles offshore that slower boats simply can't access in a day trip.
+                  </p>
+                  <p className="font-semibold opacity-100">
+                    When the bite is hot 30 miles out, we're there in 45 minutes. Other boats? Over an hour. That extra time on the water translates to more fish in the box.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* ===== COMFORT & AMENITIES ===== */}
       <section className="py-20 md:py-28">
