@@ -4,6 +4,7 @@ import { Clock, Users, Shield, ChevronRight, Check } from 'lucide-react';
 import Footer from '@/components/Footer';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import InnerNavigation from '@/components/InnerNavigation';
+import ChartersHeroContent from '@/components/ChartersHeroContent';
 
 export const metadata: Metadata = {
   title: "Fishing Charters | Reel Addiction III - Ko Olina, Oahu",
@@ -88,17 +89,7 @@ export default function ChartersPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
 
-                <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-                    <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">
-                        Ko Olina, O'ahu
-                    </p>
-                    <h1 className="mb-6 font-outfit text-5xl font-bold text-white drop-shadow-lg md:text-6xl lg:text-7xl">
-                        Choose Your Adventure
-                    </h1>
-                    <p className="max-w-2xl font-inter text-xl text-white/90 md:text-2xl">
-                        Three ways to experience Hawaii's best sportfishing
-                    </p>
-                </div>
+                <ChartersHeroContent />
             </section>
 
             {/* ===== CHARTER CARDS ===== */}

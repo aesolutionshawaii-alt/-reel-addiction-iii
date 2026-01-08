@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Gauge, Anchor, Wind, Snowflake, Users, Bath, Bed, Waves, Shield, Award } from 'lucide-react';
 import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
+import VesselHeroContent from '@/components/VesselHeroContent';
 
 export const metadata: Metadata = {
   title: "The Vessel | Reel Addiction III - 62' Ocean Yacht",
@@ -30,23 +31,13 @@ export default function TheVesselPage() {
           src="vessel/vessel-hero"
           alt="Reel Addiction III - 62ft Ocean Yacht"
           fill
-          className="object-cover"
+          className="object-cover object-right"
           priority
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
 
-        <div className="absolute inset-0 flex flex-col items-end justify-end px-6 pb-20 text-right md:px-16 lg:px-24">
-          <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">
-            62' Ocean Yacht
-          </p>
-          <h1 className="mb-6 font-outfit text-5xl font-bold text-white drop-shadow-lg md:text-6xl lg:text-7xl">
-            Reel Addiction III
-          </h1>
-          <p className="max-w-2xl font-inter text-xl text-white/90 md:text-2xl">
-            The largest and fastest charter fishing boat in Ko Olina
-          </p>
-        </div>
+        <VesselHeroContent />
       </section>
 
       {/* ===== QUICK SPECS BAR ===== */}

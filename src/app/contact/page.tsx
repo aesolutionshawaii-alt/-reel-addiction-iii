@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { Phone, MapPin, Clock } from 'lucide-react';
 import InnerNavigation from '@/components/InnerNavigation';
 import ContactForm from '@/components/ContactForm';
+import ContactHeroContent from '@/components/ContactHeroContent';
 
 export const metadata: Metadata = {
   title: "Contact Us | Reel Addiction III - Book Your Charter",
@@ -17,7 +18,7 @@ export default function ContactPage() {
       <InnerNavigation />
       
       {/* Hero Section */}
-      <section className="relative h-[40vh] min-h-[350px] overflow-hidden">
+      <section className="relative h-[70vh] min-h-[550px] overflow-hidden">
         <CloudinaryImage
           src="images/contact/contact-hero"
           alt="Ko Olina Marina at sunset"
@@ -28,17 +29,7 @@ export default function ContactPage() {
         />
         <div className="absolute inset-0 bg-black/30" />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-          <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">
-            Get In Touch
-          </p>
-          <h1 className="mb-6 font-outfit text-5xl font-bold text-white drop-shadow-lg md:text-6xl lg:text-7xl">
-            Contact Us
-          </h1>
-          <p className="max-w-2xl font-inter text-xl text-white/90 md:text-2xl">
-            Questions? Ready to book? We're here to help.
-          </p>
-        </div>
+        <ContactHeroContent />
       </section>
 
       {/* Main Content */}

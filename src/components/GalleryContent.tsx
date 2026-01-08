@@ -1,100 +1,51 @@
 'use client';
 
 import { useState } from 'react';
-import CloudinaryImage from '@/components/CloudinaryImage';
+import Image from 'next/image';
 import { X } from 'lucide-react';
 
-const galleryImages = [
-  { src: 'gallery/catch-1', alt: 'Blue marlin catch', category: 'marlin' },
-  { src: 'gallery/catch-2', alt: 'Yellowfin tuna catch', category: 'tuna' },
-  { src: 'gallery/catch-3', alt: 'Mahi mahi catch', category: 'mahi' },
-  { src: 'gallery/catch-4', alt: 'Family fishing trip', category: 'people' },
-  { src: 'gallery/catch-5', alt: 'Ono wahoo catch', category: 'wahoo' },
-  { src: 'gallery/catch-6', alt: 'Sunset fishing', category: 'scenery' },
-  { src: 'gallery/catch-7', alt: 'Striped marlin jump', category: 'marlin' },
-  { src: 'gallery/catch-8', alt: 'Group charter', category: 'people' },
-  { src: 'gallery/catch-9', alt: 'Big ahi', category: 'tuna' },
-  { src: 'gallery/catch-10', alt: 'Boat at sea', category: 'scenery' },
-  { src: 'gallery/catch-11', alt: 'Double mahi hookup', category: 'mahi' },
-  { src: 'gallery/catch-12', alt: 'Captain with trophy', category: 'people' },
-];
+type GalleryImage = {
+  _id: string;
+  caption?: string;
+  date?: string;
+  imageUrl: string;
+};
 
-const categories = [
-  { id: 'all', label: 'All' },
-  { id: 'marlin', label: 'Marlin' },
-  { id: 'tuna', label: 'Tuna' },
-  { id: 'mahi', label: 'Mahi Mahi' },
-  { id: 'wahoo', label: 'Wahoo' },
-  { id: 'people', label: 'Guests' },
-  { id: 'scenery', label: 'Scenery' },
-];
+export default function GalleryContent({ images }: { images: GalleryImage[] }) {
+  const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
 
-export default function GalleryContent() {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [lightboxImage, setLightboxImage] = useState<(typeof galleryImages)[0] | null>(null);
-
-  const filteredImages =
-    activeCategory === 'all'
-      ? galleryImages
-      : galleryImages.filter((img) => img.category === activeCategory);
+  if (!images || images.length === 0) {
+    return (
+      <section className="py-16">
+        <div className="mx-auto max-w-6xl px-6 text-center">
+          <p className="font-inter text-lg text-gray-500">No gallery images yet. Check back soon!</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
-      {/* Filter Tabs */}
-      <section className="sticky top-16 z-30 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide">
-            {categories.map((category) => (
+      {/* Image Grid - Instagram Style */}
+      <section className="py-8 md:py-12">
+        <div className="mx-auto max-w-4xl px-1 md:px-4">
+          <div className="grid grid-cols-3 gap-1 md:gap-2">
+            {images.map((image) => (
               <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`whitespace-nowrap rounded-full px-5 py-2 font-outfit text-sm font-semibold transition-colors ${
-                  activeCategory === category.id
-                    ? 'bg-red-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Image Grid */}
-      <section className="py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {filteredImages.map((image) => (
-              <button
-                key={image.src}
+                key={image._id}
                 onClick={() => setLightboxImage(image)}
-                className="group relative aspect-square overflow-hidden rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                className="group relative aspect-[4/5] overflow-hidden bg-gray-100 focus:outline-none"
               >
-                <CloudinaryImage
-                  src={image.src}
-                  alt={image.alt}
+                <Image
+                  src={image.imageUrl}
+                  alt={image.caption || 'Gallery photo'}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover transition-opacity duration-300 group-hover:opacity-90"
+                  sizes="(max-width: 768px) 33vw, 300px"
                 />
-                <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/30" />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90">
-                    <svg className="h-6 w-6 text-[#1B3A5F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
-                  </div>
-                </div>
               </button>
             ))}
           </div>
-
-          {filteredImages.length === 0 && (
-            <div className="py-16 text-center">
-              <p className="font-inter text-lg text-gray-500">No images in this category yet.</p>
-            </div>
-          )}
         </div>
       </section>
 
@@ -106,26 +57,28 @@ export default function GalleryContent() {
         >
           <button
             onClick={() => setLightboxImage(null)}
-            className="absolute right-4 top-4 p-2 text-white/70 transition-colors hover:text-white"
+            className="absolute right-4 top-4 z-10 p-2 text-white/70 transition-colors hover:text-white"
             aria-label="Close lightbox"
           >
             <X className="h-8 w-8" />
           </button>
           <div
-            className="relative h-full max-h-[80vh] w-full max-w-5xl"
+            className="relative h-full max-h-[85vh] w-full max-w-3xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <CloudinaryImage
-              src={lightboxImage.src}
-              alt={lightboxImage.alt}
+            <Image
+              src={lightboxImage.imageUrl}
+              alt={lightboxImage.caption || 'Gallery photo'}
               fill
               className="object-contain"
               sizes="100vw"
             />
           </div>
-          <p className="absolute bottom-4 left-0 right-0 text-center font-inter text-white/70">
-            {lightboxImage.alt}
-          </p>
+          {lightboxImage.caption && (
+            <p className="absolute bottom-4 left-0 right-0 text-center font-inter text-sm text-white/80">
+              {lightboxImage.caption}
+            </p>
+          )}
         </div>
       )}
     </>
