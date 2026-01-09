@@ -66,31 +66,31 @@ export default function Hero() {
 
     return () => observer.disconnect()
   }, [videoSrc])
-// Pause/resume video when mobile menu opens/closes
-useEffect(() => {
-  const handlePauseAll = () => {
-    console.log('HERO: Received pauseAllVideos');
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-    setIsPlaying(false);
-  };
+  // Pause/resume video when mobile menu opens/closes
+  useEffect(() => {
+    const handlePauseAll = () => {
+      console.log('HERO: Received pauseAllVideos');
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
+      setIsPlaying(false);
+    };
 
-  const handleResumeAll = () => {
-    console.log('HERO: Received resumeAllVideos');
-    if (videoRef.current) {
-      videoRef.current.play();
-    }
-    setIsPlaying(true);
-  };
+    const handleResumeAll = () => {
+      console.log('HERO: Received resumeAllVideos');
+      if (videoRef.current) {
+        videoRef.current.play();
+      }
+      setIsPlaying(true);
+    };
 
-  window.addEventListener('pauseAllVideos', handlePauseAll);
-  window.addEventListener('resumeAllVideos', handleResumeAll);
-  return () => {
-    window.removeEventListener('pauseAllVideos', handlePauseAll);
-    window.removeEventListener('resumeAllVideos', handleResumeAll);
-  };
-}, []);
+    window.addEventListener('pauseAllVideos', handlePauseAll);
+    window.addEventListener('resumeAllVideos', handleResumeAll);
+    return () => {
+      window.removeEventListener('pauseAllVideos', handlePauseAll);
+      window.removeEventListener('resumeAllVideos', handleResumeAll);
+    };
+  }, []);
   return (
     <section
       ref={sectionRef}
@@ -129,7 +129,7 @@ useEffect(() => {
             muted
             playsInline
             preload={isMobile ? "metadata" : "auto"}
-            onCanPlayThrough={() => setVideoLoaded(true)}
+            onCanPlay={() => setVideoLoaded(true)}
             className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
