@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit, Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
+import PersistentHero from '@/components/PersistentHero'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -53,8 +54,11 @@ export default function RootLayout({
         {/* Preconnect to Cloudinary - eliminates ~500ms connection overhead */}
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        </head>
-      <body className="font-inter text-navy bg-offwhite">{children}</body>
+      </head>
+      <body className="font-inter text-navy bg-offwhite">
+        <PersistentHero />
+        {children}
+      </body>
     </html>
   )
 }

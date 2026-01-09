@@ -1,4 +1,4 @@
-import Hero from '@/components/Hero'
+
 import ExploreCards from '@/components/ExploreCards'
 import CharterSection from '@/components/CharterSection'
 import DailyCatchSection from '@/components/DailyCatchSection'
@@ -14,7 +14,7 @@ export default function Home() {
     <main>
       <InnerNavigation disablePrefetch />
       <SocialSidebar />
-      <Hero />
+      
       <FadeBackground>
         <ExploreCards />
         <CharterSection />
