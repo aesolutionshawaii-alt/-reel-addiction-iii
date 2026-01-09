@@ -129,7 +129,7 @@ export default function Hero() {
             muted
             playsInline
             preload={isMobile ? "metadata" : "auto"}
-            onPlaying={() => setVideoLoaded(true)}
+            onPlaying={() => setTimeout(() => setVideoLoaded(true), 100)}
             className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
