@@ -5,7 +5,7 @@ interface HeroImageProps {
     src: string;
     mobileSrc: string;
     alt: string;
-    objectPosition?: 'left' | 'center' | 'right';
+    objectPosition?: 'left' | 'center' | 'right' | 'top';
     disableFade?: boolean;
 }
 

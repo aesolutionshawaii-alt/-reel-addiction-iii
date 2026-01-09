@@ -37,7 +37,7 @@ export default async function GalleryPage() {
           src="images/gallery-hero"
           mobileSrc="images/gallery-hero-mobile"
           alt="Gallery"
-          objectPosition="center"
+          objectPosition="top"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
 

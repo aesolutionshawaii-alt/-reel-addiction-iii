@@ -3,11 +3,12 @@
 import { useState, useEffect, useRef } from 'react';
 
 interface HeroImageClientProps {
+    
   mobileSrcSet: string;
   desktopSrcSet: string;
   fallbackUrl: string;
   alt: string;
-  objectPosition?: 'left' | 'center' | 'right';
+  objectPosition?: 'left' | 'center' | 'right' | 'top';
   disableFade?: boolean;
 }
 
