@@ -53,7 +53,6 @@ export default function RootLayout({
         {/* Preconnect to Cloudinary - eliminates ~500ms connection overhead */}
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        <link rel="preload" as="video" href="/videos/hero-video.mp4" type="video/mp4" media="(min-width: 768px)" />
         </head>
       <body className="font-inter text-navy bg-offwhite">{children}</body>
     </html>
