@@ -6,13 +6,9 @@ export default function PersistentHero() {
   const pathname = usePathname()
   const isHomepage = pathname === '/'
   
-  if (!isHomepage) {
-    return (
-      <div className="hidden">
-        <Hero />
-      </div>
-    )
-  }
-  
-  return <Hero />
+  return (
+    <div className={isHomepage ? '' : 'hidden'}>
+      <Hero />
+    </div>
+  )
 }
