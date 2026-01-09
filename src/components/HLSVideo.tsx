@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Hls from 'hls.js'
 
 interface HLSVideoProps {
@@ -8,11 +8,6 @@ interface HLSVideoProps {
   onCanPlayThrough?: () => void
   onEnded?: () => void
 }
-
-// Detect Safari once at module level
-const isSafari = typeof navigator !== 'undefined' && 
-  /Safari/.test(navigator.userAgent) && 
-  !/Chrome/.test(navigator.userAgent)
 
 export default function HLSVideo({ 
   src, 
@@ -24,7 +19,6 @@ export default function HLSVideo({
   const videoElement = useRef<HTMLVideoElement>(null)
   const hlsInstance = useRef<Hls | null>(null)
   const previousSrc = useRef<string>('')
-  const hasCalledLoad = useRef<boolean>(false)
 
   useEffect(() => {
     const video = videoElement.current
@@ -44,7 +38,6 @@ export default function HLSVideo({
       }
       video.src = ''
       previousSrc.current = ''
-      hasCalledLoad.current = false
       console.log('HLS: No src provided, clearing video')
       return
     }
@@ -56,33 +49,20 @@ export default function HLSVideo({
     }
 
     previousSrc.current = src
-    hasCalledLoad.current = false
     console.log('HLS: Initializing with src:', src)
 
+    // Check if native HLS support (Safari only - not Chrome)
+    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
     if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
       console.log('HLS: Using native HLS support (Safari)')
-      
-      // For Safari: set src, then call load() ONCE to trigger segment buffering
-      // Without load(), Safari with preload="metadata" only fetches the playlist
       video.src = src
-      
-      // Call load() after a brief delay to ensure src is processed
-      // Note: hasCalledLoad guard prevents double-calling even if effect re-runs
-      setTimeout(() => {
-        if (!hasCalledLoad.current) {
-          hasCalledLoad.current = true
-          video.load()
-          console.log('HLS: Called load() for Safari')
-        }
-      }, 10)
-      
+      video.load() // Explicitly trigger loading for Safari
       return
     }
 
     // Use HLS.js for other browsers
     if (Hls.isSupported()) {
       console.log('HLS: HLS.js is supported, creating instance')
-      
       // Destroy existing instance if any
       if (hlsInstance.current) {
         hlsInstance.current.destroy()
@@ -92,21 +72,22 @@ export default function HLSVideo({
         enableWorker: true,
         lowLatencyMode: false,
         backBufferLength: 90,
-        maxBufferLength: 10,
-        maxMaxBufferLength: 20,
-        maxBufferSize: 10 * 1000 * 1000,
-        maxBufferHole: 0.5,
-        autoStartLoad: true,
-        startPosition: 0,
+        maxBufferLength: 10,        // Reduce buffer size for mobile
+        maxMaxBufferLength: 20,     // Cap max buffer
+        maxBufferSize: 10 * 1000 * 1000, // 10MB max buffer
+        maxBufferHole: 0.5,         // More aggressive gap jumping
+        autoStartLoad: true,        // Explicitly start loading segments
+        startPosition: 0,           // Start from beginning
       })
 
       hlsInstance.current = hls
       hls.loadSource(src)
       hls.attachMedia(video)
-
+      
+      // Add detailed logging and force loading to start
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         console.log('HLS: Manifest parsed, starting load')
-        hls.startLoad()
+        hls.startLoad() // Explicitly start loading segments
       })
 
       hls.on(Hls.Events.FRAG_LOADED, (event, data) => {
@@ -140,7 +121,7 @@ export default function HLSVideo({
         hlsInstance.current = null
       }
     }
-  }, [src])
+  }, [src]) // FIXED: Removed videoRef from dependencies - it was causing infinite loop
 
   return (
     <video
@@ -148,7 +129,7 @@ export default function HLSVideo({
       className={className}
       playsInline
       muted
-      preload={isSafari ? "auto" : "metadata"}
+      preload="metadata"
       onCanPlayThrough={onCanPlayThrough}
       onEnded={onEnded}
     />
