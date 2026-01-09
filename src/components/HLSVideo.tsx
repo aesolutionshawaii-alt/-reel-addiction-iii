@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Hls from 'hls.js'
 
 interface HLSVideoProps {
@@ -8,6 +8,11 @@ interface HLSVideoProps {
   onCanPlayThrough?: () => void
   onEnded?: () => void
 }
+
+// Detect Safari once at module level
+const isSafari = typeof navigator !== 'undefined' && 
+  /Safari/.test(navigator.userAgent) && 
+  !/Chrome/.test(navigator.userAgent)
 
 export default function HLSVideo({ 
   src, 
@@ -19,6 +24,7 @@ export default function HLSVideo({
   const videoElement = useRef<HTMLVideoElement>(null)
   const hlsInstance = useRef<Hls | null>(null)
   const previousSrc = useRef<string>('')
+  const hasCalledLoad = useRef<boolean>(false)
 
   useEffect(() => {
     const video = videoElement.current
@@ -38,6 +44,7 @@ export default function HLSVideo({
       }
       video.src = ''
       previousSrc.current = ''
+      hasCalledLoad.current = false
       console.log('HLS: No src provided, clearing video')
       return
     }
@@ -49,18 +56,24 @@ export default function HLSVideo({
     }
 
     previousSrc.current = src
+    hasCalledLoad.current = false
     console.log('HLS: Initializing with src:', src)
 
-    // Check if native HLS support (Safari only - not Chrome)
-    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
-    
     if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
       console.log('HLS: Using native HLS support (Safari)')
       
-      // For Safari native HLS, we need preload="auto" to buffer segments
-      // (preload="metadata" only loads the playlist, not video data)
-      video.preload = 'auto'
+      // For Safari: set src, then call load() ONCE to trigger segment buffering
+      // Without load(), Safari with preload="metadata" only fetches the playlist
       video.src = src
+      
+      // Use a microtask to ensure src is fully set before calling load
+      queueMicrotask(() => {
+        if (!hasCalledLoad.current && video.src === src) {
+          hasCalledLoad.current = true
+          video.load()
+          console.log('HLS: Called load() for Safari')
+        }
+      })
       
       return
     }
@@ -134,7 +147,7 @@ export default function HLSVideo({
       className={className}
       playsInline
       muted
-      preload="metadata"
+      preload={isSafari ? "auto" : "metadata"}
       onCanPlayThrough={onCanPlayThrough}
       onEnded={onEnded}
     />
