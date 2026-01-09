@@ -57,12 +57,11 @@ export default function HLSVideo({
     if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
       console.log('HLS: Using native HLS support (Safari)')
       
-      // FIX: Only set src - do NOT call video.load()
-      // Setting src already triggers Safari to fetch the playlist
-      // Calling load() after causes a duplicate fetch
+      // For Safari native HLS, we need preload="auto" to buffer segments
+      // (preload="metadata" only loads the playlist, not video data)
+      video.preload = 'auto'
       video.src = src
       
-      // No cleanup needed for native HLS - browser handles it
       return
     }
 
