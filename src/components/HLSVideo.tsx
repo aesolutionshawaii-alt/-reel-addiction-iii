@@ -53,16 +53,23 @@ export default function HLSVideo({
 
     // Check if native HLS support (Safari only - not Chrome)
     const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
+    
     if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
       console.log('HLS: Using native HLS support (Safari)')
+      
+      // FIX: Only set src - do NOT call video.load()
+      // Setting src already triggers Safari to fetch the playlist
+      // Calling load() after causes a duplicate fetch
       video.src = src
-      video.load() // Explicitly trigger loading for Safari
+      
+      // No cleanup needed for native HLS - browser handles it
       return
     }
 
     // Use HLS.js for other browsers
     if (Hls.isSupported()) {
       console.log('HLS: HLS.js is supported, creating instance')
+      
       // Destroy existing instance if any
       if (hlsInstance.current) {
         hlsInstance.current.destroy()
@@ -72,22 +79,21 @@ export default function HLSVideo({
         enableWorker: true,
         lowLatencyMode: false,
         backBufferLength: 90,
-        maxBufferLength: 10,        // Reduce buffer size for mobile
-        maxMaxBufferLength: 20,     // Cap max buffer
-        maxBufferSize: 10 * 1000 * 1000, // 10MB max buffer
-        maxBufferHole: 0.5,         // More aggressive gap jumping
-        autoStartLoad: true,        // Explicitly start loading segments
-        startPosition: 0,           // Start from beginning
+        maxBufferLength: 10,
+        maxMaxBufferLength: 20,
+        maxBufferSize: 10 * 1000 * 1000,
+        maxBufferHole: 0.5,
+        autoStartLoad: true,
+        startPosition: 0,
       })
 
       hlsInstance.current = hls
       hls.loadSource(src)
       hls.attachMedia(video)
-      
-      // Add detailed logging and force loading to start
+
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         console.log('HLS: Manifest parsed, starting load')
-        hls.startLoad() // Explicitly start loading segments
+        hls.startLoad()
       })
 
       hls.on(Hls.Events.FRAG_LOADED, (event, data) => {
@@ -121,7 +127,7 @@ export default function HLSVideo({
         hlsInstance.current = null
       }
     }
-  }, [src]) // FIXED: Removed videoRef from dependencies - it was causing infinite loop
+  }, [src])
 
   return (
     <video

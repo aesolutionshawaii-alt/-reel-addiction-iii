@@ -1,10 +1,9 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { CldImage } from 'next-cloudinary'
-import HLSVideo from './HLSVideo'// Use the new component
-import CloudinaryImage from '@/components/CloudinaryImage';
+import HLSVideo from './HLSVideo'
+import CloudinaryImage from '@/components/CloudinaryImage'
 
 const charters = [
   { title: '3/4 Day', image: 'images/charter-34day', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/hls/charter-34day/playlist.m3u8', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
@@ -13,7 +12,6 @@ const charters = [
   { title: 'Custom Trip', image: 'images/charter-custom', video: '/videos/charter-custom-web.mp4', mobileVideo: '/videos/hls/charter-custom/playlist.m3u8', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
 ]
 
-// Helper function to convert charter title to URL
 const getCharterUrl = (title: string) => {
   const urlMap: { [key: string]: string } = {
     '3/4 Day': '/charters/3-4-day',
@@ -30,11 +28,13 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const [isDesktop, setIsDesktop] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
-  const [loadVideoIndex, setLoadVideoIndex] = useState(-1)
-  const [sectionInView, setSectionInView] = useState(false)
-  const [videoLoadedStates, setVideoLoadedStates] = useState<{ [key: number]: boolean | 'ended' }>({})
   const [hasScrolled, setHasScrolled] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
+  const [videoLoadedStates, setVideoLoadedStates] = useState<{ [key: number]: boolean | 'ended' }>({})
+  
+  // NEW: Track which videos should have their src set (for loading)
+  // This replaces loadVideoIndex with a Set for predictive loading
+  const [videosToLoad, setVideosToLoad] = useState<Set<number>>(new Set())
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
@@ -42,12 +42,33 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const pageScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const initializedVideos = useRef<Set<number>>(new Set()) // Track which videos have been initialized
+  const preloadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
     return charters.find(c => c.title === hoveredCard)?.row
   }
+
+  // Preload the next video after current one is ready
+  const preloadNextVideo = useCallback((currentIndex: number) => {
+    const nextIndex = currentIndex + 1
+    if (nextIndex < charters.length) {
+      // Clear any existing preload timeout
+      if (preloadTimeoutRef.current) {
+        clearTimeout(preloadTimeoutRef.current)
+      }
+      
+      // Delay preload slightly so it doesn't compete with current video's segments
+      preloadTimeoutRef.current = setTimeout(() => {
+        console.log(`Preloading video ${nextIndex} (${charters[nextIndex].title})`)
+        setVideosToLoad(prev => {
+          const next = new Set(prev)
+          next.add(nextIndex)
+          return next
+        })
+      }, 800) // Wait 800ms after current video is ready before preloading next
+    }
+  }, [])
 
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 768)
@@ -65,6 +86,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     })
   }, [hoveredCard])
 
+  // Handle horizontal scroll
   useEffect(() => {
     const handleScroll = () => {
       if (scrollRef.current) {
@@ -73,21 +95,17 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         const newIndex = Math.round(scrollLeft / cardWidth)
         setActiveIndex(Math.min(newIndex, charters.length - 1))
 
-        // Set scrolling state
         setIsScrolling(true)
 
-        // Cancel any pending video load
         if (loadTimeoutRef.current) {
           clearTimeout(loadTimeoutRef.current)
           loadTimeoutRef.current = null
         }
 
-        // Clear existing timeout
         if (scrollTimeoutRef.current) {
           clearTimeout(scrollTimeoutRef.current)
         }
 
-        // Set timeout to detect when scrolling stops
         scrollTimeoutRef.current = setTimeout(() => {
           setIsScrolling(false)
         }, 200)
@@ -109,7 +127,6 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     const handlePageScroll = () => {
       setIsScrolling(true)
 
-      // Cancel any pending video load
       if (loadTimeoutRef.current) {
         clearTimeout(loadTimeoutRef.current)
         loadTimeoutRef.current = null
@@ -133,10 +150,10 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     }
   }, [])
 
-  // Debounce video loading - start loading video after scroll settles
+  // Load active video after scroll settles
   useEffect(() => {
-    if (!hasScrolled) return // Don't load videos until section is in view
-    if (isScrolling) return // Don't trigger loading while actively scrolling
+    if (!hasScrolled) return
+    if (isScrolling) return
 
     if (loadTimeoutRef.current) {
       clearTimeout(loadTimeoutRef.current)
@@ -147,7 +164,13 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
       if (videoLoadedStates[activeIndex] === 'ended') {
         setVideoLoadedStates(prev => ({ ...prev, [activeIndex]: true }))
       }
-      setLoadVideoIndex(activeIndex)
+      
+      // Add active index to videos that should load
+      setVideosToLoad(prev => {
+        const next = new Set(prev)
+        next.add(activeIndex)
+        return next
+      })
     }, 400)
 
     return () => {
@@ -155,15 +178,14 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
         clearTimeout(loadTimeoutRef.current)
       }
     }
-  }, [activeIndex, hasScrolled, isScrolling])
+  }, [activeIndex, hasScrolled, isScrolling, videoLoadedStates])
 
+  // IntersectionObserver for section visibility
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setSectionInView(entry.isIntersecting)
-
         if (entry.isIntersecting) {
-          setHasScrolled(true) // Allow video loading once section is visible
+          setHasScrolled(true)
         }
 
         if (!entry.isIntersecting) {
@@ -187,49 +209,72 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
 
   // Control playback for the active video
   useEffect(() => {
-    const video = videoRefs.current[loadVideoIndex]
-    if (!video) return
+    const activeVideo = videoRefs.current[activeIndex]
+    
+    // Pause all non-active videos
+    videoRefs.current.forEach((video, index) => {
+      if (video && index !== activeIndex) {
+        video.pause()
+      }
+    })
 
-    // If returning to this video, reset to beginning
-    if (videoLoadedStates[loadVideoIndex] === true && video.currentTime > 0) {
-      video.currentTime = 0
+    if (!activeVideo) return
+
+    // Reset to beginning if returning to this video after it ended
+    if (videoLoadedStates[activeIndex] === true && activeVideo.currentTime > 0) {
+      activeVideo.currentTime = 0
     }
 
-    if (sectionInView && isPlaying && videoLoadedStates[loadVideoIndex] === true) {
-      video.play().catch(() => { })
+    const sectionInView = hasScrolled // Use hasScrolled as proxy for section visibility
+    if (sectionInView && isPlaying && videoLoadedStates[activeIndex] === true && !isScrolling) {
+      activeVideo.play().catch(() => {})
     } else {
-      video.pause()
+      activeVideo.pause()
     }
-  }, [loadVideoIndex, sectionInView, isPlaying, videoLoadedStates])
+  }, [activeIndex, hasScrolled, isPlaying, videoLoadedStates, isScrolling])
+
   // Pause/resume videos when mobile menu opens/closes
   useEffect(() => {
     const handlePauseAll = () => {
-      console.log('CHARTER: Received pauseAllVideos');
-      setIsPlaying(false);
+      console.log('CHARTER: Received pauseAllVideos')
+      setIsPlaying(false)
       videoRefs.current.forEach(video => {
-        if (video) video.pause();
-      });
-    };
+        if (video) video.pause()
+      })
+    }
 
     const handleResumeAll = () => {
-      console.log('CHARTER: Received resumeAllVideos');
-      setIsPlaying(true);
-    };
+      console.log('CHARTER: Received resumeAllVideos')
+      setIsPlaying(true)
+    }
 
-    window.addEventListener('pauseAllVideos', handlePauseAll);
-    window.addEventListener('resumeAllVideos', handleResumeAll);
+    window.addEventListener('pauseAllVideos', handlePauseAll)
+    window.addEventListener('resumeAllVideos', handleResumeAll)
     return () => {
-      window.removeEventListener('pauseAllVideos', handlePauseAll);
-      window.removeEventListener('resumeAllVideos', handleResumeAll);
-    };
-  }, []);
+      window.removeEventListener('pauseAllVideos', handlePauseAll)
+      window.removeEventListener('resumeAllVideos', handleResumeAll)
+    }
+  }, [])
+
+  // Cleanup preload timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (preloadTimeoutRef.current) {
+        clearTimeout(preloadTimeoutRef.current)
+      }
+    }
+  }, [])
 
   const togglePlayback = () => {
     setIsPlaying(!isPlaying)
   }
 
   const handleVideoLoaded = (index: number) => {
+    console.log(`Video ${index} (${charters[index].title}) ready to play`)
     setVideoLoadedStates(prev => ({ ...prev, [index]: true }))
+    
+    // PREDICTIVE LOADING: When this video is ready, start loading the next one
+    preloadNextVideo(index)
   }
 
   const handleVideoEnded = (index: number) => {
@@ -256,51 +301,44 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
             <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
               {charters.map((charter, index) => {
                 const isActiveCard = index === activeIndex
-                const shouldLoadVideo = index === loadVideoIndex && !isScrolling
-                const hasBeenInitialized = initializedVideos.current.has(index)
                 const videoIsReady = videoLoadedStates[index] === true
                 const videoHasEnded = videoLoadedStates[index] === 'ended'
                 const showVideo = isActiveCard && videoIsReady && !videoHasEnded && isPlaying && !isScrolling
 
-                // PORSCHE APPROACH: Give src if (should load AND not initialized) OR (already initialized - keep it)
-                const videoSrc = (shouldLoadVideo && !hasBeenInitialized) || hasBeenInitialized
-                  ? charter.mobileVideo
-                  : ''
+                // SIMPLIFIED: Video gets src if it's in the videosToLoad set
+                // Once loaded, it stays loaded (Set persists)
+                const shouldHaveSrc = videosToLoad.has(index)
+                const videoSrc = shouldHaveSrc ? charter.mobileVideo : ''
 
                 return (
                   <div
                     key={charter.title}
                     className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
                   >
-                    {/* Poster Image - always present, hides when video playing */}
+                    {/* Poster Image */}
                     <CloudinaryImage
                       src={charter.image}
                       alt={charter.title}
                       fill
-                      className={`object-cover z-10 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'
-                        }`}
+                      className={`object-cover z-10 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'}`}
                       style={{ objectPosition: charter.objectPosition }}
                       priority={index === 0}
                     />
 
-                    {/* Video - PORSCHE APPROACH: always in DOM, keeps src after first load */}
+                    {/* Video */}
                     <HLSVideo
                       src={videoSrc}
-                      className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${showVideo ? 'opacity-100' : 'opacity-0'
-                        }`}
+                      className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${showVideo ? 'opacity-100' : 'opacity-0'}`}
                       videoRef={(el) => { videoRefs.current[index] = el }}
-                      onCanPlayThrough={() => {
-                        initializedVideos.current.add(index)
-                        handleVideoLoaded(index)
-                      }}
+                      onCanPlayThrough={() => handleVideoLoaded(index)}
                       onEnded={() => handleVideoEnded(index)}
                     />
 
-                    {/* Gradients - always on top */}
+                    {/* Gradients */}
                     <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
                     <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
 
-                    {/* Content - always on top */}
+                    {/* Content */}
                     <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px] z-30">
                       {charter.title}
                     </h3>
@@ -329,8 +367,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
               {charters.map((_, index) => (
                 <div
                   key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
-                    }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'}`}
                 />
               ))}
             </div>
