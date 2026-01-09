@@ -66,14 +66,15 @@ export default function HLSVideo({
       // Without load(), Safari with preload="metadata" only fetches the playlist
       video.src = src
       
-      // Use a microtask to ensure src is fully set before calling load
-      queueMicrotask(() => {
-        if (!hasCalledLoad.current && video.src === src) {
+      // Call load() after a brief delay to ensure src is processed
+      // Note: hasCalledLoad guard prevents double-calling even if effect re-runs
+      setTimeout(() => {
+        if (!hasCalledLoad.current) {
           hasCalledLoad.current = true
           video.load()
           console.log('HLS: Called load() for Safari')
         }
-      })
+      }, 10)
       
       return
     }
