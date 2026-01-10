@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback, memo } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { CldImage } from 'next-cloudinary'
@@ -24,7 +24,8 @@ const getCharterUrl = (title: string) => {
   return urlMap[title] || '/charters'
 }
 
-export default function CharterSection({ isDark = false }: { isDark?: boolean }) {
+// Memoized video component - no props, so never re-renders due to parent isDark changes
+const CharterVideos = memo(function CharterVideos() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
   const [desktopVideoReady, setDesktopVideoReady] = useState<string | null>(null)
   const [isDesktop, setIsDesktop] = useState(false)
@@ -260,6 +261,222 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   }
 
   return (
+    <>
+      {/* Mobile Layout */}
+      <div className="md:hidden">
+        <div
+          ref={scrollRef}
+          className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+        >
+          <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
+            {charters.map((charter, index) => {
+              const isActiveCard = index === activeIndex
+              const shouldLoadVideo = index === loadVideoIndex && !isScrolling
+              const hasBeenInitialized = initializedVideos.current.has(index)
+              const videoIsReady = videoLoadedStates[index] === true
+              const videoHasEnded = videoLoadedStates[index] === 'ended'
+              const showVideo = isActiveCard && videoIsReady && !videoHasEnded && isPlaying && !isScrolling
+
+              // PORSCHE APPROACH: Give src if (should load AND not initialized) OR (already initialized - keep it)
+              const videoSrc = (shouldLoadVideo && !hasBeenInitialized) || hasBeenInitialized
+                ? charter.mobileVideo
+                : ''
+
+              return (
+                <div
+                  key={charter.title}
+                  className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
+                >
+                  {/* Poster Image - always present, hides when video playing */}
+                  <CloudinaryImage
+                    src={charter.image}
+                    alt={charter.title}
+                    fill
+                    className={`object-cover z-10 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'
+                      }`}
+                    style={{ objectPosition: charter.objectPosition }}
+                    priority={index === 0}
+                  />
+
+                  {/* Video - PORSCHE APPROACH: always in DOM, keeps src after first load */}
+                  <HLSVideo
+                    src={videoSrc}
+                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${showVideo ? 'opacity-100' : 'opacity-0'
+                      }`}
+                    videoRef={(el) => { videoRefs.current[index] = el }}
+                    onCanPlayThrough={() => {
+                      initializedVideos.current.add(index)
+                      handleVideoLoaded(index)
+                    }}
+                    onEnded={() => handleVideoEnded(index)}
+                    stopLoading={!isActiveCard}
+                  />
+
+                  {/* Gradients - always on top */}
+                  <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
+                  <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
+
+                  {/* Content - always on top */}
+                  <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px] z-30">
+                    {charter.title}
+                  </h3>
+                  <div className="absolute bottom-4 left-4 right-4 z-30">
+                    <p className="text-white font-outfit font-light text-[16px] leading-snug mb-2">
+                      {charter.description}
+                    </p>
+                    <p className="text-white font-outfit font-medium text-[20px] mb-3">
+                      {charter.price}
+                    </p>
+                    <Link
+                      href={getCharterUrl(charter.title)}
+                      className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
+                    >
+                      Learn More →
+                    </Link>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <div className="flex items-center gap-2 px-4 h-8 rounded-full bg-white/20">
+            {charters.map((_, index) => (
+              <div
+                key={index}
+                className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
+                  }`}
+              />
+            ))}
+          </div>
+          <button
+            onClick={togglePlayback}
+            className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
+          >
+            {isPlaying ? (
+              <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:block">
+        <div className="flex flex-col gap-[22px]">
+          {[0, 1].map((rowIndex) => (
+            <div key={rowIndex} className="relative h-[750px]" style={{ width: '1522px', margin: '0 auto' }}>
+              {charters.filter(c => c.row === rowIndex).map((charter) => {
+                const isHovered = hoveredCard === charter.title
+                const hoveredRow = getHoveredRow()
+                const isSameRowHovered = hoveredRow === charter.row && !isHovered
+
+                return (
+                  <motion.div
+                    key={charter.title}
+                    className="absolute top-0 h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
+                    animate={{
+                      width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
+                      left: charter.position === 'left'
+                        ? 0
+                        : isHovered ? 672 : isSameRowHovered ? 872 : 772,
+                    }}
+                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                    onMouseEnter={() => setHoveredCard(charter.title)}
+                    onMouseLeave={() => {
+                      setHoveredCard(null)
+                      setDesktopVideoReady(null)
+                    }}
+                  >
+                    <motion.div
+                      className={`absolute top-0 ${charter.position === 'left' ? 'left-[-50px]' : 'right-[-50px]'} w-[950px] h-full`}
+                      animate={{
+                        x: isHovered
+                          ? (charter.position === 'left' ? 30 : -30)
+                          : isSameRowHovered
+                            ? (charter.position === 'left' ? -30 : 30)
+                            : 0
+                      }}
+                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                    >
+                      <CloudinaryImage
+                        src={charter.image}
+                        alt={charter.title}
+                        fill
+                        className="object-cover"
+                        style={{ objectPosition: charter.objectPosition }}
+                      />
+                      <motion.div
+                        className="absolute inset-0"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: desktopVideoReady === charter.title ? 1 : 0 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {isDesktop && (
+                          <video
+                            ref={el => { desktopVideoRefs.current[charter.title] = el }}
+                            src={charter.video}
+                            loop
+                            muted
+                            playsInline
+                            preload="auto"
+                            onPlay={() => setDesktopVideoReady(charter.title)}
+                            className="w-full h-full object-cover"
+                            style={{ objectPosition: charter.objectPosition }}
+                          />
+                        )}
+                      </motion.div>
+                    </motion.div>
+
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 40%)' }} />
+
+                    <h3 className="absolute top-0 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[40px] py-2">
+                      {charter.title}
+                    </h3>
+
+                    <div className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end">
+                      <div className="max-w-[450px]">
+                        <p className="text-white font-outfit font-light text-[24px] leading-normal">
+                          {charter.description}
+                        </p>
+                        <p className="text-white font-outfit font-light text-[24px]">
+                          {charter.price}
+                        </p>
+                      </div>
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: isHovered ? 1 : 0 }}
+                        transition={{ delay: isHovered ? 0.3 : 0, duration: 0.2 }}
+                      >
+                        <Link
+                          href={getCharterUrl(charter.title)}
+                          className="flex items-center justify-center w-[150px] h-10 bg-white rounded text-[#1e1e1e] font-outfit font-normal text-sm hover:bg-gray-100 transition-colors"
+                        >
+                          Learn More →
+                        </Link>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  )
+})
+
+// Outer component - only handles isDark for the title animation
+export default function CharterSection({ isDark = false }: { isDark?: boolean }) {
+  return (
     <section className="pt-24 md:pt-16 pb-16 relative">
       <div className="max-w-[1600px] mx-auto">
         <motion.h2
@@ -270,214 +487,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
           A Different Kind of Charter.
         </motion.h2>
 
-        {/* Mobile Layout */}
-        <div className="md:hidden">
-          <div
-            ref={scrollRef}
-            className="overflow-x-auto scrollbar-hide snap-x snap-mandatory"
-          >
-            <div className="flex gap-4 pb-4 px-[calc(50vw-150px)]" style={{ width: 'max-content' }}>
-              {charters.map((charter, index) => {
-                const isActiveCard = index === activeIndex
-                const shouldLoadVideo = index === loadVideoIndex && !isScrolling
-                const hasBeenInitialized = initializedVideos.current.has(index)
-                const videoIsReady = videoLoadedStates[index] === true
-                const videoHasEnded = videoLoadedStates[index] === 'ended'
-                const showVideo = isActiveCard && videoIsReady && !videoHasEnded && isPlaying && !isScrolling
-
-                // PORSCHE APPROACH: Give src if (should load AND not initialized) OR (already initialized - keep it)
-                const videoSrc = (shouldLoadVideo && !hasBeenInitialized) || hasBeenInitialized
-                  ? charter.mobileVideo
-                  : ''
-
-                return (
-                  <div
-                    key={charter.title}
-                    className="relative w-[calc(100vw-48px)] aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 snap-center"
-                  >
-                    {/* Poster Image - always present, hides when video playing */}
-                    <CloudinaryImage
-                      src={charter.image}
-                      alt={charter.title}
-                      fill
-                      className={`object-cover z-10 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'
-                        }`}
-                      style={{ objectPosition: charter.objectPosition }}
-                      priority={index === 0}
-                    />
-
-                    {/* Video - PORSCHE APPROACH: always in DOM, keeps src after first load */}
-                    <HLSVideo
-                      src={videoSrc}
-                      className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${showVideo ? 'opacity-100' : 'opacity-0'
-                        }`}
-                      videoRef={(el) => { videoRefs.current[index] = el }}
-                      onCanPlayThrough={() => {
-                        initializedVideos.current.add(index)
-                        handleVideoLoaded(index)
-                      }}
-                      onEnded={() => handleVideoEnded(index)}
-                      stopLoading={!isActiveCard}
-                    />
-
-                    {/* Gradients - always on top */}
-                    <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
-                    <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 50%)' }} />
-
-                    {/* Content - always on top */}
-                    <h3 className="absolute top-3 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[28px] z-30">
-                      {charter.title}
-                    </h3>
-                    <div className="absolute bottom-4 left-4 right-4 z-30">
-                      <p className="text-white font-outfit font-light text-[16px] leading-snug mb-2">
-                        {charter.description}
-                      </p>
-                      <p className="text-white font-outfit font-medium text-[20px] mb-3">
-                        {charter.price}
-                      </p>
-                      <Link
-                        href={getCharterUrl(charter.title)}
-                        className="block w-full py-3 bg-white rounded text-center text-[#1e1e1e] font-outfit font-medium text-sm"
-                      >
-                        Learn More →
-                      </Link>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center gap-3 mt-4">
-            <div className="flex items-center gap-2 px-4 h-8 rounded-full bg-white/20">
-              {charters.map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/40'
-                    }`}
-                />
-              ))}
-            </div>
-            <button
-              onClick={togglePlayback}
-              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
-            >
-              {isPlaying ? (
-                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                </svg>
-              ) : (
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Desktop Layout */}
-        <div className="hidden md:block">
-          <div className="flex flex-col gap-[22px]">
-            {[0, 1].map((rowIndex) => (
-              <div key={rowIndex} className="relative h-[750px]" style={{ width: '1522px', margin: '0 auto' }}>
-                {charters.filter(c => c.row === rowIndex).map((charter) => {
-                  const isHovered = hoveredCard === charter.title
-                  const hoveredRow = getHoveredRow()
-                  const isSameRowHovered = hoveredRow === charter.row && !isHovered
-
-                  return (
-                    <motion.div
-                      key={charter.title}
-                      className="absolute top-0 h-[750px] rounded-[6px] overflow-hidden cursor-pointer"
-                      animate={{
-                        width: isHovered ? 850 : isSameRowHovered ? 650 : 750,
-                        left: charter.position === 'left'
-                          ? 0
-                          : isHovered ? 672 : isSameRowHovered ? 872 : 772,
-                      }}
-                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                      onMouseEnter={() => setHoveredCard(charter.title)}
-                      onMouseLeave={() => {
-                        setHoveredCard(null)
-                        setDesktopVideoReady(null)
-                      }}
-                    >
-                      <motion.div
-                        className={`absolute top-0 ${charter.position === 'left' ? 'left-[-50px]' : 'right-[-50px]'} w-[950px] h-full`}
-                        animate={{
-                          x: isHovered
-                            ? (charter.position === 'left' ? 30 : -30)
-                            : isSameRowHovered
-                              ? (charter.position === 'left' ? -30 : 30)
-                              : 0
-                        }}
-                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                      >
-                        <CloudinaryImage
-                          src={charter.image}
-                          alt={charter.title}
-                          fill
-                          className="object-cover"
-                          style={{ objectPosition: charter.objectPosition }}
-                        />
-                        <motion.div
-                          className="absolute inset-0"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: desktopVideoReady === charter.title ? 1 : 0 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          {isDesktop && (
-                            <video
-                              ref={el => { desktopVideoRefs.current[charter.title] = el }}
-                              src={charter.video}
-                              loop
-                              muted
-                              playsInline
-                              preload="auto"
-                              onPlay={() => setDesktopVideoReady(charter.title)}
-                              className="w-full h-full object-cover"
-                              style={{ objectPosition: charter.objectPosition }}
-                            />
-                          )}
-                        </motion.div>
-                      </motion.div>
-
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 25%)' }} />
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(13,13,15,1) 0%, rgba(13,13,15,0) 40%)' }} />
-
-                      <h3 className="absolute top-0 left-0 right-0 text-center text-[#f7f5f2] font-outfit font-normal text-[40px] py-2">
-                        {charter.title}
-                      </h3>
-
-                      <div className="absolute bottom-[18px] left-[18px] right-[18px] flex justify-between items-end">
-                        <div className="max-w-[450px]">
-                          <p className="text-white font-outfit font-light text-[24px] leading-normal">
-                            {charter.description}
-                          </p>
-                          <p className="text-white font-outfit font-light text-[24px]">
-                            {charter.price}
-                          </p>
-                        </div>
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: isHovered ? 1 : 0 }}
-                          transition={{ delay: isHovered ? 0.3 : 0, duration: 0.2 }}
-                        >
-                          <Link
-                            href={getCharterUrl(charter.title)}
-                            className="flex items-center justify-center w-[150px] h-10 bg-white rounded text-[#1e1e1e] font-outfit font-normal text-sm hover:bg-gray-100 transition-colors"
-                          >
-                            Learn More →
-                          </Link>
-                        </motion.div>
-                      </div>
-                    </motion.div>
-                  )
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
+        <CharterVideos />
       </div>
     </section>
   )
