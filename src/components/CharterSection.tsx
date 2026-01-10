@@ -294,6 +294,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
                         handleVideoLoaded(index)
                       }}
                       onEnded={() => handleVideoEnded(index)}
+                      stopLoading={!isActiveCard}
                     />
 
                     {/* Gradients - always on top */}

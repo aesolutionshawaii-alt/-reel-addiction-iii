@@ -7,14 +7,16 @@ interface HLSVideoProps {
   videoRef?: (el: HTMLVideoElement | null) => void
   onCanPlayThrough?: () => void
   onEnded?: () => void
+  stopLoading?: boolean  // When true, stops HLS segment downloads to free bandwidth
 }
 
-export default function HLSVideo({ 
-  src, 
-  className = '', 
+export default function HLSVideo({
+  src,
+  className = '',
   videoRef,
   onCanPlayThrough,
-  onEnded
+  onEnded,
+  stopLoading = false
 }: HLSVideoProps) {
   const videoElement = useRef<HTMLVideoElement>(null)
   const hlsInstance = useRef<Hls | null>(null)
@@ -138,6 +140,19 @@ export default function HLSVideo({
       }
     }
   }, [src]) // FIXED: Removed videoRef from dependencies - it was causing infinite loop
+
+  // Stop/resume loading based on stopLoading prop - frees bandwidth for active video
+  useEffect(() => {
+    if (!hlsInstance.current) return
+
+    if (stopLoading) {
+      console.log('HLS: Stopping load to free bandwidth')
+      hlsInstance.current.stopLoad()
+    } else {
+      console.log('HLS: Resuming load')
+      hlsInstance.current.startLoad()
+    }
+  }, [stopLoading])
 
   // Don't use native onCanPlayThrough - we handle it through HLS events
   // (Safari via addEventListener, HLS.js via FRAG_BUFFERED)
