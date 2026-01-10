@@ -95,6 +95,17 @@ export default function HLSVideo({
         hls.startLoad() // Explicitly start loading segments
       })
 
+      // Use FRAG_BUFFERED to know when video is actually ready to display
+      // This fires when a fragment has been buffered into the video element
+      let hasSignaledReady = false
+      hls.on(Hls.Events.FRAG_BUFFERED, () => {
+        if (!hasSignaledReady) {
+          hasSignaledReady = true
+          console.log('HLS: First fragment buffered, video ready to display')
+          if (onCanPlayThrough) onCanPlayThrough()
+        }
+      })
+
       hls.on(Hls.Events.FRAG_LOADED, (event, data) => {
         console.log('HLS: Fragment loaded:', data.frag.url)
       })
@@ -128,6 +139,8 @@ export default function HLSVideo({
     }
   }, [src]) // FIXED: Removed videoRef from dependencies - it was causing infinite loop
 
+  // Don't use native onCanPlayThrough - we handle it through HLS events
+  // (Safari via addEventListener, HLS.js via FRAG_BUFFERED)
   return (
     <video
       ref={videoElement}
@@ -135,7 +148,6 @@ export default function HLSVideo({
       playsInline
       muted
       preload="metadata"
-      onCanPlayThrough={onCanPlayThrough}
       onEnded={onEnded}
     />
   )
