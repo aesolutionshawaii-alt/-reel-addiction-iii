@@ -27,6 +27,7 @@ export default function HLSVideo({
   const hlsInstance = useRef<Hls | null>(null)
   const previousSrc = useRef<string>('')
   const hasSignaledReady = useRef<boolean>(false)
+  const wasStopped = useRef<boolean>(false)
 
   useEffect(() => {
     const video = videoElement.current
@@ -59,8 +60,6 @@ export default function HLSVideo({
     previousSrc.current = src
     console.log('HLS: Initializing with src:', src)
 
-    // Check if native HLS support (Safari only - not Chrome)
-    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
     if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
       
       console.log('HLS: Using native HLS support (Safari)')
@@ -153,8 +152,11 @@ export default function HLSVideo({
 
     if (stopLoading) {
       hlsInstance.current.stopLoad()
-    } else {
+      wasStopped.current = true
+    } else if (wasStopped.current) {
+      // Only call startLoad if we previously stopped - avoid duplicate startLoad on mount
       hlsInstance.current.startLoad()
+      wasStopped.current = false
     }
   }, [stopLoading])
 
