@@ -44,6 +44,7 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const pageScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const preloadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const initializedVideos = useRef<Set<number>>(new Set()) // Track which videos have been initialized
+  const lastPlayedIndex = useRef<number>(-1) // Track which video we last started playing
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
@@ -208,13 +209,15 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
     const video = videoRefs.current[loadVideoIndex]
     if (!video) return
 
-    // If returning to this video, reset to beginning
-    if (videoLoadedStates[loadVideoIndex] === true && video.currentTime > 0) {
+    // Only reset to beginning when switching to a DIFFERENT video (returning to a card)
+    // Don't reset on every state change while same video is playing
+    if (loadVideoIndex !== lastPlayedIndex.current && videoLoadedStates[loadVideoIndex] === true && video.currentTime > 0) {
       video.currentTime = 0
     }
 
     if (sectionInView && isPlaying && videoLoadedStates[loadVideoIndex] === true) {
       video.play().catch(() => { })
+      lastPlayedIndex.current = loadVideoIndex
     } else {
       video.pause()
     }
