@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { CldImage } from 'next-cloudinary'
@@ -42,12 +42,30 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const pageScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const preloadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const initializedVideos = useRef<Set<number>>(new Set()) // Track which videos have been initialized
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
     return charters.find(c => c.title === hoveredCard)?.row
   }
+
+  // Predictive loading: when video N is ready, start loading video N+1
+  const preloadNextVideo = useCallback((currentIndex: number) => {
+    const nextIndex = currentIndex + 1
+    if (nextIndex < charters.length && !initializedVideos.current.has(nextIndex)) {
+      if (preloadTimeoutRef.current) {
+        clearTimeout(preloadTimeoutRef.current)
+      }
+      // Wait 800ms after current video is ready before preloading next
+      // This prevents competing for bandwidth with the current video's segments
+      preloadTimeoutRef.current = setTimeout(() => {
+        initializedVideos.current.add(nextIndex)
+        // Force re-render to pick up the new src
+        setVideoLoadedStates(prev => ({ ...prev }))
+      }, 800)
+    }
+  }, [])
 
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 768)
@@ -230,6 +248,8 @@ export default function CharterSection({ isDark = false }: { isDark?: boolean })
 
   const handleVideoLoaded = (index: number) => {
     setVideoLoadedStates(prev => ({ ...prev, [index]: true }))
+    // Start preloading the next video
+    preloadNextVideo(index)
   }
 
   const handleVideoEnded = (index: number) => {

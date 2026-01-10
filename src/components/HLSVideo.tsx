@@ -10,6 +10,11 @@ interface HLSVideoProps {
   stopLoading?: boolean  // When true, stops HLS segment downloads to free bandwidth
 }
 
+// Detect Safari once at module level
+const isSafari = typeof navigator !== 'undefined' &&
+  /Safari/.test(navigator.userAgent) &&
+  !/Chrome/.test(navigator.userAgent)
+
 export default function HLSVideo({
   src,
   className = '',
@@ -21,6 +26,7 @@ export default function HLSVideo({
   const videoElement = useRef<HTMLVideoElement>(null)
   const hlsInstance = useRef<Hls | null>(null)
   const previousSrc = useRef<string>('')
+  const hasSignaledReady = useRef<boolean>(false)
 
   useEffect(() => {
     const video = videoElement.current
@@ -146,10 +152,8 @@ export default function HLSVideo({
     if (!hlsInstance.current) return
 
     if (stopLoading) {
-      console.log('HLS: Stopping load to free bandwidth')
       hlsInstance.current.stopLoad()
     } else {
-      console.log('HLS: Resuming load')
       hlsInstance.current.startLoad()
     }
   }, [stopLoading])
