@@ -65,6 +65,8 @@ export default function Footer() {
           <Link href="/fish" className="font-outfit text-[16px] md:text-[36px] text-white hover:text-gray-300 transition-colors">Fish</Link>
           <span className="font-outfit text-[16px] md:text-[36px] text-white">|</span>
           <Link href="/contact" className="font-outfit text-[16px] md:text-[36px] text-white hover:text-gray-300 transition-colors">Contact</Link>
+          <span className="font-outfit text-[16px] md:text-[36px] text-white">|</span>
+<Link href="/oahu-deep-sea-fishing-guide" className="font-outfit text-[16px] md:text-[36px] text-white hover:text-gray-300 transition-colors">Fishing Guide</Link>
         </div>
         
         {/* Copyright */}
