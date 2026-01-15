@@ -1,6 +1,6 @@
 #!/bin/bash
-# Generate web-optimized HLS streams (Porsche-style)
-# 2-second segments, ~1.5-2 MB each, CRF 23 for web quality
+# Generate HLS streams - balanced quality/size
+# CRF 20, 8 Mbps max, 2-second segments
 
 set -e
 
@@ -23,18 +23,14 @@ for VIDEO in "${VIDEOS[@]}"; do
 
   mkdir -p "$OUT"
 
-  # Web-optimized encoding:
-  # - CRF 23 = good web quality (not broadcast, but clean)
-  # - maxrate 5M = ~1.25 MB per 2-second segment
-  # - hls_time 2 = 2-second segments for quick initial load
   ffmpeg -i "$INPUT" \
     -c:v libx264 \
-    -crf 23 \
-    -maxrate 5M \
-    -bufsize 10M \
+    -crf 20 \
+    -maxrate 8M \
+    -bufsize 16M \
     -preset slow \
-    -profile:v main \
-    -level 4.0 \
+    -profile:v high \
+    -level 4.1 \
     -an \
     -f hls \
     -hls_time 2 \
@@ -47,7 +43,7 @@ done
 
 echo ""
 echo "Segment sizes:"
-ls -lh "$OUTPUT_DIR"/*/seg-*.ts | awk '{print $5, $9}' | head -20
+ls -lh "$OUTPUT_DIR"/*/seg-*.ts | awk '{print $5, $9}'
 echo ""
-echo "Total sizes:"
+echo "Total per video:"
 du -sh "$OUTPUT_DIR"/*
