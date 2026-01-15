@@ -7,10 +7,10 @@ import HLSVideo from './HLSVideo'// Use the new component
 import CloudinaryImage from '@/components/CloudinaryImage';
 
 const charters = [
-  { title: '3/4 Day', image: 'images/charter-34day', video: '/videos/charter-34day-web.mp4', mobileVideo: '/videos/hls/charter-34day/playlist.m3u8', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
-  { title: 'Full Day', image: 'images/charter-fullday', video: '/videos/charter-fullday-web.mp4', mobileVideo: '/videos/hls/charter-fullday/playlist.m3u8', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
-  { title: 'Extravaganza', image: 'images/charter-extravaganza', video: '/videos/charter-extravaganza-web.mp4', mobileVideo: '/videos/hls/charter-extravaganza/playlist.m3u8', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
-  { title: 'Custom Trip', image: 'images/charter-custom', video: '/videos/charter-custom-web.mp4', mobileVideo: '/videos/hls/charter-custom/playlist.m3u8', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
+  { title: '3/4 Day', image: 'images/charter-34day', video: '/videos/charter-34day-web.mp4', desktopVideo: '/videos/hls-desktop/charter-34day-web/master.m3u8', mobileVideo: '/videos/hls/charter-34day/playlist.m3u8', description: 'The sweet spot. Enough time to find the bite and land your trophy.', price: '$2495', position: 'left', row: 0, objectPosition: 'center' },
+  { title: 'Full Day', image: 'images/charter-fullday', video: '/videos/charter-fullday-web.mp4', desktopVideo: '/videos/hls-desktop/charter-fullday-web/master.m3u8', mobileVideo: '/videos/hls/charter-fullday/playlist.m3u8', description: 'Go deeper. More water, more chances, bigger fish.', price: '$2995', position: 'right', row: 0, objectPosition: '60% center' },
+  { title: 'Extravaganza', image: 'images/charter-extravaganza', video: '/videos/charter-extravaganza-web.mp4', desktopVideo: '/videos/hls-desktop/charter-extravaganza-web/master.m3u8', mobileVideo: '/videos/hls/charter-extravaganza/playlist.m3u8', description: "Dawn to dusk. Fish every minute of daylight. The ultimate O'ahu fishing experience.", price: '$3300', position: 'left', row: 1, objectPosition: 'center' },
+  { title: 'Custom Trip', image: 'images/charter-custom', video: '/videos/charter-custom-web.mp4', desktopVideo: '/videos/hls-desktop/charter-custom-web/master.m3u8', mobileVideo: '/videos/hls/charter-custom/playlist.m3u8', description: "Outer islands. Overnighters. Ash scatterings. Tell us what you need — we'll make it happen.", price: 'Call for pricing.', position: 'right', row: 1, objectPosition: 'center' },
 ]
 
 // Helper function to convert charter title to URL
@@ -419,16 +419,12 @@ const CharterVideos = memo(function CharterVideos() {
                         transition={{ duration: 0.5 }}
                       >
                         {isDesktop && (
-                          <video
-                            ref={el => { desktopVideoRefs.current[charter.title] = el }}
-                            src={charter.video}
+                          <HLSVideo
+                            src={charter.desktopVideo}
+                            videoRef={(el) => { desktopVideoRefs.current[charter.title] = el }}
                             loop
-                            muted
-                            playsInline
-                            preload="auto"
-                            onPlay={() => setDesktopVideoReady(charter.title)}
+                            onPlaying={() => setDesktopVideoReady(charter.title)}
                             className="w-full h-full object-cover"
-                            style={{ objectPosition: charter.objectPosition }}
                           />
                         )}
                       </motion.div>

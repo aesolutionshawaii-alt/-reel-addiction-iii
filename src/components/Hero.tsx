@@ -3,14 +3,15 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CldImage } from 'next-cloudinary'
-import CloudinaryImage from '@/components/CloudinaryImage';
+import CloudinaryImage from '@/components/CloudinaryImage'
+import HLSVideo from '@/components/HLSVideo'
 
 export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [videoSrc, setVideoSrc] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState<boolean | null>(null)  // null = not determined yet
   const [isPlaying, setIsPlaying] = useState(true)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const isPlayingRef = useRef(isPlaying)
 
@@ -40,7 +41,8 @@ export default function Hero() {
   useEffect(() => {
     const mobile = window.innerWidth < 768
     setIsMobile(mobile)
-    setVideoSrc(mobile ? '/videos/hero-mobile-720-noaudio.mp4' : '/videos/hero-video.mp4')
+    // Desktop uses HLS for streaming, mobile keeps MP4 (unchanged)
+    setVideoSrc(mobile ? '/videos/hero-mobile-720-noaudio.mp4' : '/videos/hls-desktop/hero-video/master.m3u8')
   }, [])
 
   // Pause video when scrolled out of view (use ref to avoid re-creating observer)
@@ -120,15 +122,27 @@ export default function Hero() {
         </div>
 
         {/* Video - only renders after we know mobile/desktop */}
-        {videoSrc && isMobile !== null && (
+        {/* Desktop: HLS streaming for better initial load */}
+        {videoSrc && isMobile === false && (
+          <HLSVideo
+            src={videoSrc}
+            videoRef={(el) => { videoRef.current = el }}
+            autoPlay
+            loop
+            onPlaying={() => setTimeout(() => setVideoLoaded(true), 100)}
+            className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
+        {/* Mobile: Keep original MP4 behavior (unchanged) */}
+        {videoSrc && isMobile === true && (
           <video
             ref={videoRef}
             src={videoSrc}
-            autoPlay={!isMobile}
+            autoPlay={false}
             loop
             muted
             playsInline
-            preload={isMobile ? "metadata" : "auto"}
+            preload="metadata"
             onPlaying={() => setTimeout(() => setVideoLoaded(true), 100)}
             className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
           />

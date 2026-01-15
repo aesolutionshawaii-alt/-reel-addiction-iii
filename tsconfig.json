@@ -23,5 +23,5 @@
     "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "sanity/**/*.ts"],
-  "exclude": ["node_modules", "public/videos/hls/**/*.ts"]
+  "exclude": ["node_modules", "public/videos/hls/**/*.ts", "public/videos/hls-desktop/**/*.ts"]
 }

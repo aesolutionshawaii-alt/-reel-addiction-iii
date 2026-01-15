@@ -7,7 +7,10 @@ interface HLSVideoProps {
   videoRef?: (el: HTMLVideoElement | null) => void
   onCanPlayThrough?: () => void
   onEnded?: () => void
+  onPlaying?: () => void
   stopLoading?: boolean  // When true, stops HLS segment downloads to free bandwidth
+  loop?: boolean
+  autoPlay?: boolean
 }
 
 // Detect Safari once at module level
@@ -21,7 +24,10 @@ export default function HLSVideo({
   videoRef,
   onCanPlayThrough,
   onEnded,
-  stopLoading = false
+  onPlaying,
+  stopLoading = false,
+  loop = false,
+  autoPlay = false
 }: HLSVideoProps) {
   const videoElement = useRef<HTMLVideoElement>(null)
   const hlsInstance = useRef<Hls | null>(null)
@@ -61,16 +67,19 @@ export default function HLSVideo({
     console.log('HLS: Initializing with src:', src)
 
     if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
-      
+
       console.log('HLS: Using native HLS support (Safari)')
       video.src = src
       video.load() // Explicitly trigger loading for Safari
       video.addEventListener('canplaythrough', () => {
         console.log('HLS Safari: canplaythrough fired')
         if (onCanPlayThrough) onCanPlayThrough()
+        if (autoPlay) {
+          video.play().catch(() => {})
+        }
       }, { once: true })
       return
-          }
+    }
 
     // Use HLS.js for other browsers
     if (Hls.isSupported()) {
@@ -110,6 +119,9 @@ export default function HLSVideo({
           hasSignaledReady = true
           console.log('HLS: First fragment buffered, video ready to display')
           if (onCanPlayThrough) onCanPlayThrough()
+          if (autoPlay) {
+            video.play().catch(() => {})
+          }
         }
       })
 
@@ -169,7 +181,9 @@ export default function HLSVideo({
       playsInline
       muted
       preload="metadata"
+      loop={loop}
       onEnded={onEnded}
+      onPlaying={onPlaying}
     />
   )
 }
