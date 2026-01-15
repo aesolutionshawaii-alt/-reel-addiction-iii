@@ -418,10 +418,9 @@ const CharterVideos = memo(function CharterVideos() {
                         animate={{ opacity: desktopVideoReady === charter.title ? 1 : 0 }}
                         transition={{ duration: 0.5 }}
                       >
-                        {/* Only mount HLSVideo when hovered - prevents "No src provided" spam */}
-                        {isDesktop && isHovered && (
+                        {isDesktop && (
                           <HLSVideo
-                            src={charter.desktopVideo}
+                            src={isHovered ? charter.desktopVideo : ''}
                             videoRef={(el) => { desktopVideoRefs.current[charter.title] = el }}
                             loop
                             autoPlay

@@ -46,21 +46,20 @@ export default function HLSVideo({
 
     // CRITICAL: Only initialize HLS if we have a src AND it's different from previous
     if (!src) {
-      // Only clean up if we previously had a src (avoids spam on initial mount)
-      if (previousSrc.current) {
-        console.log('HLS: Clearing video (was:', previousSrc.current, ')')
-        if (hlsInstance.current) {
-          hlsInstance.current.destroy()
-          hlsInstance.current = null
-        }
-        video.src = ''
-        previousSrc.current = ''
+      // Clean up any existing HLS instance
+      if (hlsInstance.current) {
+        hlsInstance.current.destroy()
+        hlsInstance.current = null
       }
+      video.src = ''
+      previousSrc.current = ''
+      console.log('HLS: No src provided, clearing video')
       return
     }
 
     // Don't re-initialize if src hasn't changed
     if (src === previousSrc.current) {
+      console.log('HLS: Src unchanged, skipping re-init:', src)
       return
     }
 
@@ -68,24 +67,18 @@ export default function HLSVideo({
     console.log('HLS: Initializing with src:', src)
 
     if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
+
       console.log('HLS: Using native HLS support (Safari)')
       video.src = src
       video.load() // Explicitly trigger loading for Safari
-
-      const handleCanPlayThrough = () => {
+      video.addEventListener('canplaythrough', () => {
         console.log('HLS Safari: canplaythrough fired')
         if (onCanPlayThrough) onCanPlayThrough()
         if (autoPlay) {
           video.play().catch(() => {})
         }
-      }
-
-      video.addEventListener('canplaythrough', handleCanPlayThrough, { once: true })
-
-      // Safari cleanup - important to prevent memory leaks
-      return () => {
-        video.removeEventListener('canplaythrough', handleCanPlayThrough)
-      }
+      }, { once: true })
+      return
     }
 
     // Use HLS.js for other browsers
