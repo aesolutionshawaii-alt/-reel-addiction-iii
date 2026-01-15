@@ -10,6 +10,7 @@ export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [videoSrc, setVideoSrc] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState<boolean | null>(null)  // null = not determined yet
+  const [useHLS, setUseHLS] = useState(false)  // Only Chrome desktop uses HLS
   const [isPlaying, setIsPlaying] = useState(true)
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -41,8 +42,22 @@ export default function Hero() {
   useEffect(() => {
     const mobile = window.innerWidth < 768
     setIsMobile(mobile)
-    // Desktop uses HLS for streaming, mobile keeps MP4 (unchanged)
-    setVideoSrc(mobile ? '/videos/hero-mobile-720-noaudio.mp4' : '/videos/hls-desktop/hero-video/playlist.m3u8')
+
+    // Safari detection - Safari's native HLS has slow cold-start, use MP4 instead
+    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
+
+    if (mobile) {
+      setVideoSrc('/videos/hero-mobile-720-noaudio.mp4')
+      setUseHLS(false)
+    } else if (isSafari) {
+      // Safari desktop: use MP4 for faster cold-start (no HLS manifest overhead)
+      setVideoSrc('/videos/hero-video.mp4')
+      setUseHLS(false)
+    } else {
+      // Chrome/Firefox desktop: use HLS for streaming
+      setVideoSrc('/videos/hls-desktop/hero-video/playlist.m3u8')
+      setUseHLS(true)
+    }
   }, [])
 
   // Pause video when scrolled out of view (use ref to avoid re-creating observer)
@@ -121,9 +136,9 @@ export default function Hero() {
           />
         </div>
 
-        {/* Video - only renders after we know mobile/desktop */}
-        {/* Desktop: HLS streaming for better initial load */}
-        {videoSrc && isMobile === false && (
+        {/* Video - only renders after we know mobile/desktop/safari */}
+        {/* Chrome/Firefox desktop: HLS streaming */}
+        {videoSrc && useHLS && (
           <HLSVideo
             src={videoSrc}
             videoRef={(el) => { videoRef.current = el }}
@@ -133,16 +148,16 @@ export default function Hero() {
             className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
-        {/* Mobile: Keep original MP4 behavior (unchanged) */}
-        {videoSrc && isMobile === true && (
+        {/* Mobile + Safari desktop: MP4 */}
+        {videoSrc && !useHLS && (
           <video
             ref={videoRef}
             src={videoSrc}
-            autoPlay={false}
+            autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             onPlaying={() => setTimeout(() => setVideoLoaded(true), 100)}
             className={`absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
