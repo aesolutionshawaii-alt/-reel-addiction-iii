@@ -67,12 +67,15 @@ export default function HLSVideo({
     console.log('HLS: Initializing with src:', src)
 
     if (isSafari && video.canPlayType('application/vnd.apple.mpegurl')) {
-
       console.log('HLS: Using native HLS support (Safari)')
       video.src = src
-      video.load() // Explicitly trigger loading for Safari
-      video.addEventListener('canplaythrough', () => {
-        console.log('HLS Safari: canplaythrough fired')
+      video.load()
+
+      // Use 'canplay' instead of 'canplaythrough' for faster start
+      // canplay fires as soon as enough data is buffered to begin playback
+      // canplaythrough waits until browser estimates it can play the ENTIRE video
+      video.addEventListener('canplay', () => {
+        console.log('HLS Safari: canplay fired')
         if (onCanPlayThrough) onCanPlayThrough()
         if (autoPlay) {
           video.play().catch(() => {})
@@ -92,14 +95,18 @@ export default function HLSVideo({
       const hls = new Hls({
         enableWorker: true,
         lowLatencyMode: false,
-        // Porsche-style minimal buffering: only load 1-2 segments initially
-        maxBufferLength: 4,         // Max 4 seconds buffered (2 segments)
-        maxMaxBufferLength: 8,      // Absolute max 8 seconds
-        maxBufferSize: 4 * 1000 * 1000, // 4MB max buffer
-        backBufferLength: 0,        // Don't keep played segments in memory
+        // ABR-optimized buffering - start fast, buffer more as quality increases
+        maxBufferLength: 10,        // Allow more buffer for quality switching
+        maxMaxBufferLength: 30,     // Let it buffer ahead during playback
+        maxBufferSize: 30 * 1000 * 1000, // 30MB for all quality levels
+        backBufferLength: 0,        // Don't keep played segments
         maxBufferHole: 0.5,
         autoStartLoad: true,
         startPosition: 0,
+        // ABR settings - start low, switch up quickly
+        abrEwmaDefaultEstimate: 500000, // Start assuming 500kbps (will select ULD)
+        abrBandWidthUpFactor: 0.7,      // Switch up at 70% of measured bandwidth
+        abrBandWidthFactor: 0.9,        // Conservative bandwidth estimate
       })
 
       hlsInstance.current = hls
