@@ -1,7 +1,6 @@
 #!/bin/bash
-# Generate high-quality HLS streams for desktop videos
-# Single quality level at 1080p - no adaptive (desktop has good bandwidth)
-# CRF 18 for quality matching original MP4s
+# Generate web-optimized HLS streams (Porsche-style)
+# 2-second segments, ~1.5-2 MB each, CRF 23 for web quality
 
 set -e
 
@@ -22,29 +21,33 @@ for VIDEO in "${VIDEOS[@]}"; do
   INPUT="$INPUT_DIR/$VIDEO.mp4"
   OUT="$OUTPUT_DIR/$VIDEO"
 
-  # Create output directory
   mkdir -p "$OUT"
 
-  # Single high-quality 1080p stream
-  # CRF 18 = high quality, maxrate 15000k = won't constrain (originals are ~12Mbps)
+  # Web-optimized encoding:
+  # - CRF 23 = good web quality (not broadcast, but clean)
+  # - maxrate 5M = ~1.25 MB per 2-second segment
+  # - hls_time 2 = 2-second segments for quick initial load
   ffmpeg -i "$INPUT" \
     -c:v libx264 \
-    -crf 18 \
-    -maxrate 15000k \
-    -bufsize 30000k \
+    -crf 23 \
+    -maxrate 5M \
+    -bufsize 10M \
     -preset slow \
-    -profile:v high \
-    -level 4.1 \
+    -profile:v main \
+    -level 4.0 \
     -an \
     -f hls \
-    -hls_time 4 \
+    -hls_time 2 \
     -hls_playlist_type vod \
-    -hls_segment_filename "$OUT/segment-%03d.ts" \
+    -hls_segment_filename "$OUT/seg-%03d.ts" \
     "$OUT/playlist.m3u8"
 
   echo "=== Completed $VIDEO ==="
-  echo ""
 done
 
-echo "All videos processed!"
+echo ""
+echo "Segment sizes:"
+ls -lh "$OUTPUT_DIR"/*/seg-*.ts | awk '{print $5, $9}' | head -20
+echo ""
+echo "Total sizes:"
 du -sh "$OUTPUT_DIR"/*

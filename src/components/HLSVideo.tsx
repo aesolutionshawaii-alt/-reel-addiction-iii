@@ -92,13 +92,14 @@ export default function HLSVideo({
       const hls = new Hls({
         enableWorker: true,
         lowLatencyMode: false,
-        backBufferLength: 90,
-        maxBufferLength: 10,        // Reduce buffer size for mobile
-        maxMaxBufferLength: 20,     // Cap max buffer
-        maxBufferSize: 10 * 1000 * 1000, // 10MB max buffer
-        maxBufferHole: 0.5,         // More aggressive gap jumping
-        autoStartLoad: true,        // Explicitly start loading segments
-        startPosition: 0,           // Start from beginning
+        // Porsche-style minimal buffering: only load 1-2 segments initially
+        maxBufferLength: 4,         // Max 4 seconds buffered (2 segments)
+        maxMaxBufferLength: 8,      // Absolute max 8 seconds
+        maxBufferSize: 4 * 1000 * 1000, // 4MB max buffer
+        backBufferLength: 0,        // Don't keep played segments in memory
+        maxBufferHole: 0.5,
+        autoStartLoad: true,
+        startPosition: 0,
       })
 
       hlsInstance.current = hls
@@ -125,9 +126,6 @@ export default function HLSVideo({
         }
       })
 
-      hls.on(Hls.Events.FRAG_LOADED, (event, data) => {
-        console.log('HLS: Fragment loaded:', data.frag.url)
-      })
 
       hls.on(Hls.Events.ERROR, (event, data) => {
         if (data.fatal) {
