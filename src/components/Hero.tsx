@@ -42,7 +42,7 @@ export default function Hero() {
     const mobile = window.innerWidth < 768
     setIsMobile(mobile)
     // Desktop uses HLS for streaming, mobile keeps MP4 (unchanged)
-    setVideoSrc(mobile ? '/videos/hero-mobile-720-noaudio.mp4' : '/videos/hls-desktop/hero-video/master.m3u8')
+    setVideoSrc(mobile ? '/videos/hero-mobile-720-noaudio.mp4' : '/videos/hls-desktop/hero-video/playlist.m3u8')
   }, [])
 
   // Pause video when scrolled out of view (use ref to avoid re-creating observer)
