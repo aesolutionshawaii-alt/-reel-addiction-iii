@@ -420,9 +420,10 @@ const CharterVideos = memo(function CharterVideos() {
                       >
                         {isDesktop && (
                           <HLSVideo
-                            src={charter.desktopVideo}
+                            src={isHovered ? charter.desktopVideo : ''}
                             videoRef={(el) => { desktopVideoRefs.current[charter.title] = el }}
                             loop
+                            autoPlay
                             onPlaying={() => setDesktopVideoReady(charter.title)}
                             className="w-full h-full object-cover"
                           />
