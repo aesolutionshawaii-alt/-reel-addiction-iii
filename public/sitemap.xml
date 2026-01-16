@@ -18,6 +18,34 @@
   </url>
 
   <url>
+    <loc>https://reeladdictioniii.com/charters/3-4-day</loc>
+    <lastmod>2026-01-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://reeladdictioniii.com/charters/full-day</loc>
+    <lastmod>2026-01-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://reeladdictioniii.com/charters/extravaganza</loc>
+    <lastmod>2026-01-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://reeladdictioniii.com/custom</loc>
+    <lastmod>2026-01-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://reeladdictioniii.com/oahu-deep-sea-fishing-guide</loc>
     <lastmod>2026-01-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -98,6 +126,13 @@
   <url>
     <loc>https://reeladdictioniii.com/fish/striped-marlin</loc>
     <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://reeladdictioniii.com/fish/pacific-blue-marlin</loc>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
