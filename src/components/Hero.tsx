@@ -40,7 +40,7 @@ export default function Hero() {
   useEffect(() => {
     const mobile = window.innerWidth < 768
     setIsMobile(mobile)
-    setVideoSrc(mobile ? '/videos/hero-mobile-720-noaudio.mp4' : '/videos/hero-video.mp4')
+    setVideoSrc(mobile ? '/videos/hero-mobile-720-noaudio.mp4' : 'https://res.cloudinary.com/dmu9szrap/video/upload/q_auto/videos/hero.mp4')
   }, [])
 
   // Pause video when scrolled out of view (use ref to avoid re-creating observer)
