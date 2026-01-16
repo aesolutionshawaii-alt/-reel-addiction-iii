@@ -38,6 +38,7 @@ const CharterVideos = memo(function CharterVideos() {
   const [isScrolling, setIsScrolling] = useState(false)
 
   const scrollRef = useRef<HTMLDivElement>(null)
+  const desktopSectionRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const desktopVideoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -46,6 +47,7 @@ const CharterVideos = memo(function CharterVideos() {
   const preloadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const initializedVideos = useRef<Set<number>>(new Set()) // Track which videos have been initialized
   const lastPlayedIndex = useRef<number>(-1) // Track which video we last started playing
+  const [desktopVideosEnabled, setDesktopVideosEnabled] = useState(false)
 
   const getHoveredRow = () => {
     if (!hoveredCard) return null
@@ -204,6 +206,27 @@ const CharterVideos = memo(function CharterVideos() {
 
     return () => observer.disconnect()
   }, [])
+
+  // Desktop: load videos when section approaches viewport
+  useEffect(() => {
+    if (!isDesktop) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setDesktopVideosEnabled(true)
+          observer.disconnect() // Only need to trigger once
+        }
+      },
+      { threshold: 0.1, rootMargin: '400px' } // Start loading 400px before visible
+    )
+
+    if (desktopSectionRef.current) {
+      observer.observe(desktopSectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [isDesktop])
 
   // Control playback for the active video
   useEffect(() => {
@@ -368,7 +391,7 @@ const CharterVideos = memo(function CharterVideos() {
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:block">
+      <div ref={desktopSectionRef} className="hidden md:block">
         <div className="flex flex-col gap-[22px]">
           {[0, 1].map((rowIndex) => (
             <div key={rowIndex} className="relative h-[750px]" style={{ width: '1522px', margin: '0 auto' }}>
@@ -421,11 +444,11 @@ const CharterVideos = memo(function CharterVideos() {
                         {isDesktop && (
                           <video
                             ref={el => { desktopVideoRefs.current[charter.title] = el }}
-                            src={charter.video}
+                            src={desktopVideosEnabled ? charter.video : ''}
                             loop
                             muted
                             playsInline
-                            preload="auto"
+                            preload={desktopVideosEnabled ? "auto" : "none"}
                             onPlay={() => setDesktopVideoReady(charter.title)}
                             className="w-full h-full object-cover"
                             style={{ objectPosition: charter.objectPosition }}
