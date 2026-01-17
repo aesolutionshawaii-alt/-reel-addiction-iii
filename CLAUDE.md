@@ -131,10 +131,25 @@ All other images on the site are managed through Cloudinary directly. Don't assu
 - Everything else (hero, charters, fish, vessel, etc.): Cloudinary
 
 ## Videos
-Location: `/public/videos/hls/`
-- HLS streams for charter cards (optimized to 1.9 Mbps)
-- Desktop hero video with `preload="auto"`
-- Mobile videos lazy-load via Intersection Observer
+**Desktop videos:** Cloudinary CDN (better global delivery)
+- URL pattern: `https://res.cloudinary.com/dmu9szrap/video/upload/q_auto/videos/[name].mp4`
+- Files: hero, charter-34day, charter-fullday, charter-extravaganza, charter-custom
+
+**Mobile videos:** Local HLS streams
+- Location: `/public/videos/hls/`
+- HLS streams optimized to 1.9 Mbps
+- Lazy-load via Intersection Observer
+
+## SpeciesGrid Component
+- On `/fish` page: Cards link to `/fish/{slug}` (species data has slugs)
+- On charter pages: Cards display only, no navigation (charter data has no slugs)
+- Do NOT add modals back - links are better for SEO
+
+## Sitemap
+Location: `/public/sitemap.xml` (manually maintained)
+- When adding new pages, update sitemap manually
+- Currently 19 pages indexed
+- Resubmit in GSC after major changes
 
 ## Fish Species Data
 Shared data file: `src/data/species.ts`
@@ -143,7 +158,7 @@ Each has: name, hawaiianName, season, image, description, techniques, size, hawa
 
 ## Cloudinary Credentials
 - Cloud name: dmu9szrap
-- Folders: charters, catch, images, species, vessel
+- Folders: charters, catch, images, species, vessel, videos
 
 ## Common Tasks
 
