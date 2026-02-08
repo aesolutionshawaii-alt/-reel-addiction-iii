@@ -7,8 +7,8 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 import CatchHeroContent from '@/components/CatchHeroContent';
 export const metadata: Metadata = {
-  title: "Your Catch | Reel Addiction III - Hawaii Fish Policy",
-  description: "Learn about our fish policy, what happens to your catch, and how Hawaii's day-boat fishery works differently. Fresh fish, fair split, local tradition.",
+  title: "Hawaii Fish Guide | Ahi, Mahi, Ono & Marlin | How to Prepare Your Catch",
+  description: "What you'll catch on an Oahu fishing charter and how to eat it. Prep tips for Ahi sashimi, grilled Mahi, seared Ono. Plus our simple poke recipe.",
 };
 export default function TheCatchPage() {
   return (<main className="min-h-screen bg-white"><InnerNavigation />

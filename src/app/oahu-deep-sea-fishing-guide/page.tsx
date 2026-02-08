@@ -6,8 +6,8 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 
 export const metadata: Metadata = {
-  title: "Oahu Deep Sea Fishing Guide | Best Times for Marlin, Mahi & Tuna",
-  description: "Complete guide to deep sea fishing in Hawaii. Learn the best seasons for Blue Marlin, Mahi Mahi, Yellowfin Tuna, and Ono. Tips, techniques, and what to bring.",
+  title: "Deep Sea Fishing Oahu | Book a Ko Olina Charter | Reel Addiction III",
+  description: "Book an Oahu deep sea fishing charter from Ko Olina. Best seasons for Marlin, Ahi, Mahi & Ono. Half-day from $2,495. SeaKeeper stabilized for smooth rides.",
 };
 
 export default function FishingGuidePage() {
