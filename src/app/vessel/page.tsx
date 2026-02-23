@@ -10,6 +10,10 @@ import VesselHeroContent from '@/components/VesselHeroContent';
 export const metadata: Metadata = {
   title: "The Vessel | Reel Addiction III - 62' Ocean Yacht",
   description: "Meet Reel Addiction III, Oahu's largest and fastest charter fishing boat. 62' Ocean yacht with SeaKeeper stabilization, 3 staterooms, and 40+ mph speed.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 const specs = [
