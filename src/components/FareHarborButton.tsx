@@ -23,10 +23,8 @@ export default function FareHarborButton({
   itemId,
 }: FareHarborButtonProps) {
   // Build URL - autolightframe will intercept and open in modal
-  // Use calendar view with full-items for green boxes
-  const url = itemId
-    ? `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/items/${itemId}/calendar/?full-items=yes`
-    : `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/calendar/?full-items=yes`;
+  // Don't use item ID - it changes the view. Use base URL for original calendar display.
+  const url = `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/?full-items=yes`;
 
   return (
     <a
