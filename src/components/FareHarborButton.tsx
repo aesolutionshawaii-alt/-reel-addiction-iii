@@ -23,9 +23,7 @@ export default function FareHarborButton({
   itemId,
 }: FareHarborButtonProps) {
   // Build URL - autolightframe will intercept and open in modal
-  // For shared charter (426995), include item ID. For private charters, use base URL.
-  const isSharedCharter = itemId === '426995';
-  const url = isSharedCharter
+  const url = itemId
     ? `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/items/${itemId}/?full-items=yes`
     : `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/?full-items=yes`;
 
