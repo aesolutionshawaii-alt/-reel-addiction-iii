@@ -2,6 +2,19 @@
 
 import { FAREHARBOR_SHORTNAME } from '@/lib/fareharbor';
 
+// Declare FareHarbor global
+declare global {
+  interface Window {
+    FH?: {
+      open: (options: {
+        shortname: string;
+        view?: string | { item: number };
+        items?: number[];
+      }) => void;
+    };
+  }
+}
+
 interface FareHarborButtonProps {
   children: React.ReactNode;
   className?: string;
@@ -22,22 +35,40 @@ export default function FareHarborButton({
   className = '',
   itemId,
 }: FareHarborButtonProps) {
-  // Build the FareHarbor URL
-  let href = `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/`;
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
 
-  if (itemId) {
-    // Use item endpoint with full-items=no to show calendar view
-    href += `items/${itemId}/?full-items=no`;
-  } else {
-    href += '?full-items=yes';
-  }
+    if (!window.FH) {
+      // Fallback: open link directly if FH not loaded
+      const url = itemId
+        ? `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/items/${itemId}/`
+        : `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/`;
+      window.open(url, '_blank');
+      return;
+    }
+
+    if (itemId) {
+      // Open to specific item's calendar view
+      window.FH.open({
+        shortname: FAREHARBOR_SHORTNAME,
+        items: [parseInt(itemId)],
+        view: 'all-availability',
+      });
+    } else {
+      // Open to all items
+      window.FH.open({
+        shortname: FAREHARBOR_SHORTNAME,
+        view: 'items',
+      });
+    }
+  };
 
   return (
-    <a
-      href={href}
-      className={`fareharbor-lightframe ${className}`}
+    <button
+      onClick={handleClick}
+      className={className}
     >
       {children}
-    </a>
+    </button>
   );
 }

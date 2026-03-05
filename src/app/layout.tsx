@@ -59,9 +59,9 @@ export default function RootLayout({
       <body className="font-inter text-navy bg-offwhite">
         <PersistentHero />
         {children}
-        {/* FareHarbor Lightbox Script - Auto-lightframes any fareharbor.com/embeds/book links */}
+        {/* FareHarbor Lightbox API Script - Using API directly for calendar view control */}
         <Script
-          src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"
+          src="https://fareharbor.com/embeds/api/v1/"
           strategy="afterInteractive"
         />
       </body>
