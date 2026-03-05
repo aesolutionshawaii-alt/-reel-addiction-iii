@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Outfit, Inter, Playfair_Display } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import PersistentHero from '@/components/PersistentHero'
 
@@ -58,6 +59,11 @@ export default function RootLayout({
       <body className="font-inter text-navy bg-offwhite">
         <PersistentHero />
         {children}
+        {/* FareHarbor Lightbox Script - Auto-lightframes any fareharbor.com/embeds/book links */}
+        <Script
+          src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )
