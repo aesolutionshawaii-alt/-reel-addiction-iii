@@ -26,7 +26,8 @@ export default function FareHarborButton({
   let href = `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/`;
 
   if (itemId) {
-    href += `items/${itemId}/`;
+    // Use item endpoint with full-items=no to show calendar view
+    href += `items/${itemId}/?full-items=no`;
   } else {
     href += '?full-items=yes';
   }
