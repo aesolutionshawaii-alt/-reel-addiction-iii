@@ -11,7 +11,7 @@ interface FareHarborButtonProps {
 
 /**
  * FareHarbor lightbox button component
- * Uses autolightframe - regular FareHarbor links are automatically opened in a modal
+ * Opens booking in a modal overlay instead of navigating away from the site
  *
  * Usage:
  *   <FareHarborButton className="...">Book Now</FareHarborButton>
@@ -22,15 +22,19 @@ export default function FareHarborButton({
   className = '',
   itemId,
 }: FareHarborButtonProps) {
-  // Build URL - autolightframe will intercept and open in modal
-  const url = itemId
-    ? `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/items/${itemId}/?full-items=yes`
-    : `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/?full-items=yes`;
+  // Build the FareHarbor URL
+  let href = `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/`;
+
+  if (itemId) {
+    href += `items/${itemId}/`;
+  } else {
+    href += '?full-items=yes';
+  }
 
   return (
     <a
-      href={url}
-      className={className}
+      href={href}
+      className={`fareharbor-lightframe ${className}`}
     >
       {children}
     </a>
