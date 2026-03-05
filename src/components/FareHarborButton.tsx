@@ -24,8 +24,8 @@ export default function FareHarborButton({
 }: FareHarborButtonProps) {
   // Build URL - autolightframe will intercept and open in modal
   const url = itemId
-    ? `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/items/${itemId}/?full-items=yes`
-    : `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/?full-items=yes`;
+    ? `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/items/${itemId}/`
+    : `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/`;
 
   return (
     <a
