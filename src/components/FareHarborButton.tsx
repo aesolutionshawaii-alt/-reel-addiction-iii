@@ -2,20 +2,6 @@
 
 import { FAREHARBOR_SHORTNAME } from '@/lib/fareharbor';
 
-// Declare FareHarbor global
-declare global {
-  interface Window {
-    FH?: {
-      open: (options: {
-        shortname: string;
-        view?: string | { item: number };
-        items?: number[];
-        fullItems?: string;
-      }) => void;
-    };
-  }
-}
-
 interface FareHarborButtonProps {
   children: React.ReactNode;
   className?: string;
@@ -25,7 +11,7 @@ interface FareHarborButtonProps {
 
 /**
  * FareHarbor lightbox button component
- * Opens booking in a modal overlay instead of navigating away from the site
+ * Uses autolightframe - regular FareHarbor links are automatically opened in a modal
  *
  * Usage:
  *   <FareHarborButton className="...">Book Now</FareHarborButton>
@@ -36,40 +22,17 @@ export default function FareHarborButton({
   className = '',
   itemId,
 }: FareHarborButtonProps) {
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    if (!window.FH) {
-      // Fallback: open link directly if FH not loaded
-      const url = itemId
-        ? `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/items/${itemId}/`
-        : `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/`;
-      window.open(url, '_blank');
-      return;
-    }
-
-    if (itemId) {
-      // Open to all-availability calendar filtered to this item
-      window.FH.open({
-        shortname: FAREHARBOR_SHORTNAME,
-        view: 'all-availability',
-        items: [parseInt(itemId)],
-      });
-    } else {
-      // Open to all-availability calendar showing all items
-      window.FH.open({
-        shortname: FAREHARBOR_SHORTNAME,
-        view: 'all-availability',
-      });
-    }
-  };
+  // Build URL - autolightframe will intercept and open in modal
+  const url = itemId
+    ? `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/items/${itemId}/?full-items=yes`
+    : `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/?full-items=yes`;
 
   return (
-    <button
-      onClick={handleClick}
+    <a
+      href={url}
       className={className}
     >
       {children}
-    </button>
+    </a>
   );
 }
