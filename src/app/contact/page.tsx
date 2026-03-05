@@ -6,6 +6,8 @@ import { Phone, MapPin, Clock } from 'lucide-react';
 import InnerNavigation from '@/components/InnerNavigation';
 import ContactForm from '@/components/ContactForm';
 import ContactHeroContent from '@/components/ContactHeroContent';
+import FareHarborButton from '@/components/FareHarborButton';
+import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 export const metadata: Metadata = {
   title: "Contact Us | Reel Addiction III - Book Your Charter",
@@ -116,14 +118,12 @@ export default function ContactPage() {
                 <p className="mb-6 font-inter text-white/80">
                   Book directly online through FareHarbor for instant confirmation
                 </p>
-                <Link
-                  href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <FareHarborButton
+                  itemId={FAREHARBOR_ITEMS.PRIVATE}
                   className="inline-block bg-red-600 px-8 py-3 font-outfit font-bold text-white transition-colors hover:bg-red-700"
                 >
                   Book Now
-                </Link>
+                </FareHarborButton>
               </div>
             </div>
 

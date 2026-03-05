@@ -1,5 +1,6 @@
 'use client'
-import Link from 'next/link'
+import FareHarborButton from '@/components/FareHarborButton'
+import { FAREHARBOR_ITEMS } from '@/lib/fareharbor'
 
 export default function CTA() {
   return (
@@ -29,14 +30,12 @@ export default function CTA() {
         <h2 className="font-outfit font-bold text-[40px] md:text-[96px] text-white text-center mb-6 md:mb-8 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
           Ready to Fish?
         </h2>
-        <Link
-          href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-          target="_blank"
-          rel="noopener noreferrer"
+        <FareHarborButton
+          itemId={FAREHARBOR_ITEMS.PRIVATE}
           className="bg-[#c41e3a] hover:bg-[#a01830] text-white font-inter text-sm md:text-base px-8 py-3 md:px-10 md:py-4 rounded-lg transition-colors"
         >
           Book Your Charter
-        </Link>
+        </FareHarborButton>
       </div>
     </section>
   )

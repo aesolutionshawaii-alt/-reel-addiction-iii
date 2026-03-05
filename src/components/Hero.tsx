@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CldImage } from 'next-cloudinary'
 import CloudinaryImage from '@/components/CloudinaryImage';
+import FareHarborButton from '@/components/FareHarborButton';
+import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false)
@@ -168,14 +170,12 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-[320px] md:w-auto">
-          <Link
-            href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-            target="_blank"
-            rel="noopener noreferrer"
+          <FareHarborButton
+            itemId={FAREHARBOR_ITEMS.PRIVATE}
             className="w-full md:w-[200px] h-12 md:h-14 flex items-center justify-center bg-[#c41e3a] rounded-lg text-white font-inter text-base hover:bg-[#a01830] transition-colors"
           >
             Book Your Charter
-          </Link>
+          </FareHarborButton>
           <Link
             href="https://www.youtube.com/@ReelAddictionIII-808"
             target="_blank"

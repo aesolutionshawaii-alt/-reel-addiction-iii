@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { species } from '@/data/species';
 import { ChevronDown, Menu, X } from 'lucide-react';
+import FareHarborButton from '@/components/FareHarborButton';
+import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -132,14 +134,12 @@ export default function Navigation() {
             ))}
 
             {/* CTA Button */}
-            <Link
-              href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-              target="_blank"
-              rel="noopener noreferrer"
+            <FareHarborButton
+              itemId={FAREHARBOR_ITEMS.PRIVATE}
               className="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-outfit text-sm font-bold uppercase tracking-wider transition-colors"
             >
               Book Now
-            </Link>
+            </FareHarborButton>
           </div>
 
           {/* Mobile Menu Button */}
@@ -209,14 +209,12 @@ export default function Navigation() {
               
               {/* Mobile CTA */}
               <div className="px-4 pt-4">
-                <Link
-                  href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <FareHarborButton
+                  itemId={FAREHARBOR_ITEMS.PRIVATE}
                   className="block w-full bg-red-600 text-white text-center px-6 py-3 rounded-full font-outfit font-bold uppercase tracking-wider"
                 >
                   Book Now
-                </Link>
+                </FareHarborButton>
               </div>
             </div>
           </div>

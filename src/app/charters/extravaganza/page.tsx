@@ -5,6 +5,8 @@ import { Clock, Users, DollarSign, Check, Info, Shield } from 'lucide-react';
 import Footer from '@/components/Footer';
 import PremiumCarousel from '@/components/PremiumCarousel';
 import SpeciesGrid from '@/components/SpeciesGrid';
+import FareHarborButton from '@/components/FareHarborButton';
+import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 export const metadata: Metadata = {
   title: "Extravaganza Charter | Reel Addiction III - Hawaii's Only Guaranteed Charter",
@@ -166,14 +168,12 @@ export default function ExtravaganzaCharterPage() {
 
           <div className="h-8 w-px bg-gray-200 md:h-10" />
 
-          <Link
-            href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-            target="_blank"
-            rel="noopener noreferrer"
+          <FareHarborButton
+            itemId={FAREHARBOR_ITEMS.PRIVATE}
             className="rounded-lg bg-red-600 px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-red-700 md:px-5 md:py-2.5 md:text-base"
           >
             Book Now
-          </Link>
+          </FareHarborButton>
 
         </div>
       </div>
@@ -490,14 +490,12 @@ export default function ExtravaganzaCharterPage() {
             Dark to dark. 40+ miles offshore. Hawaii's only guaranteed charter.
           </p>
 
-          <Link
-            href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-            target="_blank"
-            rel="noopener noreferrer"
+          <FareHarborButton
+            itemId={FAREHARBOR_ITEMS.PRIVATE}
             className="rounded-full bg-red-600 px-12 py-5 font-outfit text-xl font-bold text-white transition-all duration-300 hover:bg-red-700 hover:shadow-2xl hover:scale-105"
           >
             Book Extravaganza
-          </Link>
+          </FareHarborButton>
         </div>
       </section>
 

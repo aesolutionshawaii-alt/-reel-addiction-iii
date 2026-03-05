@@ -5,6 +5,8 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import FareHarborButton from '@/components/FareHarborButton';
+import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 const NAV_LINKS = [
   { href: '/about', label: 'About' },
@@ -83,11 +85,8 @@ export default function InnerNavigation({ disablePrefetch = false }: { disablePr
               ))}
 
               {/* Desktop CTA */}
-              <Link
-                href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-                prefetch={disablePrefetch ? false : undefined}
-                target="_blank"
-                rel="noopener noreferrer"
+              <FareHarborButton
+                itemId={FAREHARBOR_ITEMS.PRIVATE}
                 className={`font-outfit text-[13px] font-semibold uppercase tracking-[0.1em] px-5 py-2.5 rounded-full transition-all duration-300 ${
                   scrolled
                     ? 'bg-red-600 text-white hover:bg-red-700'
@@ -95,7 +94,7 @@ export default function InnerNavigation({ disablePrefetch = false }: { disablePr
                 }`}
               >
                 Book Now
-              </Link>
+              </FareHarborButton>
             </div>
 
             {/* Mobile Hamburger Button - only shows when menu is closed */}
@@ -206,22 +205,12 @@ function MobileMenuOverlay({ open, onClose, pathname, disablePrefetch }: MobileM
           </Link>
         ))}
 
-        <Link
-          href="https://fareharbor.com/embeds/book/reeladdictioniii/?full-items=yes"
-          prefetch={disablePrefetch ? false : undefined}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={onClose}
+        <FareHarborButton
+          itemId={FAREHARBOR_ITEMS.PRIVATE}
           className="mt-4 bg-red-600 text-white px-8 py-3 rounded-full font-outfit font-semibold tracking-wide hover:bg-red-700 transition-colors"
-          style={{
-            transitionDelay: open ? '350ms' : '0ms',
-            transform: open ? 'translateY(0)' : 'translateY(20px)',
-            opacity: open ? 1 : 0,
-          }}
-          tabIndex={open ? 0 : -1}
         >
           Book Now
-        </Link>
+        </FareHarborButton>
       </div>
     </div>
   );
