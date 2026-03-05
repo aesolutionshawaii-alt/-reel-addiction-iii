@@ -7,7 +7,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "instagram": "node content/src/post-instagram.js",
+    "instagram:dry": "node content/src/post-instagram.js --dry-run",
+    "instagram:hashtags": "node content/src/post-instagram.js --generate-hashtags"
   },
   "dependencies": {
     "@sanity/client": "^7.13.2",
@@ -15,6 +18,7 @@
     "@sanity/vision": "^3.99.0",
     "browser-image-compression": "^2.0.2",
     "cloudinary": "^2.8.0",
+    "dotenv": "^16.6.1",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^11.0.0",
     "hls.js": "^1.6.15",

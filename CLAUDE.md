@@ -58,6 +58,8 @@ Script: `warm-cloudinary.js` in project root
 
 **Scanned folders:** charters, catch, images, species, vessel
 
+**Note:** The `videos` folder exists in Cloudinary but is NOT in the warming script - videos don't use the same image transformation warming.
+
 **If you create a new Cloudinary folder:** Add it to the `FOLDERS` array in warm-cloudinary.js
 
 **Health check:** Fresh incognito > DevTools Network > Filter `res.cloudinary.com` > Wait time (TTFB) should be under 150ms. Over 300ms = transformation mismatch.
@@ -174,6 +176,69 @@ Each has: name, hawaiianName, season, image, description, techniques, size, hawa
 
 ### Testing performance
 Always test on production (Vercel), not localhost. Dev mode is slow and misleading.
+
+## Instagram Posting
+
+Schedule posts to Instagram via Metricool.
+
+### Commands
+```bash
+reel-post                      # Schedule all pending posts
+reel-post --dry-run            # Preview without posting
+reel-post --post-id=ig-001     # Schedule specific post
+reel-post --generate-hashtags  # Regenerate hashtags
+```
+
+Or use npm:
+```bash
+npm run instagram              # Schedule all pending
+npm run instagram:dry          # Dry run
+npm run instagram:hashtags     # Regenerate hashtags
+```
+
+### Post Queue
+Posts are stored in `content/output/instagram-posts-queue.json`. Each post needs:
+- `id` - Unique identifier (e.g., "ig-001")
+- `caption` - Post text (hook must be under 125 chars)
+- `hashtags` - Array of 3-5 hashtags (auto-generated or manual)
+- `images` - Array of public URLs (Cloudinary)
+- `type` - Content type (catch, charter, lifestyle, etc.)
+- `status` - "pending_review" or "approved"
+
+### Image Workflow
+1. Upload images to Cloudinary: `mcp__cloudinary__upload-asset`
+2. Copy the `secure_url` from the response
+3. Add URL to the post's `images` array
+4. Run `reel-post` to schedule
+
+### Creating Posts from New Images (IMPORTANT)
+
+**DO NOT batch-view images then write posts from memory.** You WILL mix up URLs.
+
+**Correct process:**
+1. View each image with the Read tool
+2. Immediately create a catalog entry:
+   ```
+   sah8yolzpgjgmqeccxsh.jpg → blue marlin jumping, side angle
+   fagfl2mnmkgik9v4lp3n.jpg → mahi-mahi on gaff, bright yellow
+   nyuar6bxecv9ihbxvsek.jpg → ahi on deck, red meat visible
+   ```
+3. Build posts by pulling URLs from your catalog based on content match
+4. Never guess which URL is which - refer back to catalog
+
+**Image tracking:** The queue tracks `usedImages` by year. Script will warn/skip if you try to reuse an image within the same calendar year.
+
+### Metricool Credentials
+- Blog ID: 2588722
+- User ID: 2101489
+- Config: `content/config/.env`
+
+### Hashtag Strategy
+Auto-generated based on content:
+- Brand: #ReelAddictionIII, #CaptainJR
+- Species: #Ahi, #MarlinFishing, #MahiMahi, #Ono
+- Location: #HawaiiFishing, #Oahu, #KoOlina
+- Lifestyle: #DeepSeaFishing, #TightLines, #FishingLife
 
 ## Dev Commands
 ```bash
