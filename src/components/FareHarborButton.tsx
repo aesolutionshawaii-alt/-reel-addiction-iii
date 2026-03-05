@@ -10,6 +10,7 @@ declare global {
         shortname: string;
         view?: string | { item: number };
         items?: number[];
+        fullItems?: string;
       }) => void;
     };
   }
@@ -48,17 +49,18 @@ export default function FareHarborButton({
     }
 
     if (itemId) {
-      // Open to specific item's calendar view
+      // Open to specific item's calendar view with compact display
       window.FH.open({
         shortname: FAREHARBOR_SHORTNAME,
-        items: [parseInt(itemId)],
-        view: 'all-availability',
+        view: { item: parseInt(itemId) },
+        fullItems: 'no',
       });
     } else {
       // Open to all items
       window.FH.open({
         shortname: FAREHARBOR_SHORTNAME,
         view: 'items',
+        fullItems: 'no',
       });
     }
   };
