@@ -49,18 +49,17 @@ export default function FareHarborButton({
     }
 
     if (itemId) {
-      // Open to specific item's calendar view with compact display
+      // Open to all-availability calendar filtered to this item
       window.FH.open({
         shortname: FAREHARBOR_SHORTNAME,
-        view: { item: parseInt(itemId) },
-        fullItems: 'no',
+        view: 'all-availability',
+        items: [parseInt(itemId)],
       });
     } else {
-      // Open to all items
+      // Open to all-availability calendar showing all items
       window.FH.open({
         shortname: FAREHARBOR_SHORTNAME,
-        view: 'items',
-        fullItems: 'no',
+        view: 'all-availability',
       });
     }
   };
