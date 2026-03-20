@@ -1,0 +1,136 @@
+{
+  "description": "Catalog of local photos with content tags. Check this BEFORE selecting images to ensure variety.",
+  "lastUpdated": "2026-03-10",
+  "recentPosts": {
+    "description": "Track last 7 days of content types to prevent repetition",
+    "history": [
+      {"date": "2026-03-14", "species": "mahi", "type": "catch"},
+      {"date": "2026-03-13", "species": "ahi", "type": "action"},
+      {"date": "2026-03-12", "species": "none", "type": "lifestyle"},
+      {"date": "2026-03-11", "species": "mahi", "type": "action"},
+      {"date": "2026-03-10", "species": "ahi", "type": "catch"},
+      {"date": "2026-03-07", "species": "none", "type": "crew"},
+      {"date": "2026-03-06", "species": "mahi", "type": "catch"}
+    ]
+  },
+  "catalog": {
+    "20230617-GG1I5644": {
+      "file": "20230617-20230617-GG1I5644JSHUMANJSHUMAN-Enhanced-NR.jpg",
+      "species": "mahi",
+      "type": "catch",
+      "description": "Mahi on gaff, bright yellow/green, crew member gaffing from above",
+      "used": true,
+      "usedDate": "2026-03-14"
+    },
+    "20230618-251A6914": {
+      "file": "20230618-20230618-251A6914JSHUMANJSHUMAN.jpg",
+      "species": "ahi",
+      "type": "catch",
+      "description": "THREE ahi on deck, beautiful yellow fins, great haul shot",
+      "used": true,
+      "usedDate": "2026-03-10"
+    },
+    "20230811-P5I0202": {
+      "file": "20230811-_P5I0202JSHUMAN-Enhanced-NR.jpg",
+      "species": "mahi",
+      "type": "action",
+      "description": "Mahi jumping, blue water splash",
+      "used": false
+    },
+    "20230822-P5I0065": {
+      "file": "20230822-_P5I0065JSHUMAN-Enhanced-NR.jpg",
+      "species": "mahi",
+      "type": "action",
+      "description": "Mahi jumping, yellow fins visible, spray",
+      "used": false
+    },
+    "20230901-P5I0484": {
+      "file": "20230901-_P5I0484JSHUMAN-Enhanced-NR.jpg",
+      "species": "marlin",
+      "type": "action",
+      "description": "Marlin jumping vertical, dramatic full-body shot with spray",
+      "used": false
+    },
+    "20231025-P5I1699": {
+      "file": "20231025-_P5I1699JSHUMAN-Enhanced-NR.jpg",
+      "species": "ahi",
+      "type": "action",
+      "description": "Ahi boatside action, massive splash, chaotic energy",
+      "used": true,
+      "usedDate": "2026-03-13"
+    },
+    "20231202-P5I0271": {
+      "file": "20231202-_P5I0271JSHUMAN-Enhanced-NR.jpg",
+      "species": "ahi",
+      "type": "action",
+      "description": "Ahi boatside, crew in branded gear, water spray",
+      "used": false
+    },
+    "20231223-P5I0198": {
+      "file": "20231223-_P5I0198JSHUMAN-Enhanced-NR.jpg",
+      "species": "marlin",
+      "type": "catch",
+      "description": "Marlin head with blue lure on deck",
+      "used": false
+    },
+    "20231223-P5I0423": {
+      "file": "20231223-_P5I0423JSHUMAN-Enhanced-NR.jpg",
+      "species": "none",
+      "type": "lifestyle",
+      "description": "Seabirds over water - frigatebird, tropicbird, terns flying together",
+      "used": true,
+      "usedDate": "2026-03-12"
+    },
+    "20240221-P5I0152": {
+      "file": "20240221-_P5I0152JSHUMAN-Enhanced-NR.jpg",
+      "species": "marlin",
+      "type": "action",
+      "description": "Marlin with lure boatside, blue/pink lure visible",
+      "used": false
+    },
+    "20240507-P5I0382": {
+      "file": "20240507-_P5I0382JSHUMAN-Enhanced-NR-2.jpg",
+      "species": "none",
+      "type": "lifestyle",
+      "description": "Shearwater bird on water surface, blue ocean",
+      "used": false
+    },
+    "20240608-P5I0153": {
+      "file": "20240608-_P5I0153JSHUMAN-Enhanced-NR.jpg",
+      "species": "mahi",
+      "type": "action",
+      "description": "Mahi surfacing, yellow head visible, spray",
+      "used": false
+    },
+    "20240908-0T1A4828": {
+      "file": "20240908-0T1A4828JSHUMAN.jpg",
+      "species": "mahi",
+      "type": "catch",
+      "description": "Mahi on gaff boatside, crew gaffing, splash",
+      "used": false
+    },
+    "VID_20230606": {
+      "file": "VID_20230606_085055_00_004_2024-10-28_08-03-41_screenshot.jpg",
+      "species": "ahi",
+      "type": "action",
+      "description": "Underwater angle - boat from water level, ahi boatside, crew gaffing, dramatic",
+      "used": false
+    },
+    "VID_20240322": {
+      "file": "VID_20240322_103425_00_001_2024-03-25_18-47-25_screenshot.jpg",
+      "species": "mahi",
+      "type": "action",
+      "description": "Mahi jumping with boat and crew in background, sun flare, cinematic shot",
+      "used": true,
+      "usedDate": "2026-03-11"
+    }
+  },
+  "rules": {
+    "maxSameSpeciesPerWeek": 2,
+    "requiredVariety": [
+      "Must include at least 2 different species per 5 posts",
+      "No back-to-back same species",
+      "Mix catch/action/lifestyle types"
+    ]
+  }
+}

@@ -6,8 +6,8 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 
 export const metadata: Metadata = {
-  title: "Deep Sea Fishing Oahu | Book a Ko Olina Charter | Reel Addiction III",
-  description: "Book an Oahu deep sea fishing charter from Ko Olina. Best seasons for Marlin, Ahi, Mahi & Ono. Half-day from $2,495. SeaKeeper stabilized for smooth rides.",
+  title: "Deep Sea Fishing Oahu: 2026 Seasons, Species & What to Expect",
+  description: "What's biting in Hawaiian waters right now? Complete guide to Oahu deep sea fishing — peak seasons for Marlin, Ahi, Mahi & Ono, plus Ko Olina charter options.",
 };
 
 export default function FishingGuidePage() {

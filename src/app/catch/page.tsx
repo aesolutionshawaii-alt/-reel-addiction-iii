@@ -7,8 +7,8 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 import CatchHeroContent from '@/components/CatchHeroContent';
 export const metadata: Metadata = {
-  title: "Hawaii Fish Guide | Ahi, Mahi, Ono & Marlin | How to Prepare Your Catch",
-  description: "What you'll catch on an Oahu fishing charter and how to eat it. Prep tips for Ahi sashimi, grilled Mahi, seared Ono. Plus our simple poke recipe.",
+  title: "6 Fish You'll Catch Deep Sea Fishing Hawaii (+ How to Eat Them)",
+  description: "Ahi, Mahi, Ono, Marlin & more — what you'll hook on an Oahu charter and the best way to prepare each. Simple recipes from a Ko Olina captain.",
 };
 export default function TheCatchPage() {
   return (<main className="min-h-screen bg-white"><InnerNavigation />

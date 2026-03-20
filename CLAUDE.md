@@ -177,11 +177,76 @@ Each has: name, hawaiianName, season, image, description, techniques, size, hawa
 ### Testing performance
 Always test on production (Vercel), not localhost. Dev mode is slow and misleading.
 
-## Instagram Posting
+## Source Photos
 
-Schedule posts to Instagram via Metricool.
+**Local folder:** `~/Desktop/reel-addiction-iii-photos/`
+**Photo catalog:** `content/data/photo-catalog.json`
 
-### Commands
+### MANDATORY: Content Diversity Check
+
+**BEFORE selecting images, you MUST:**
+1. Read `content/data/photo-catalog.json` to see what's been used
+2. Check `recentPosts.history` for last 7 days of species/types
+3. Ensure NO back-to-back same species
+4. Ensure at least 2 different species per 5 posts
+5. Mix content types: catch, action, lifestyle, crew
+
+**Species available:** ahi, mahi, marlin, ono, aku
+**Types available:** catch (on deck), action (jumping/fighting), lifestyle (birds/ocean), crew
+
+### Image Selection Workflow
+
+1. Read photo-catalog.json
+2. Check recent posts to see what species/types were used
+3. Pick images that create VARIETY - different species, different types
+4. View each selected image with Read tool
+5. Upload to Cloudinary
+6. Create posts with proper species/type tags
+7. Update catalog with used images
+
+**DO NOT:**
+- Post same species back-to-back
+- Post more than 2 of same species in a week
+- Guess what's in an image - always view it first
+- Add image URLs to usedImages array manually (script does this)
+
+## Instagram Content Creation
+
+### Voice Guide
+**Read `content/voice-guide.md` before writing ANY caption.**
+
+The voice is a knowledgeable captain talking to people interested in fishing — NOT a marketing agency, NOT an influencer.
+
+**Banned phrases:** "full send", "epic", "insane", "fire", "incredible", "on fire", "crushing it", "bucket list", "live your best", "pure chaos", "game on", "save this", "tag someone"
+
+**Every caption must:**
+- Correctly identify the fish species (use Hawaii names: mahi, ahi, shibi, aku, ono)
+- Include something educational (fish behavior, season, technique)
+- Sound like a real person would say it
+- End with simple CTA ("link in bio")
+
+### Creating New Posts (Guided Workflow)
+
+```bash
+reel-add /path/to/image.jpg    # Add single image
+reel-add /path/to/folder/      # Process folder of images
+```
+
+The `reel-add` command enforces the correct workflow:
+1. **View image** — Opens in Preview so you can see what you're working with
+2. **Identify species** — Select from list or enter manually
+3. **Describe image** — Write what's actually in the photo
+4. **Check optimization** — Warns if image is too large (should be <500KB)
+5. **Upload to Cloudinary** — Handles the upload
+6. **Write caption** — Shows voice guide rules, validates against banned phrases
+7. **Add hashtags** — Suggests based on species/content
+8. **Diversity check** — Warns if same species posted recently
+9. **Add to queue** — Creates the post entry
+
+**DO NOT skip steps.** The old workflow of batch-viewing images and writing captions from memory led to bad content and misidentified fish.
+
+### Scheduling Posts
+
 ```bash
 reel-post                      # Schedule all pending posts
 reel-post --dry-run            # Preview without posting
