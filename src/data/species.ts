@@ -66,7 +66,7 @@ export const species: Species[] = [
       description: "October can surprise you. This day the fish were stacked up and feeding aggressively — we couldn't keep lines in the water. 14 yellowfin by the end of the trip, deck covered, everyone exhausted. Days like this don't happen every year, but when fall conditions line up right, the bite can be better than summer.",
       images: [
         "reel-addiction-iii/ahi/IMG_6814-web_fsneua",
-        "reel-addiction-iii/ahi/IMG_6832_xfyr6b",
+        "reel-addiction-iii/ahi/IMG_6832-fixed-web_divlwd",
         "reel-addiction-iii/ahi/IMG_6862-web_ztvpjg"
       ]
     },
