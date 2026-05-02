@@ -3,8 +3,8 @@
     "brand": "Reel Addiction III",
     "instagram": "@reeladdictioniiisportfishing",
     "website": "reeladdictioniii.com",
-    "lastUpdated": "2026-03-18T04:06:57.662Z",
-    "totalPosted": 38
+    "lastUpdated": "2026-04-08T23:29:49.696Z",
+    "totalPosted": 45
   },
   "usedImages": {
     "2026": [
@@ -55,7 +55,14 @@
       "https://res.cloudinary.com/dmu9szrap/image/upload/v1773806631/social/rypzvksq53vyxxjtrcnw.jpg",
       "https://res.cloudinary.com/dmu9szrap/image/upload/v1773806635/social/ubnxn1na7gj6s6mhm6s0.jpg",
       "https://res.cloudinary.com/dmu9szrap/image/upload/v1773806638/social/mlaput4l5bju27l1ou5m.jpg",
-      "https://res.cloudinary.com/dmu9szrap/image/upload/v1773806640/social/g2zmgrykfhp00mvuz8j1.jpg"
+      "https://res.cloudinary.com/dmu9szrap/image/upload/v1773806640/social/g2zmgrykfhp00mvuz8j1.jpg",
+      "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690876/social/hg3axohuocsoshkfqi61.jpg",
+      "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690877/social/enftm4ost9tsmf00gshx.jpg",
+      "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690880/social/wfnbnwm4ppnyektaujy4.jpg",
+      "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690881/social/sr7ywf3rpuzfdonyv1ms.jpg",
+      "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690883/social/qpy0gmzr45tv4cs4plzx.jpg",
+      "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690885/social/zvlzi80cyglrseidlc36.jpg",
+      "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690887/social/rjqukxxqha7korxewrnl.jpg"
     ]
   },
   "queue": [],
@@ -1573,6 +1580,440 @@
           "tiktokData": {},
           "hasNotReadNotes": false,
           "uuid": "-4405200133054708782",
+          "creatorUserMail": "aesolutionshawaii@gmail.com",
+          "creatorUserId": 2101489
+        }
+      }
+    },
+    {
+      "id": "ig-039",
+      "caption": "First light off Ko Olina catching live bait.\n\nBefore we head offshore, we put in the work. Opelu, halalu, whatever's running — live bait makes the difference when the big fish are being picky. There's something about being out on the water before sunrise, coffee in hand, watching the sky light up while you fill the bait tank.\n\nThe fish don't know what time you woke up. But the crew does.\n\nBook a charter and see what a real offshore day looks like from start to finish — link in bio.",
+      "hashtags": [
+        "#ReelAddictionIII",
+        "#KoOlina",
+        "#HawaiiFishing",
+        "#CharterFishing",
+        "#SunriseOnTheWater"
+      ],
+      "images": [
+        "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690876/social/hg3axohuocsoshkfqi61.jpg"
+      ],
+      "type": "lifestyle",
+      "species": "none",
+      "status": "scheduled",
+      "scheduledFor": "2026-04-08T14:00:00",
+      "metricoolResponse": {
+        "data": {
+          "id": 312997311,
+          "publicationDate": {
+            "dateTime": "2026-04-08T14:00:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "creationDate": {
+            "dateTime": "2026-04-08T13:29:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "text": "First light off Ko Olina catching live bait.\n\nBefore we head offshore, we put in the work. Opelu, halalu, whatever's running — live bait makes the difference when the big fish are being picky. There's something about being out on the water before sunrise, coffee in hand, watching the sky light up while you fill the bait tank.\n\nThe fish don't know what time you woke up. But the crew does.\n\nBook a charter and see what a real offshore day looks like from start to finish — link in bio.\n\n.\n.\n.\n#ReelAddictionIII #KoOlina #HawaiiFishing #CharterFishing #SunriseOnTheWater",
+          "firstCommentText": "",
+          "providers": [
+            {
+              "network": "instagram",
+              "status": "PENDING",
+              "detailedStatus": "Pending"
+            }
+          ],
+          "media": [
+            "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690876/social/hg3axohuocsoshkfqi61.jpg"
+          ],
+          "autoPublish": true,
+          "saveExternalMediaFiles": false,
+          "mediaAltText": [
+            null
+          ],
+          "shortener": false,
+          "draft": false,
+          "twitterData": {
+            "type": "POST"
+          },
+          "instagramData": {
+            "autoPublish": true,
+            "type": "POST",
+            "showReelOnFeed": true
+          },
+          "hasNotReadNotes": false,
+          "uuid": "1785690454717449239",
+          "creatorUserMail": "aesolutionshawaii@gmail.com",
+          "creatorUserId": 2101489
+        }
+      }
+    },
+    {
+      "id": "ig-040",
+      "caption": "Otaru on the gaff. That's a big aku.\n\nAku is skipjack tuna — locals prize this sashimi and many prefer it over ahi. When they get over 20 pounds we call them otaru, and this one definitely qualifies. These fish fight like crazy for their size, screaming runs and pure power.\n\nThat silver-blue body with the stripes on the belly is unmistakable. Fresh aku sashimi right off the boat is one of the best things you can eat in Hawaii. The meat is darker and richer than ahi with a flavor that's hard to describe until you try it.\n\nWe find them running with the mahi off the West side. Book your charter — link in bio.",
+      "hashtags": [
+        "#ReelAddictionIII",
+        "#Aku",
+        "#SkipjackTuna",
+        "#HawaiiFishing",
+        "#FreshSashimi"
+      ],
+      "images": [
+        "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690877/social/enftm4ost9tsmf00gshx.jpg"
+      ],
+      "type": "action",
+      "species": "aku",
+      "status": "scheduled",
+      "scheduledFor": "2026-04-09T14:00:00",
+      "metricoolResponse": {
+        "data": {
+          "id": 312997315,
+          "publicationDate": {
+            "dateTime": "2026-04-09T14:00:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "creationDate": {
+            "dateTime": "2026-04-08T13:29:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "text": "Ono on the gaff. One of the fastest fish in the ocean.\n\nOno — the Hawaiian word literally means \"delicious\" and it earned that name. These fish can hit 60 mph in short bursts, making them one of the fastest predators you'll hook into. When they strike, you know it.\n\nThat silver torpedo body is built for speed. No fat, all muscle. And on the plate? White, firm meat that's as good raw as it is grilled.\n\nWe find them mixed in with the mahi and marlin. When they show up it's a bonus. Book your charter — link in bio.\n\n.\n.\n.\n#ReelAddictionIII #Ono #Wahoo #HawaiiFishing #DeepSeaFishing",
+          "firstCommentText": "",
+          "providers": [
+            {
+              "network": "instagram",
+              "status": "PENDING",
+              "detailedStatus": "Pending"
+            }
+          ],
+          "media": [
+            "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690877/social/enftm4ost9tsmf00gshx.jpg"
+          ],
+          "autoPublish": true,
+          "saveExternalMediaFiles": false,
+          "mediaAltText": [
+            null
+          ],
+          "shortener": false,
+          "draft": false,
+          "twitterData": {
+            "type": "POST"
+          },
+          "instagramData": {
+            "autoPublish": true,
+            "type": "POST",
+            "showReelOnFeed": true
+          },
+          "hasNotReadNotes": false,
+          "uuid": "-934041150562417183",
+          "creatorUserMail": "aesolutionshawaii@gmail.com",
+          "creatorUserId": 2101489
+        }
+      }
+    },
+    {
+      "id": "ig-041",
+      "caption": "Mahi doing what mahi do best.\n\nPound for pound, these are some of the most acrobatic fish in the ocean. The second they feel the hook they go airborne. Jumping, spinning, shaking — trying everything to throw that lure.\n\nThis one cleared the water completely. That electric blue and green you see mid-flight? Those colors fade fast once they hit the deck. If you want to see a mahi at its brightest, watch the fight.\n\nSpring mahi season is here. Book your shot — link in bio.",
+      "hashtags": [
+        "#ReelAddictionIII",
+        "#MahiMahi",
+        "#Dorado",
+        "#HawaiiFishing",
+        "#SpringFishing"
+      ],
+      "images": [
+        "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690880/social/wfnbnwm4ppnyektaujy4.jpg"
+      ],
+      "type": "action",
+      "species": "mahi",
+      "status": "scheduled",
+      "scheduledFor": "2026-04-10T14:00:00",
+      "metricoolResponse": {
+        "data": {
+          "id": 312997316,
+          "publicationDate": {
+            "dateTime": "2026-04-10T14:00:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "creationDate": {
+            "dateTime": "2026-04-08T13:29:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "text": "Mahi doing what mahi do best.\n\nPound for pound, these are some of the most acrobatic fish in the ocean. The second they feel the hook they go airborne. Jumping, spinning, shaking — trying everything to throw that lure.\n\nThis one cleared the water completely. That electric blue and green you see mid-flight? Those colors fade fast once they hit the deck. If you want to see a mahi at its brightest, watch the fight.\n\nSpring mahi season is here. Book your shot — link in bio.\n\n.\n.\n.\n#ReelAddictionIII #MahiMahi #Dorado #HawaiiFishing #SpringFishing",
+          "firstCommentText": "",
+          "providers": [
+            {
+              "network": "instagram",
+              "status": "PENDING",
+              "detailedStatus": "Pending"
+            }
+          ],
+          "media": [
+            "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690880/social/wfnbnwm4ppnyektaujy4.jpg"
+          ],
+          "autoPublish": true,
+          "saveExternalMediaFiles": false,
+          "mediaAltText": [
+            null
+          ],
+          "shortener": false,
+          "draft": false,
+          "twitterData": {
+            "type": "POST"
+          },
+          "instagramData": {
+            "autoPublish": true,
+            "type": "POST",
+            "showReelOnFeed": true
+          },
+          "hasNotReadNotes": false,
+          "uuid": "-1939371174088064747",
+          "creatorUserMail": "aesolutionshawaii@gmail.com",
+          "creatorUserId": 2101489
+        }
+      }
+    },
+    {
+      "id": "ig-042",
+      "caption": "End of a good day.\n\nThis is what a solid mahi trip looks like back at the dock. Ice on top, fish stacked underneath, and everyone going home with meat for the freezer.\n\nMahi are one of the fastest-growing fish in the ocean — they can hit 40 pounds in under a year. That fast growth rate makes them one of the most sustainable offshore species you can target. Good for the ocean, great on the table.\n\nSpring season is prime time. Book your trip — link in bio.",
+      "hashtags": [
+        "#ReelAddictionIII",
+        "#MahiMahi",
+        "#HawaiiFishing",
+        "#FreshCatch",
+        "#KoOlinaMarina"
+      ],
+      "images": [
+        "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690881/social/sr7ywf3rpuzfdonyv1ms.jpg"
+      ],
+      "type": "catch",
+      "species": "mahi",
+      "status": "scheduled",
+      "scheduledFor": "2026-04-11T14:00:00",
+      "metricoolResponse": {
+        "data": {
+          "id": 312997317,
+          "publicationDate": {
+            "dateTime": "2026-04-11T14:00:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "creationDate": {
+            "dateTime": "2026-04-08T13:29:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "text": "End of a good day.\n\nThis is what a solid mahi trip looks like back at the dock. Ice on top, fish stacked underneath, and everyone going home with meat for the freezer.\n\nMahi are one of the fastest-growing fish in the ocean — they can hit 40 pounds in under a year. That fast growth rate makes them one of the most sustainable offshore species you can target. Good for the ocean, great on the table.\n\nSpring season is prime time. Book your trip — link in bio.\n\n.\n.\n.\n#ReelAddictionIII #MahiMahi #HawaiiFishing #FreshCatch #KoOlinaMarina",
+          "firstCommentText": "",
+          "providers": [
+            {
+              "network": "instagram",
+              "status": "PENDING",
+              "detailedStatus": "Pending"
+            }
+          ],
+          "media": [
+            "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690881/social/sr7ywf3rpuzfdonyv1ms.jpg"
+          ],
+          "autoPublish": true,
+          "saveExternalMediaFiles": false,
+          "mediaAltText": [
+            null
+          ],
+          "shortener": false,
+          "draft": false,
+          "twitterData": {
+            "type": "POST"
+          },
+          "instagramData": {
+            "autoPublish": true,
+            "type": "POST",
+            "showReelOnFeed": true
+          },
+          "hasNotReadNotes": false,
+          "uuid": "-5556956075308593877",
+          "creatorUserMail": "aesolutionshawaii@gmail.com",
+          "creatorUserId": 2101489
+        }
+      }
+    },
+    {
+      "id": "ig-043",
+      "caption": "Mahi boatside and still fighting.\n\nYou can see the lure still locked in the corner of the mouth. That open jaw, the spray, the colors lighting up — this is the moment right before the gaff. The fish is tired but not done. One last surge of energy before it comes over the rail.\n\nMahi fight hard all the way to the boat. That's part of what makes them so fun to catch. Every one earns its way into the cooler.\n\nBook a charter and feel that pull yourself — link in bio.",
+      "hashtags": [
+        "#ReelAddictionIII",
+        "#MahiMahi",
+        "#HawaiiFishing",
+        "#FightingFish",
+        "#OffshoreAction"
+      ],
+      "images": [
+        "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690883/social/qpy0gmzr45tv4cs4plzx.jpg"
+      ],
+      "type": "action",
+      "species": "mahi",
+      "status": "scheduled",
+      "scheduledFor": "2026-04-12T14:00:00",
+      "metricoolResponse": {
+        "data": {
+          "id": 312997319,
+          "publicationDate": {
+            "dateTime": "2026-04-12T14:00:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "creationDate": {
+            "dateTime": "2026-04-08T13:29:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "text": "Mahi boatside and still fighting.\n\nYou can see the lure still locked in the corner of the mouth. That open jaw, the spray, the colors lighting up — this is the moment right before the gaff. The fish is tired but not done. One last surge of energy before it comes over the rail.\n\nMahi fight hard all the way to the boat. That's part of what makes them so fun to catch. Every one earns its way into the cooler.\n\nBook a charter and feel that pull yourself — link in bio.\n\n.\n.\n.\n#ReelAddictionIII #MahiMahi #HawaiiFishing #FightingFish #OffshoreAction",
+          "firstCommentText": "",
+          "providers": [
+            {
+              "network": "instagram",
+              "status": "PENDING",
+              "detailedStatus": "Pending"
+            }
+          ],
+          "media": [
+            "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690883/social/qpy0gmzr45tv4cs4plzx.jpg"
+          ],
+          "autoPublish": true,
+          "saveExternalMediaFiles": false,
+          "mediaAltText": [
+            null
+          ],
+          "shortener": false,
+          "draft": false,
+          "twitterData": {
+            "type": "POST"
+          },
+          "instagramData": {
+            "autoPublish": true,
+            "type": "POST",
+            "showReelOnFeed": true
+          },
+          "hasNotReadNotes": false,
+          "uuid": "-1517317672040708313",
+          "creatorUserMail": "aesolutionshawaii@gmail.com",
+          "creatorUserId": 2101489
+        }
+      }
+    },
+    {
+      "id": "ig-044",
+      "caption": "Crew work.\n\nWhen a fish hits the deck, everyone has a job. One on the gaff, one on the fish, one clearing the lines. No wasted motion. The branded gear you see isn't for show — it's the standard every trip.\n\nThat mahi tail still glowing yellow tells you it just came over the rail. Fresh. The colors don't last long so you have to work fast if you want the photos.\n\nThis is what a professional charter crew looks like. Book your trip — link in bio.",
+      "hashtags": [
+        "#ReelAddictionIII",
+        "#FishingCrew",
+        "#MahiMahi",
+        "#CharterFishing",
+        "#Teamwork"
+      ],
+      "images": [
+        "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690885/social/zvlzi80cyglrseidlc36.jpg"
+      ],
+      "type": "crew",
+      "species": "mahi",
+      "status": "scheduled",
+      "scheduledFor": "2026-04-13T14:00:00",
+      "metricoolResponse": {
+        "data": {
+          "id": 312997321,
+          "publicationDate": {
+            "dateTime": "2026-04-13T14:00:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "creationDate": {
+            "dateTime": "2026-04-08T13:29:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "text": "Crew work.\n\nWhen a fish hits the deck, everyone has a job. One on the gaff, one on the fish, one clearing the lines. No wasted motion. The branded gear you see isn't for show — it's the standard every trip.\n\nThat mahi tail still glowing yellow tells you it just came over the rail. Fresh. The colors don't last long so you have to work fast if you want the photos.\n\nThis is what a professional charter crew looks like. Book your trip — link in bio.\n\n.\n.\n.\n#ReelAddictionIII #FishingCrew #MahiMahi #CharterFishing #Teamwork",
+          "firstCommentText": "",
+          "providers": [
+            {
+              "network": "instagram",
+              "status": "PENDING",
+              "detailedStatus": "Pending"
+            }
+          ],
+          "media": [
+            "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690885/social/zvlzi80cyglrseidlc36.jpg"
+          ],
+          "autoPublish": true,
+          "saveExternalMediaFiles": false,
+          "mediaAltText": [
+            null
+          ],
+          "shortener": false,
+          "draft": false,
+          "twitterData": {
+            "type": "POST"
+          },
+          "instagramData": {
+            "autoPublish": true,
+            "type": "POST",
+            "showReelOnFeed": true
+          },
+          "hasNotReadNotes": false,
+          "uuid": "-3426385513734518419",
+          "creatorUserMail": "aesolutionshawaii@gmail.com",
+          "creatorUserId": 2101489
+        }
+      }
+    },
+    {
+      "id": "ig-045",
+      "caption": "Reaching for the gaff.\n\nThis is the moment — fish is tired, line is tight, crew is ready. You can see the mahi just under the surface, that flash of green and gold against the blue. One clean swing and it's over the rail.\n\nThe gaff shot is all about timing. Too early and the fish has another run in it. Too late and you're chasing it around the boat. Experience matters.\n\nBook with a crew that knows what they're doing — link in bio.",
+      "hashtags": [
+        "#ReelAddictionIII",
+        "#MahiMahi",
+        "#HawaiiFishing",
+        "#GaffShot",
+        "#SpringFishing"
+      ],
+      "images": [
+        "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690887/social/rjqukxxqha7korxewrnl.jpg"
+      ],
+      "type": "action",
+      "species": "mahi",
+      "status": "scheduled",
+      "scheduledFor": "2026-04-14T14:00:00",
+      "metricoolResponse": {
+        "data": {
+          "id": 312997322,
+          "publicationDate": {
+            "dateTime": "2026-04-14T14:00:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "creationDate": {
+            "dateTime": "2026-04-08T13:29:00",
+            "timezone": "Pacific/Honolulu"
+          },
+          "text": "Reaching for the gaff.\n\nThis is the moment — fish is tired, line is tight, crew is ready. You can see the mahi just under the surface, that flash of green and gold against the blue. One clean swing and it's over the rail.\n\nThe gaff shot is all about timing. Too early and the fish has another run in it. Too late and you're chasing it around the boat. Experience matters.\n\nBook with a crew that knows what they're doing — link in bio.\n\n.\n.\n.\n#ReelAddictionIII #MahiMahi #HawaiiFishing #GaffShot #SpringFishing",
+          "firstCommentText": "",
+          "providers": [
+            {
+              "network": "instagram",
+              "status": "PENDING",
+              "detailedStatus": "Pending"
+            }
+          ],
+          "media": [
+            "https://res.cloudinary.com/dmu9szrap/image/upload/v1775690887/social/rjqukxxqha7korxewrnl.jpg"
+          ],
+          "autoPublish": true,
+          "saveExternalMediaFiles": false,
+          "mediaAltText": [
+            null
+          ],
+          "shortener": false,
+          "draft": false,
+          "twitterData": {
+            "type": "POST"
+          },
+          "instagramData": {
+            "autoPublish": true,
+            "type": "POST",
+            "showReelOnFeed": true
+          },
+          "hasNotReadNotes": false,
+          "uuid": "6922554451320982843",
           "creatorUserMail": "aesolutionshawaii@gmail.com",
           "creatorUserId": 2101489
         }

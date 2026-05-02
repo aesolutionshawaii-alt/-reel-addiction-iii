@@ -9,6 +9,16 @@ export interface Species {
   size: string;
   hawaiiFact: string;
   metaDescription: string;
+  // Extended content (optional)
+  extendedDescription?: string;
+  seasonDetails?: string;
+  whatToExpect?: string;
+  keepingYourCatch?: string;
+  featuredStory?: {
+    title: string;
+    description: string;
+    images: string[];
+  };
 }
 
 export const species: Species[] = [
@@ -40,13 +50,26 @@ export const species: Species[] = [
     slug: 'ahi',
     name: 'Yellowfin Tuna',
     hawaiianName: 'Ahi',
-    season: 'Year-round',
+    season: 'Peak May-September',
     image: 'species/yellowfin-tuna',
-    description: "Powerful, fast, and delicious. Yellowfin tuna are prized both as sport fish and for their incredible meat quality. They fight hard and dive deep.",
-    techniques: "Live bait fishing, chunk fishing around FADs, high-speed trolling. We often find them feeding under birds or around floating debris and FADs.",
+    description: "Yellowfin tuna are the reason most anglers book offshore trips in Hawaii. They're fast, strong, and one of the best-eating fish in the ocean. Average fish run 40-100 lbs, but we see 150+ lb fish every season. When you hook one, you'll know it — they pull drag and make long, powerful runs that test your tackle and your endurance.",
+    techniques: "We run multiple techniques depending on conditions. High-speed trolling with skirted lures covers water fast — we run a spread of 4-6 lines at different depths, targeting fish near FADs and open ocean structure. When we find a school, we switch to live bait. Nothing triggers a bite like a struggling opelu or aku belly. We also chunk fish around structure, chumming with cut bait to bring fish up from depth and get them competing for food.",
     size: 'Average 40-100 lbs, trophy fish 150-250 lbs',
-    hawaiiFact: "Ahi is the Hawaiian name and it's the most sought-after fish in local markets. Fresh ahi poke is a Hawaiian staple, and nothing beats sashimi from a fish you just caught.",
-    metaDescription: "Catch Ahi (Yellowfin Tuna) in Oahu, Hawaii aboard Reel Addiction III. Year-round fishing for Hawaii's most prized table fish. Book your charter today.",
+    hawaiiFact: "Ahi is the Hawaiian name, and it's the most prized fish in local markets. Fresh ahi poke, sashimi straight from the boat, seared ahi steaks — nothing compares to fish you caught hours ago. We bleed and ice your fish immediately because proper handling is the difference between good ahi and great ahi.",
+    metaDescription: "Catch Ahi (Yellowfin Tuna) in Oahu, Hawaii aboard Reel Addiction III. Peak season May-September with incredible October action. Book your charter today.",
+    extendedDescription: "Ahi is the Hawaiian name, and it's the most prized fish in local markets. Fresh ahi poke, sashimi straight from the boat, seared ahi steaks — nothing compares to fish you caught hours ago.",
+    seasonDetails: "May through September is prime ahi season around Oahu. Warm currents push baitfish closer to shore, and the yellowfin follow. This is when we see the most consistent action and the biggest schools. But here's what most people don't know: October can be incredible. Our best ahi day ever was in October — 14 yellowfin in a single trip. The fish were stacked up, feeding aggressively, and we couldn't keep lines in the water. Days like that don't happen every year, but when fall conditions line up right, the bite can be better than summer. Winter and spring are slower but not dead. We still catch ahi year-round, just not in the same numbers. If yellowfin are your main target, book May through October.",
+    whatToExpect: "Ahi trips are offshore trips. We're running 10-20+ miles out to FADs and open water. On a half-day charter, we'll have solid fishing time but less flexibility. Full-day trips give us time to find fish, work multiple spots, and wait out slow periods. When you hook up, be ready to work. Ahi don't give up. A 60 lb fish will test you, and a 100+ lb fish is a battle. Captain JR will coach you through it, but you're doing the reeling. We fish on quality tackle — Shimano reels, solid rods, fresh line. Gear failure on a big fish is not an option.",
+    keepingYourCatch: "Ahi are big fish, and we practice selective harvest. We're not filling coolers with 80 lb tunas — that's wasteful and bad for the fishery. If we catch multiple fish, we'll select a smaller one to share among the group. You'll leave with fresh ahi for poke or sashimi that night. We bleed and ice everything properly so the meat quality is the best it can be.",
+    featuredStory: {
+      title: "Our Best Day: 14 Ahi in One Trip",
+      description: "October can surprise you. This day the fish were stacked up and feeding aggressively — we couldn't keep lines in the water. 14 yellowfin by the end of the trip, deck covered, everyone exhausted. Days like this don't happen every year, but when fall conditions line up right, the bite can be better than summer.",
+      images: [
+        "reel-addiction-iii/ahi/IMG_6814-web_fsneua",
+        "reel-addiction-iii/ahi/IMG_6832_xfyr6b",
+        "reel-addiction-iii/ahi/IMG_6862-web_ztvpjg"
+      ]
+    },
   },
   {
     slug: 'mahi-mahi',

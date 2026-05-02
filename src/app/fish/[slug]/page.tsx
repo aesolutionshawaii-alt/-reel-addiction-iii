@@ -125,6 +125,70 @@ export default async function FishSpeciesPage({ params }: PageProps) {
               </p>
             </div>
 
+            {/* Season Details (if available) */}
+            {fish.seasonDetails && (
+              <div>
+                <h2 className="mb-6 font-outfit text-3xl font-bold text-[#1B3A5F]">
+                  When We Catch Them
+                </h2>
+                <p className="font-inter text-lg leading-relaxed text-gray-700">
+                  {fish.seasonDetails}
+                </p>
+              </div>
+            )}
+
+            {/* Featured Story (if available) */}
+            {fish.featuredStory && (
+              <div className="rounded-2xl bg-gray-50 p-8 md:p-12">
+                <h2 className="mb-4 font-outfit text-3xl font-bold text-[#1B3A5F]">
+                  {fish.featuredStory.title}
+                </h2>
+                <p className="mb-8 font-inter text-lg leading-relaxed text-gray-700">
+                  {fish.featuredStory.description}
+                </p>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                  {fish.featuredStory.images.map((img, idx) => (
+                    <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                      <CloudinaryImage
+                        src={img}
+                        alt={`${fish.hawaiianName} catch - photo ${idx + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* What to Expect (if available) */}
+            {fish.whatToExpect && (
+              <div>
+                <h2 className="mb-6 font-outfit text-3xl font-bold text-[#1B3A5F]">
+                  What to Expect
+                </h2>
+                <p className="font-inter text-lg leading-relaxed text-gray-700">
+                  {fish.whatToExpect}
+                </p>
+              </div>
+            )}
+
+            {/* Keeping Your Catch (if available) */}
+            {fish.keepingYourCatch && (
+              <div>
+                <h2 className="mb-6 font-outfit text-3xl font-bold text-[#1B3A5F]">
+                  Keeping Your Catch
+                </h2>
+                <p className="font-inter text-lg leading-relaxed text-gray-700">
+                  {fish.keepingYourCatch}{' '}
+                  <Link href="/fish-policy" className="text-red-600 hover:text-red-700 underline">
+                    See our full fish policy
+                  </Link>.
+                </p>
+              </div>
+            )}
+
             {/* Hawaii Connection */}
             <div className="rounded-2xl bg-[#1B3A5F] p-8 md:p-12">
               <h2 className="mb-6 font-outfit text-3xl font-bold text-white">

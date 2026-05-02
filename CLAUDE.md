@@ -177,133 +177,147 @@ Each has: name, hawaiianName, season, image, description, techniques, size, hawa
 ### Testing performance
 Always test on production (Vercel), not localhost. Dev mode is slow and misleading.
 
-## Source Photos
-
-**Local folder:** `~/Desktop/reel-addiction-iii-photos/`
-**Photo catalog:** `content/data/photo-catalog.json`
-
-### MANDATORY: Content Diversity Check
-
-**BEFORE selecting images, you MUST:**
-1. Read `content/data/photo-catalog.json` to see what's been used
-2. Check `recentPosts.history` for last 7 days of species/types
-3. Ensure NO back-to-back same species
-4. Ensure at least 2 different species per 5 posts
-5. Mix content types: catch, action, lifestyle, crew
-
-**Species available:** ahi, mahi, marlin, ono, aku
-**Types available:** catch (on deck), action (jumping/fighting), lifestyle (birds/ocean), crew
-
-### Image Selection Workflow
-
-1. Read photo-catalog.json
-2. Check recent posts to see what species/types were used
-3. Pick images that create VARIETY - different species, different types
-4. View each selected image with Read tool
-5. Upload to Cloudinary
-6. Create posts with proper species/type tags
-7. Update catalog with used images
-
-**DO NOT:**
-- Post same species back-to-back
-- Post more than 2 of same species in a week
-- Guess what's in an image - always view it first
-- Add image URLs to usedImages array manually (script does this)
-
 ## Instagram Content Creation
+
+### Workflow (Streamlined)
+
+**IMPORTANT:** Claude cannot reliably identify fish species from images or track which photos have been used. The user must provide this information.
+
+**User provides:**
+1. Paste images directly into chat
+2. Tell Claude the species for each image (mahi, ahi, aku, ono, marlin, shibi, or "lifestyle/crew")
+3. Any context needed (e.g., "sunrise catching live bait", "otaru over 20 lbs")
+
+**Claude handles:**
+1. Optimize images with `webimg` (target <500KB)
+2. Upload to Cloudinary (`social` folder)
+3. Write captions following voice guide
+4. Add to queue and schedule via `reel-post`
+
+**Diversity rules (user tracks this):**
+- No back-to-back same species
+- Max 2 of same species per 7 posts
+- Mix types: catch, action, lifestyle, crew
 
 ### Voice Guide
 **Read `content/voice-guide.md` before writing ANY caption.**
 
-The voice is a knowledgeable captain talking to people interested in fishing — NOT a marketing agency, NOT an influencer.
+The voice is a knowledgeable captain — NOT a marketing agency, NOT an influencer.
 
-**Banned phrases:** "full send", "epic", "insane", "fire", "incredible", "on fire", "crushing it", "bucket list", "live your best", "pure chaos", "game on", "save this", "tag someone"
+**Banned phrases (script validates):**
+- "full send", "full body", "epic", "insane", "fire", "incredible"
+- "on fire", "crushing it", "bucket list", "live your best"
+- "pure chaos", "game on", "this is why we do this"
+- "tag someone", "save this", "the moment", "zero hesitation"
 
 **Every caption must:**
-- Correctly identify the fish species (use Hawaii names: mahi, ahi, shibi, aku, ono)
+- Correctly identify the fish species (Hawaii names: mahi, ahi, shibi, aku, ono)
 - Include something educational (fish behavior, season, technique)
-- Sound like a real person would say it
+- Sound like a real person
 - End with simple CTA ("link in bio")
+- NO emojis, NO ALL CAPS
 
-### Creating New Posts (Guided Workflow)
+### Technical Steps (Claude runs these)
 
+**Optimize:**
 ```bash
-reel-add /path/to/image.jpg    # Add single image
-reel-add /path/to/folder/      # Process folder of images
+webimg /path/to/image.jpg
 ```
 
-The `reel-add` command enforces the correct workflow:
-1. **View image** — Opens in Preview so you can see what you're working with
-2. **Identify species** — Select from list or enter manually
-3. **Describe image** — Write what's actually in the photo
-4. **Check optimization** — Warns if image is too large (should be <500KB)
-5. **Upload to Cloudinary** — Handles the upload
-6. **Write caption** — Shows voice guide rules, validates against banned phrases
-7. **Add hashtags** — Suggests based on species/content
-8. **Diversity check** — Warns if same species posted recently
-9. **Add to queue** — Creates the post entry
-
-**DO NOT skip steps.** The old workflow of batch-viewing images and writing captions from memory led to bad content and misidentified fish.
-
-### Scheduling Posts
-
+**Upload to Cloudinary:**
 ```bash
-reel-post                      # Schedule all pending posts
-reel-post --dry-run            # Preview without posting
-reel-post --post-id=ig-001     # Schedule specific post
-reel-post --generate-hashtags  # Regenerate hashtags
+mcp-cli call cloudinary/upload-asset '{"upload_request": {"file": "file:///path/to/image.jpg", "folder": "social"}}'
 ```
 
-Or use npm:
+**Schedule:**
 ```bash
-npm run instagram              # Schedule all pending
-npm run instagram:dry          # Dry run
-npm run instagram:hashtags     # Regenerate hashtags
+reel-post --dry-run    # Preview
+reel-post              # Schedule to Metricool
 ```
 
-### Post Queue
-Posts are stored in `content/output/instagram-posts-queue.json`. Each post needs:
-- `id` - Unique identifier (e.g., "ig-001")
-- `caption` - Post text (hook must be under 125 chars)
-- `hashtags` - Array of 3-5 hashtags (auto-generated or manual)
-- `images` - Array of public URLs (Cloudinary)
-- `type` - Content type (catch, charter, lifestyle, etc.)
-- `status` - "pending_review" or "approved"
+### Good Caption Examples
 
-### Image Workflow
-1. Upload images to Cloudinary: `mcp__cloudinary__upload-asset`
-2. Copy the `secure_url` from the response
-3. Add URL to the post's `images` array
-4. Run `reel-post` to schedule
+**Mahi Action Shot:**
+```
+Mahi are known for their spectacular aerial displays and pound for pound they're one of the hardest fighting fish in the ocean. This one came unglued the second it felt the hook — full body out of the water, tail shaking, doing what mahi do best.
 
-### Creating Posts from New Images (IMPORTANT)
+Spring mahi season is heating up off the West side of Oahu. The schools are pushing in and when they're on, they're on. Everyone on the boat gets a chance to fight one and the action can be nonstop.
 
-**DO NOT batch-view images then write posts from memory.** You WILL mix up URLs.
+Great fish for families, first-timers, and experienced anglers. They fight hard and they're some of the best eating fish in Hawaii.
 
-**Correct process:**
-1. View each image with the Read tool
-2. Immediately create a catalog entry:
-   ```
-   sah8yolzpgjgmqeccxsh.jpg → blue marlin jumping, side angle
-   fagfl2mnmkgik9v4lp3n.jpg → mahi-mahi on gaff, bright yellow
-   nyuar6bxecv9ihbxvsek.jpg → ahi on deck, red meat visible
-   ```
-3. Build posts by pulling URLs from your catalog based on content match
-4. Never guess which URL is which - refer back to catalog
+Book now before spring dates fill up — link in bio.
+```
 
-**Image tracking:** The queue tracks `usedImages` by year. Script will warn/skip if you try to reuse an image within the same calendar year.
+**Shibi Being Gaffed:**
+```
+Shibi coming over the rail and the colors on this one were unreal.
+
+Shibi are juvenile yellowfin tuna and one of the best eating fish in Hawaii. When they first come out of the water their colors are electric — deep purples, blues, and bright yellow finlets that you have to see in person to believe. Those colors fade fast so if you want the shot you better be ready.
+
+These fish are built for speed and power. Even at 20-30 pounds they pull hard and make screaming runs that will have your arms burning. They're a blast to catch and even better on the plate — fresh shibi sashimi right off the boat is as good as it gets.
+
+We've been finding them mixed in with the mahi this spring. Book your charter and come put some color in the fish box — link in bio.
+```
+
+**Informative Mahi Post:**
+```
+Mahi mahi are one of the fastest growing fish in the ocean. They can reach over 40 pounds in less than a year and rarely live past five. That rapid growth rate makes them one of the most sustainable offshore fish you can target.
+
+They travel in schools, feed aggressively, and are known for their spectacular jumps when hooked. The colors on a live mahi are unreal — electric blues, greens, and yellows that fade within minutes of leaving the water.
+
+On top of all that they're one of the best eating fish in Hawaii. Light, firm, and versatile whether you grill it, sear it, or eat it raw.
+
+Spring mahi season is here and the schools are showing up off the West side. Book your charter and come see what all the fuss is about — link in bio.
+```
+
+**Aku/Otaru (Skipjack Tuna):**
+```
+Otaru on the gaff. That's a big aku.
+
+Aku is skipjack tuna — locals prize this sashimi and many prefer it over ahi. When they get over 20 pounds we call them otaru, and this one definitely qualifies. These fish fight like crazy for their size, screaming runs and pure power.
+
+That silver-blue body with the stripes on the belly is unmistakable. Fresh aku sashimi right off the boat is one of the best things you can eat in Hawaii. The meat is darker and richer than ahi with a flavor that's hard to describe until you try it.
+
+We find them running with the mahi off the West side. Book your charter — link in bio.
+```
+
+### BAD Caption Examples (DO NOT WRITE LIKE THIS)
+
+```
+Blue marlin going vertical. Full body. Full send. Full airshow. This is what 300 pounds of adrenaline looks like mid-flight. Save this for your bucket list.
+```
+**Why it's bad:** Copywriter fragment style. "Full send" is influencer speak. "Save this for your bucket list" is generic. No educational content.
+
+```
+AHI SEASON IS ON FIRE! The yellowfin are absolutely crushing it right now - lines screaming, reels smoking, and coolers filling up! 🔥🎣
+```
+**Why it's bad:** ALL CAPS hype. Emoji spam. Generic excitement words. Sounds like every other fishing page. Doesn't teach anything.
+
+### Post Queue Structure
+Posts stored in `content/output/instagram-posts-queue.json`:
+```json
+{
+  "id": "ig-039",
+  "caption": "Your caption here...",
+  "hashtags": ["#ReelAddictionIII", "#MahiMahi", "#HawaiiFishing", "#KoOlina", "#SpringFishing"],
+  "images": ["https://res.cloudinary.com/dmu9szrap/image/upload/v.../social/xxxxx.jpg"],
+  "type": "catch",
+  "species": "mahi",
+  "status": "approved"
+}
+```
 
 ### Metricool Credentials
 - Blog ID: 2588722
 - User ID: 2101489
 - Config: `content/config/.env`
 
-### Hashtag Strategy
-Auto-generated based on content:
+### Hashtag Strategy (5 per post)
 - Brand: #ReelAddictionIII, #CaptainJR
-- Species: #Ahi, #MarlinFishing, #MahiMahi, #Ono
-- Location: #HawaiiFishing, #Oahu, #KoOlina
-- Lifestyle: #DeepSeaFishing, #TightLines, #FishingLife
+- Species: #Ahi, #Aku, #MahiMahi, #Ono, #Shibi, #MarlinFishing, #SkipjackTuna
+- Location: #HawaiiFishing, #Oahu, #KoOlina, #WestOahu
+- Activity: #DeepSeaFishing, #CharterFishing, #SportFishing
+- Seasonal: #SpringFishing, #MahiSeason, #TunaFishing
 
 ## Dev Commands
 ```bash
