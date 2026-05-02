@@ -181,7 +181,10 @@ export default async function FishSpeciesPage({ params }: PageProps) {
                   Keeping Your Catch
                 </h2>
                 <p className="font-inter text-lg leading-relaxed text-gray-700">
-                  {fish.keepingYourCatch}
+                  {fish.keepingYourCatch}{' '}
+                  <Link href="/catch" className="text-red-600 hover:text-red-700 underline">
+                    See our fish policy
+                  </Link>.
                 </p>
               </div>
             )}
