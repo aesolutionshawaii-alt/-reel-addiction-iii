@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import HeroImage from '@/components/HeroImage';
 import Link from 'next/link';
-import { Gauge, Anchor, Wind, Snowflake, Users, Bath, Bed, Waves, Shield, Award } from 'lucide-react';
+import { Gauge, Anchor, Wind, Snowflake, Users, Bath, Bed, Waves, Award } from 'lucide-react';
 import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 import VesselHeroContent from '@/components/VesselHeroContent';
@@ -149,63 +149,6 @@ export default function TheVesselPage() {
         </div>
       </section>
 
-      {/* ===== COMFORT & AMENITIES ===== */}
-      <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
-              Luxury Meets Function
-            </h2>
-            <p className="font-inter text-lg text-gray-600">
-              All the comforts of a yacht with serious fishing capability
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                icon: Snowflake,
-                title: 'Air-Conditioned Flybridge',
-                description: 'Enclosed flybridge keeps you cool and protected from the elements. Watch the action from above in comfort.'
-              },
-              {
-                icon: Bed,
-                title: '3 Private Staterooms',
-                description: 'Full sleeping accommodations for extended trips. Each stateroom is private and comfortable.'
-              },
-              {
-                icon: Bath,
-                title: '3 Full Bathrooms',
-                description: 'Three full heads means no waiting. Private, clean, and properly appointed for a day offshore.'
-              },
-              {
-                icon: Anchor,
-                title: 'Massive Cockpit',
-                description: 'Huge fishing cockpit with plenty of room for multiple anglers to fight fish simultaneously.'
-              },
-              {
-                icon: Shield,
-                title: '300 Gal Fresh Water',
-                description: 'Ample fresh water for rinsing, cleaning, and staying comfortable all day long.'
-              },
-              {
-                icon: Award,
-                title: 'Dual Generators',
-                description: 'Two generators provide redundant power for all systems — AC, electronics, and fishing gear.'
-              },
-            ].map((item, index) => (
-              <div key={index} className="rounded-2xl border-2 border-gray-100 bg-white p-8 transition-all hover:border-red-200 hover:shadow-lg">
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-red-50">
-                  <item.icon className="h-7 w-7 text-red-500" />
-                </div>
-                <h3 className="mb-3 font-outfit text-xl font-bold text-[#1B3A5F]">{item.title}</h3>
-                <p className="font-inter leading-relaxed text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ===== CAPTAIN JR ===== */}
       <section className="bg-gray-50 py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-6">
@@ -250,6 +193,55 @@ export default function TheVesselPage() {
                   <p className="font-outfit font-bold text-white">Commercial Background</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== COMFORT & AMENITIES ===== */}
+      <section className="py-20">
+        <div className="mx-auto max-w-[1800px] px-6">
+          <div className="grid grid-cols-1 overflow-hidden rounded-3xl shadow-2xl lg:grid-cols-5">
+            {/* Text Panel - 40% (2 cols) */}
+            <div className="flex items-center bg-white px-10 py-16 lg:col-span-2">
+              <div>
+                <p className="mb-3 font-outfit text-xs font-bold uppercase tracking-[0.2em] text-red-500">
+                  Onboard
+                </p>
+                <h2 className="mb-6 font-outfit text-3xl font-bold leading-tight text-[#1B3A5F] lg:text-4xl">
+                  Luxury Meets Function
+                </h2>
+                <p className="mb-8 font-inter text-base leading-relaxed text-gray-600">
+                  All the comforts of a yacht with serious fishing capability. Three staterooms, three full bathrooms, an air-conditioned flybridge, and a massive cockpit built for serious anglers.
+                </p>
+
+                <div className="space-y-4">
+                  {[
+                    { icon: Snowflake, title: 'Air-Conditioned Flybridge' },
+                    { icon: Bed, title: '3 Staterooms, 3 Full Heads' },
+                    { icon: Anchor, title: 'Massive Cockpit' },
+                    { icon: Award, title: 'Dual Generators, 300 Gal Water' },
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center gap-4">
+                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-red-50">
+                        <item.icon className="h-5 w-5 text-red-500" />
+                      </div>
+                      <h3 className="font-outfit text-lg font-bold text-[#1B3A5F]">{item.title}</h3>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Image - 60% (3 cols) */}
+            <div className="relative h-[400px] lg:col-span-3 lg:h-[600px]">
+              <CloudinaryImage
+                src="vessel/vessel-interior"
+                alt="Reel Addiction III interior salon"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+              />
             </div>
           </div>
         </div>
