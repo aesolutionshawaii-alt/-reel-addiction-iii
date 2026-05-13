@@ -26,7 +26,7 @@ export default function FareHarborButton({
   let href = `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/`;
 
   if (itemId) {
-    href += `items/${itemId}/`;
+    href += `items/${itemId}/?full-items=yes`;
   } else {
     href += '?full-items=yes';
   }
