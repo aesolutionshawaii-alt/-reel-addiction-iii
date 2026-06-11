@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { X } from 'lucide-react';
 
@@ -44,6 +44,13 @@ function SpeciesPills({ species, small = false }: { species?: string[]; small?: 
 export default function GalleryContent({ images }: { images: GalleryImage[] }) {
   const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
   const [largeLoaded, setLargeLoaded] = useState(false);
+  const [canHover, setCanHover] = useState(false);
+
+  // Touch devices skip the 1600px lightbox image — the cached grid
+  // thumbnail plus the catch info is all they need.
+  useEffect(() => {
+    setCanHover(window.matchMedia('(hover: hover)').matches);
+  }, []);
 
   const openLightbox = (image: GalleryImage) => {
     setLargeLoaded(false);
@@ -132,7 +139,7 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
               className="object-contain"
               sizes="100vw"
             />
-            {lightboxImage.largeUrl && (
+            {canHover && lightboxImage.largeUrl && (
               <Image
                 key={lightboxImage._id}
                 src={lightboxImage.largeUrl}
