@@ -45,16 +45,21 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
   const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
   const [largeLoaded, setLargeLoaded] = useState(false);
   const [canHover, setCanHover] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
-  // Touch devices skip the 1600px lightbox image — the cached grid
-  // thumbnail plus the catch info is all they need.
   useEffect(() => {
     setCanHover(window.matchMedia('(hover: hover)').matches);
   }, []);
 
-  const openLightbox = (image: GalleryImage) => {
-    setLargeLoaded(false);
-    setLightboxImage(image);
+  // Desktop: hover reveals the overlay, click opens the lightbox.
+  // Touch: tap toggles the overlay in place, same as Recent Catches.
+  const handleTileClick = (image: GalleryImage) => {
+    if (canHover) {
+      setLargeLoaded(false);
+      setLightboxImage(image);
+    } else {
+      setActiveId(activeId === image._id ? null : image._id);
+    }
   };
 
   if (!images || images.length === 0) {
@@ -76,7 +81,7 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
             {images.map((image) => (
               <button
                 key={image._id}
-                onClick={() => openLightbox(image)}
+                onClick={() => handleTileClick(image)}
                 className="group relative aspect-[4/5] overflow-hidden bg-gray-100 focus:outline-none"
               >
                 <Image
@@ -88,8 +93,16 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
                 />
 
                 {/* Hover overlay */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-start gap-1.5 p-3 text-left opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100">
+                <div
+                  className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100 ${
+                    activeId === image._id ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+                <div
+                  className={`pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-start gap-1.5 p-3 text-left transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100 ${
+                    activeId === image._id ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
                   {image.caption && (
                     <p
                       className="line-clamp-2 font-outfit text-sm leading-snug text-white"
