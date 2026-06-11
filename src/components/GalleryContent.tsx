@@ -8,8 +8,38 @@ type GalleryImage = {
   _id: string;
   caption?: string;
   date?: string;
+  species?: string[];
   imageUrl: string;
+  largeUrl?: string;
 };
+
+function formatDate(date?: string) {
+  if (!date) return null;
+  return new Date(date).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
+function SpeciesPills({ species, small = false }: { species?: string[]; small?: boolean }) {
+  if (!species || species.length === 0) return null;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {species.map((s) => (
+        <span
+          key={s}
+          className={`rounded-full bg-white/20 font-outfit uppercase tracking-wider text-white backdrop-blur-sm ${
+            small ? 'px-2 py-0.5 text-[10px]' : 'px-3 py-1 text-xs'
+          }`}
+          style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}
+        >
+          {s.replace(/-/g, ' ')}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 export default function GalleryContent({ images }: { images: GalleryImage[] }) {
   const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
@@ -28,8 +58,8 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
     <>
       {/* Image Grid - Instagram Style */}
       <section className="py-8 md:py-12">
-        <div className="mx-auto max-w-4xl px-1 md:px-4">
-          <div className="grid grid-cols-3 gap-1 md:gap-2">
+        <div className="mx-auto max-w-[1600px] px-1 md:px-[39px]">
+          <div className="grid grid-cols-2 gap-1 md:grid-cols-3 md:gap-2 lg:grid-cols-4">
             {images.map((image) => (
               <button
                 key={image._id}
@@ -40,9 +70,31 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
                   src={image.imageUrl}
                   alt={image.caption || 'Gallery photo'}
                   fill
-                  className="object-cover transition-opacity duration-300 group-hover:opacity-90"
-                  sizes="(max-width: 768px) 33vw, 300px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 400px"
                 />
+
+                {/* Hover overlay */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-start gap-1.5 p-3 text-left opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  {image.caption && (
+                    <p
+                      className="line-clamp-2 font-outfit text-sm leading-snug text-white"
+                      style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}
+                    >
+                      {image.caption}
+                    </p>
+                  )}
+                  <SpeciesPills species={image.species} small />
+                  {image.date && (
+                    <p
+                      className="font-outfit text-[10px] uppercase tracking-widest text-white/70"
+                      style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}
+                    >
+                      {formatDate(image.date)}
+                    </p>
+                  )}
+                </div>
               </button>
             ))}
           </div>
@@ -63,22 +115,28 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
             <X className="h-8 w-8" />
           </button>
           <div
-            className="relative h-full max-h-[85vh] w-full max-w-3xl"
+            className="relative h-full max-h-[80vh] w-full max-w-3xl"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={lightboxImage.imageUrl}
+              src={lightboxImage.largeUrl || lightboxImage.imageUrl}
               alt={lightboxImage.caption || 'Gallery photo'}
               fill
               className="object-contain"
               sizes="100vw"
             />
           </div>
-          {lightboxImage.caption && (
-            <p className="absolute bottom-4 left-0 right-0 text-center font-inter text-sm text-white/80">
-              {lightboxImage.caption}
-            </p>
-          )}
+          <div className="absolute bottom-4 left-0 right-0 flex flex-col items-center gap-2 px-6 text-center">
+            {lightboxImage.caption && (
+              <p className="font-inter text-sm text-white/90">{lightboxImage.caption}</p>
+            )}
+            <SpeciesPills species={lightboxImage.species} small />
+            {lightboxImage.date && (
+              <p className="font-outfit text-[10px] uppercase tracking-widest text-white/50">
+                {formatDate(lightboxImage.date)}
+              </p>
+            )}
+          </div>
         </div>
       )}
     </>

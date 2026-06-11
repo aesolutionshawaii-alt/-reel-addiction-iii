@@ -15,15 +15,44 @@ export const metadata: Metadata = {
   description: "Browse trophy catches and unforgettable moments from Reel Addiction III fishing charters. Marlin, tuna, mahi mahi, and more from Oahu's best charter boat.",
 };
 
-async function getGalleryImages() {
-  return await client.fetch(`
-    *[_type == "galleryImage"] | order(date desc) {
+type GalleryDoc = {
+  _id: string;
+  _type: 'dailyCatch' | 'galleryImage';
+  caption?: string;
+  date?: string;
+  species?: string[];
+  assetRef: string;
+  imageUrl: string;
+  largeUrl: string;
+};
+
+async function getGalleryImages(): Promise<GalleryDoc[]> {
+  const docs: GalleryDoc[] = await client.fetch(`
+    *[_type in ["dailyCatch", "galleryImage"]] | order(date desc) {
       _id,
+      _type,
       caption,
       date,
-      "imageUrl": image.asset->url + "?w=800&q=80&auto=format"
+      species,
+      "assetRef": image.asset._ref,
+      "imageUrl": image.asset->url + "?w=800&q=80&auto=format",
+      "largeUrl": image.asset->url + "?w=1600&q=80&auto=format"
     }
   `);
+
+  // Some photos exist as both a dailyCatch and a galleryImage (same asset).
+  // Prefer the dailyCatch version (it carries species data), then drop any
+  // remaining repeats of the same asset.
+  const dailyCatchRefs = new Set(
+    docs.filter((d) => d._type === 'dailyCatch').map((d) => d.assetRef)
+  );
+  const seen = new Set<string>();
+  return docs.filter((d) => {
+    if (d._type === 'galleryImage' && dailyCatchRefs.has(d.assetRef)) return false;
+    if (seen.has(d.assetRef)) return false;
+    seen.add(d.assetRef);
+    return true;
+  });
 }
 
 export default async function GalleryPage() {

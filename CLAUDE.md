@@ -125,11 +125,12 @@ Don't change these routes without considering SEO impact. These URLs are already
 
 ## Content Management
 
-**Sanity CMS is ONLY for the Recent Catches section.** 
+**Sanity CMS feeds the Recent Catches section (home) and the Gallery page.**
 
-All other images on the site are managed through Cloudinary directly. Don't assume Sanity controls site-wide content - it's a single-purpose integration for the catch gallery that the client can update themselves.
+All other images on the site are managed through Cloudinary directly. Don't assume Sanity controls site-wide content - it's a client-updatable integration for catch photos only.
 
-- Recent Catches: Sanity CMS
+- Recent Catches (home): Sanity `dailyCatch` docs, last 7 by date
+- Gallery (`/gallery`): Sanity `dailyCatch` + `galleryImage` docs merged, all of them, newest first. Deduped by image asset ref in `src/app/gallery/page.tsx` (some photos exist as both types; the `dailyCatch` version wins because it has species data). Client only really uses Daily Catch; Gallery Image remains for non-catch photos.
 - Everything else (hero, charters, fish, vessel, etc.): Cloudinary
 
 ## Videos
