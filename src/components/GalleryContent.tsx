@@ -43,6 +43,12 @@ function SpeciesPills({ species, small = false }: { species?: string[]; small?: 
 
 export default function GalleryContent({ images }: { images: GalleryImage[] }) {
   const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
+  const [largeLoaded, setLargeLoaded] = useState(false);
+
+  const openLightbox = (image: GalleryImage) => {
+    setLargeLoaded(false);
+    setLightboxImage(image);
+  };
 
   if (!images || images.length === 0) {
     return (
@@ -63,20 +69,20 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
             {images.map((image) => (
               <button
                 key={image._id}
-                onClick={() => setLightboxImage(image)}
+                onClick={() => openLightbox(image)}
                 className="group relative aspect-[4/5] overflow-hidden bg-gray-100 focus:outline-none"
               >
                 <Image
                   src={image.imageUrl}
                   alt={image.caption || 'Gallery photo'}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="object-cover transition-transform duration-500 [@media(hover:hover)]:group-hover:scale-[1.03]"
                   sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 400px"
                 />
 
                 {/* Hover overlay */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-start gap-1.5 p-3 text-left opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-start gap-1.5 p-3 text-left opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100">
                   {image.caption && (
                     <p
                       className="line-clamp-2 font-outfit text-sm leading-snug text-white"
@@ -118,13 +124,27 @@ export default function GalleryContent({ images }: { images: GalleryImage[] }) {
             className="relative h-full max-h-[80vh] w-full max-w-3xl"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Grid thumbnail is already cached — show it instantly while the large version loads */}
             <Image
-              src={lightboxImage.largeUrl || lightboxImage.imageUrl}
+              src={lightboxImage.imageUrl}
               alt={lightboxImage.caption || 'Gallery photo'}
               fill
               className="object-contain"
               sizes="100vw"
             />
+            {lightboxImage.largeUrl && (
+              <Image
+                key={lightboxImage._id}
+                src={lightboxImage.largeUrl}
+                alt={lightboxImage.caption || 'Gallery photo'}
+                fill
+                className={`object-contain transition-opacity duration-300 ${
+                  largeLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                sizes="100vw"
+                onLoad={() => setLargeLoaded(true)}
+              />
+            )}
           </div>
           <div className="absolute bottom-4 left-0 right-0 flex flex-col items-center gap-2 px-6 text-center">
             {lightboxImage.caption && (
