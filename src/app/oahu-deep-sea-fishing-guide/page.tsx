@@ -427,15 +427,15 @@ export default function FishingGuidePage() {
 
           <div className="mb-10 grid gap-4 text-center md:grid-cols-3">
             <div className="rounded-xl bg-white/10 p-6">
-              <p className="mb-1 font-outfit text-2xl font-bold text-white">$2,495</p>
+              <p className="mb-1 font-outfit text-2xl font-bold text-white">$3,095</p>
               <p className="font-inter text-white/70">3/4 Day (6 hours)</p>
             </div>
             <div className="rounded-xl bg-white/10 p-6">
-              <p className="mb-1 font-outfit text-2xl font-bold text-white">$2,995</p>
+              <p className="mb-1 font-outfit text-2xl font-bold text-white">$3,495</p>
               <p className="font-inter text-white/70">Full Day (8-10 hours)</p>
             </div>
             <div className="rounded-xl bg-white/10 p-6">
-              <p className="mb-1 font-outfit text-2xl font-bold text-white">$3,300</p>
+              <p className="mb-1 font-outfit text-2xl font-bold text-white">$3,800</p>
               <p className="font-inter text-white/70">Extravaganza</p>
             </div>
           </div>

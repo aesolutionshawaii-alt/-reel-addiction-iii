@@ -127,7 +127,7 @@ export default function FullDayCharterPage() {
               <span className="text-white/40">|</span>
               <span className="flex items-center gap-2 text-2xl font-bold text-red-500">
                 <DollarSign className="h-6 w-6" />
-                2,995
+                3,495
               </span>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function FullDayCharterPage() {
             <DollarSign className="h-5 w-5 text-red-600 md:h-6 md:w-6" />
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:text-xs">Price</p>
-              <p className="text-lg font-bold text-red-600 md:text-xl">$2,995</p>
+              <p className="text-lg font-bold text-red-600 md:text-xl">$3,495</p>
             </div>
           </div>
 

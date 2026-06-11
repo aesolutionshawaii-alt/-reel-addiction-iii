@@ -116,7 +116,7 @@ export default function ExtravaganzaCharterPage() {
             </div>
             <div className="flex items-center gap-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
               <DollarSign className="h-6 w-6" />
-              <span>$3,300</span>
+              <span>$3,800</span>
             </div>
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function ExtravaganzaCharterPage() {
             <DollarSign className="h-5 w-5 text-red-600 md:h-6 md:w-6" />
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:text-xs">Price</p>
-              <p className="text-lg font-bold text-red-600 md:text-xl">$3,300</p>
+              <p className="text-lg font-bold text-red-600 md:text-xl">$3,800</p>
             </div>
           </div>
 
