@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import HeroImage from '@/components/HeroImage';
+import InteriorCarousel from '@/components/InteriorCarousel';
 import Link from 'next/link';
 import { Gauge, Anchor, Wind, Snowflake, Users, Bath, Bed, Waves, Award } from 'lucide-react';
 import Footer from '@/components/Footer';
@@ -246,6 +247,44 @@ export default function TheVesselPage() {
           </div>
         </div>
       </section>
+
+      {/* ===== STEP ABOARD CAROUSEL ===== */}
+      <InteriorCarousel
+        title="Step Aboard"
+        description="A look inside Reel Addiction III — the space, comfort, and accommodations that come standard on O'ahu's largest charter boat."
+        slides={[
+          {
+            image: "vessel/vessel-salon",
+            heading: "The Main Salon",
+            text: "Air-conditioned salon with wraparound leather seating and teak throughout. A real place to relax between bites, out of the sun and wind.",
+          },
+          {
+            image: "vessel/vessel-dinette",
+            heading: "Galley & Dinette",
+            text: "Sit-down seating inside the salon — room to spread out and stay out of the elements on the longer runs offshore.",
+          },
+          {
+            image: "vessel/vessel-galley",
+            heading: "Full Galley",
+            text: "Complete galley with sink, counter space, and storage. Cold drinks and food aboard from the dock and back.",
+          },
+          {
+            image: "vessel/vessel-stateroom",
+            heading: "Private Staterooms",
+            text: "Three staterooms with full berths below deck — a real place to rest on the longer charters.",
+          },
+          {
+            image: "vessel/vessel-head",
+            heading: "Three Full Heads",
+            text: "Three private heads with sinks and vanities. One of the biggest differences between us and a typical charter boat.",
+          },
+          {
+            image: "vessel/vessel-head-shower",
+            heading: "Showers Aboard",
+            text: "Enclosed showers below deck. Rinse off the salt before the ride in, or freshen up on a multi-day extravaganza.",
+          }
+        ]}
+      />
 
       {/* ===== LOCATION ===== */}
       <section className="py-20 md:py-28">
