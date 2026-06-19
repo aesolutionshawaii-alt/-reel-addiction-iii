@@ -87,27 +87,39 @@ export default function InteriorCarousel({ title, description, slides }: Interio
                 key={index}
                 className="min-w-0 shrink-0 grow-0 basis-[85%] px-2 md:basis-[58%] md:px-4"
               >
-                {/* Slide - image with caption overlaid lower-left */}
-                <div
-                  className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-xl shadow-2xl"
-                  style={{ aspectRatio: '16/10' }}
-                >
-                  <CloudinaryImage
-                    src={slide.image}
-                    alt={slide.heading}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 92vw, 80vw"
-                    priority={index === 0}
-                  />
-                  {/* Bottom gradient for legibility */}
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
-                  {/* Caption - lower left, small */}
-                  <div className="absolute bottom-0 left-0 max-w-md p-5 md:p-7">
-                    <h3 className="mb-1 font-outfit text-base font-bold text-white md:text-lg">
+                {/* Slide - image; caption overlaid on desktop, below image on mobile */}
+                <div className="mx-auto w-full max-w-3xl">
+                  <div
+                    className="relative w-full overflow-hidden rounded-xl shadow-2xl"
+                    style={{ aspectRatio: '16/10' }}
+                  >
+                    <CloudinaryImage
+                      src={slide.image}
+                      alt={slide.heading}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 92vw, 80vw"
+                      priority={index === 0}
+                    />
+                    {/* Desktop only: bottom gradient for legibility */}
+                    <div className="absolute inset-x-0 bottom-0 hidden h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent md:block" />
+                    {/* Desktop only: caption overlaid lower-left */}
+                    <div className="absolute bottom-0 left-0 hidden max-w-md p-5 md:block md:p-7">
+                      <h3 className="mb-1 font-outfit text-base font-bold text-white md:text-lg">
+                        {slide.heading}
+                      </h3>
+                      <p className="font-inter text-xs leading-relaxed text-white/85 md:text-sm">
+                        {slide.text}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Mobile only: caption below image */}
+                  <div className="px-1 pt-3 md:hidden">
+                    <h3 className="mb-1 font-outfit text-sm font-bold text-[#1B3A5F]">
                       {slide.heading}
                     </h3>
-                    <p className="font-inter text-xs leading-relaxed text-white/85 md:text-sm">
+                    <p className="font-inter text-xs leading-relaxed text-gray-600">
                       {slide.text}
                     </p>
                   </div>
