@@ -58,6 +58,12 @@ const reviewSchema = {
     postalCode: '96707',
     addressCountry: 'US',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 21.3266695,
+    longitude: -158.1207375,
+  },
+  sameAs: ['https://maps.google.com/?cid=16536498185307755754'],
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.9',
