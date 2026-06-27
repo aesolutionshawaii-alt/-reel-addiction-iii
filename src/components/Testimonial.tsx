@@ -1,39 +1,138 @@
-'use client'
 import Link from 'next/link'
+
+const GOOGLE_REVIEWS_URL =
+  'https://www.google.com/search?gs_ssp=eJzj4tVP1zc0zC40yjI0LzQxYLRSNagwTzYwMDNOMktNNbEwNjSytDKoSDU1TzE3NE82MTGyNDRJTfTiK0pNzVFITEnJTC7JzM8DAJPSE-I&q=reel+addiction&oq=&gs_lcrp=EgZjaHJvbWUqDwgAEC4YJxivARjHARjqAjIPCAAQLhgnGK8BGMcBGOoCMgkIARAjGCcY6gIyCQgCECMYJxjqAjIJCAMQIxgnGOoCMgkIBBAjGCcY6gIyCQgFECMYJxjqAjIVCAYQABhCGLQCGOoCGNsFGPAFGJ4GMhUIBxAAGEIYtAIY6gIY2wUY8AUYngbSAQg5MzVqMGoxNagCCLACAfEFRkGoUXgG6Ns&sourceid=chrome&ie=UTF-8#mpd=~3411587933163909398/customers/reviews'
+
+type Review = {
+  quote: string
+  author: string
+  context: string
+}
+
+const featured: Review = {
+  quote:
+    "Captain JR is the best of the best when it comes to fishing these waters. He showed us the birds, the way they act, the fish underneath them, and all the time he was right. We didn't go more than 30 minutes without catching either a Mahi or Aku. The crew worked like a well oiled machine. Nothing can compare to the experience and aloha you'll receive here.",
+  author: 'Jasmine Yahiku',
+  context: 'Mahi & aku, nonstop',
+}
+
+const reviews: Review[] = [
+  {
+    quote:
+      'Amazing experience. We caught nearly 20 Mahi mahi and hooked into 4 marlin. JR, jefe and babba were amazing guides. Put us on the fish ASAP. 1000% recommend Reel Addiction III if you want a legit fishing experience on Oahu.',
+    author: 'Tyler Gouge',
+    context: '20 mahi, 4 marlin',
+  },
+  {
+    quote:
+      'The conditions were rough but they knew what they were doing and still managed to get us on fish. We had a group with 4 teenagers and they could not have been better with the kids. Can’t recommend them high enough!',
+    author: 'Buddy Bagley',
+    context: 'Great with the kids',
+  },
+  {
+    quote:
+      'This is a boat that is serious about catching fish. Captain JR and his crew are true professionals. The boat is clean and the ride was smooth despite rough waters. Highly recommended.',
+    author: 'Eric S.',
+    context: 'Smooth ride, rough water',
+  },
+  {
+    quote:
+      'What a great day of fishing! The crew is amazing as well. Highly recommend booking a trip with them, and when we come back, we will be booking another one.',
+    author: 'Andrew Hill',
+    context: 'Already booking the next one',
+  },
+]
+
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': 'https://reeladdictioniii.com/#business',
+  name: 'Reel Addiction III Sport Fishing',
+  url: 'https://reeladdictioniii.com',
+  telephone: '+1-808-867-3474',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Ko Olina Marina',
+    addressLocality: 'Kapolei',
+    addressRegion: 'HI',
+    postalCode: '96707',
+    addressCountry: 'US',
+  },
+  review: [featured, ...reviews].map((r) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: r.author },
+    reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5', worstRating: '1' },
+    reviewBody: r.quote,
+  })),
+}
+
+function Stars({ size = 'w-5 h-5 md:w-6 md:h-6' }: { size?: string }) {
+  return (
+    <div className="flex gap-1">
+      {[...Array(5)].map((_, i) => (
+        <svg key={i} className={size} fill="#f4c542" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      ))}
+    </div>
+  )
+}
 
 export default function Testimonial() {
   return (
-    <section className="bg-navy px-5 py-12 md:px-20 md:py-24">
+    <section className="bg-navy text-offwhite px-5 py-16 md:px-20 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 items-center">
-          <div className="flex flex-col items-center justify-center order-2 md:order-1">
-            <div className="mb-6 md:mb-8">
-              <svg className="w-[140px] h-[113px] md:w-[280px] md:h-[227px]" viewBox="0 0 279 227" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M210.6 226.8C223.8 226.8 234.6 224.1 243 218.7C251.4 213.3 258.3 206.4 263.7 198C269.7 187.8 273.9 177.3 276.3 166.5C278.1 155.1 279 145.8 279 138.6C279 109.2 271.5 82.5 256.5 58.5C241.5 34.5 218.1 15 186.3 0L178.2 16.2C196.8 24 213 36.3 226.8 53.1C240 69.9 246.6 87 246.6 104.4C246.6 111.6 245.7 117.9 243.9 123.3C234.3 115.5 223.2 111.6 210.6 111.6C195 111.6 181.5 116.7 170.1 126.9C158.7 137.1 153 151.2 153 169.2C153 186 158.7 199.8 170.1 210.6C181.5 221.4 195 226.8 210.6 226.8ZM57.6 226.8C70.8 226.8 81.6 224.1 90 218.7C98.4 213.3 105.3 206.4 110.7 198C116.7 187.8 120.9 177.3 123.3 166.5C125.1 155.1 126 145.8 126 138.6C126 109.2 118.5 82.5 103.5 58.5C88.5 34.5 65.1 15 33.3 0L25.2 16.2C43.8 24 60 36.3 73.8 53.1C87 69.9 93.6 87 93.6 104.4C93.6 111.6 92.7 117.9 90.9 123.3C81.3 115.5 70.2 111.6 57.6 111.6C42 111.6 28.5 116.7 17.1 126.9C5.69999 137.1 0 151.2 0 169.2C0 186 5.69999 199.8 17.1 210.6C28.5 221.4 42 226.8 57.6 226.8Z" fill="white"/>
-              </svg>
-            </div>
-            <Link
-              href="https://www.google.com/search?gs_ssp=eJzj4tVP1zc0zC40yjI0LzQxYLRSNagwTzYwMDNOMktNNbEwNjSytDKoSDU1TzE3NE82MTGyNDRJTfTiK0pNzVFITEnJTC7JzM8DAJPSE-I&q=reel+addiction&oq=&gs_lcrp=EgZjaHJvbWUqDwgAEC4YJxivARjHARjqAjIPCAAQLhgnGK8BGMcBGOoCMgkIARAjGCcY6gIyCQgCECMYJxjqAjIJCAMQIxgnGOoCMgkIBBAjGCcY6gIyCQgFECMYJxjqAjIVCAYQABhCGLQCGOoCGNsFGPAFGJ4GMhUIBxAAGEIYtAIY6gIY2wUY8AUYngbSAQg5MzVqMGoxNagCCLACAfEFRkGoUXgG6Ns&sourceid=chrome&ie=UTF-8#mpd=~3411587933163909398/customers/reviews"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#c41e3a] text-white font-outfit px-6 py-3 md:px-8 md:py-4 rounded-lg hover:bg-[#a01830] transition-colors text-sm md:text-base"
+        <div className="text-center mb-12 md:mb-16">
+          <div className="text-xs md:text-sm uppercase tracking-[0.2em] text-offwhite/60 mb-4">
+            From Our Anglers
+          </div>
+          <h2 className="font-outfit text-3xl md:text-5xl font-light">Five stars. Every trip.</h2>
+        </div>
+
+        {/* Featured review */}
+        <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <div className="flex justify-center mb-5">
+            <Stars />
+          </div>
+          <blockquote className="font-outfit text-xl md:text-3xl font-light leading-snug md:leading-tight mb-6">
+            &ldquo;{featured.quote}&rdquo;
+          </blockquote>
+          <div className="font-outfit text-base md:text-lg font-medium">{featured.author}</div>
+          <div className="text-sm text-offwhite/55 mt-1">{featured.context}</div>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+          {reviews.map((r) => (
+            <div
+              key={r.author}
+              className="bg-navy-light/40 border border-offwhite/10 rounded-lg p-6 md:p-8"
             >
-              Read More Reviews
-            </Link>
-          </div>
-          <div className="text-center order-1 md:order-2">
-            <div className="flex gap-1 mb-4 md:mb-6 justify-center">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-6 h-6 md:w-8 md:h-8" fill="#f4c542" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              ))}
+              <div className="mb-4">
+                <Stars size="w-4 h-4" />
+              </div>
+              <blockquote className="font-outfit text-base md:text-lg leading-relaxed mb-5 text-offwhite/90">
+                &ldquo;{r.quote}&rdquo;
+              </blockquote>
+              <div className="font-outfit font-medium">{r.author}</div>
+              <div className="text-sm text-offwhite/55 mt-0.5">{r.context}</div>
             </div>
-            <blockquote className="text-white text-[18px] md:text-[40px] font-outfit font-normal leading-snug md:leading-tight mb-4 md:mb-6">
-              "This is a boat that is serious about catching fish. Captain JR and his crew are true professionals. The boat is clean and the ride was smooth despite rough waters. Highly recommended."
-            </blockquote>
-            <p className="text-white font-outfit text-[18px] md:text-[40px]">- Eric S.</p>
-          </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-12 md:mt-16">
+          <Link
+            href={GOOGLE_REVIEWS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-red text-white font-outfit px-7 py-3.5 rounded-lg hover:bg-red-hover transition-colors text-sm md:text-base"
+          >
+            Read More Reviews on Google
+          </Link>
         </div>
       </div>
     </section>
