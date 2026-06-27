@@ -58,6 +58,13 @@ const reviewSchema = {
     postalCode: '96707',
     addressCountry: 'US',
   },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: 32,
+    bestRating: '5',
+    worstRating: '1',
+  },
   review: [featured, ...reviews].map((r) => ({
     '@type': 'Review',
     author: { '@type': 'Person', name: r.author },
