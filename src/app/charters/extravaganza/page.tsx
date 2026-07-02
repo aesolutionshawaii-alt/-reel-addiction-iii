@@ -401,7 +401,8 @@ export default function ExtravaganzaCharterPage() {
                   "Camera or phone for photos",
                   "Light jacket or hoodie for early morning and evening",
                   "Seasickness medication if prone",
-                  "Cooler for bringing fish home (we provide ice and bags)"
+                  "Cooler for bringing fish home (we provide ice and bags)",
+                  "Hawaii fishing license if visiting from out of state (details below)"
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-100">
@@ -410,6 +411,34 @@ export default function ExtravaganzaCharterPage() {
                     <p className="pt-2 font-inter text-lg leading-relaxed text-gray-700">{item}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ===== FISHING LICENSE ===== */}
+          <div className="mt-16 rounded-2xl border-2 border-gray-200 bg-white p-8 shadow-sm md:p-10">
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-100">
+                <Info className="h-7 w-7 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">
+                  Visiting from Outside Hawaii? You Need a Fishing License
+                </h3>
+                <p className="mb-5 font-inter text-lg leading-relaxed text-gray-700">
+                  The State of Hawaiʻi requires all non-resident anglers age 15 and older to carry a recreational marine fishing license, including on charter boats. It only takes a few minutes to buy online: $20 for 1 day, $40 for 7 days, or $70 for the year. You can purchase it on your phone right up until departure, but we recommend grabbing it before your trip. Hawaii residents are exempt.
+                </p>
+                <a
+                  href="https://fishing.hawaii.gov/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-outfit text-lg font-semibold text-red-600 hover:text-red-700"
+                >
+                  Get your license at fishing.hawaii.gov
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
