@@ -3,6 +3,7 @@ import { Outfit, Inter, Playfair_Display } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import PersistentHero from '@/components/PersistentHero'
+import MessageCaptain from '@/components/MessageCaptain'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -59,6 +60,7 @@ export default function RootLayout({
       <body className="font-inter text-navy bg-offwhite">
         <PersistentHero />
         {children}
+        <MessageCaptain />
         {/* FareHarbor Lightframe - autolightframe converts links to modals */}
         <Script
           src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"
