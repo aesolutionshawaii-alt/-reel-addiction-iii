@@ -8,7 +8,9 @@ import InnerNavigation from '@/components/InnerNavigation';
 import GalleryContent from '@/components/GalleryContent';
 import GalleryHeroContent from '@/components/GalleryHeroContent';
 import { client } from '@/sanity/lib/client';
-export const revalidate = 60;
+// Render fresh on every request — ISR's stale-while-revalidate kept serving
+// week-old copies of the gallery in low-traffic edge regions.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: "Gallery | Reel Addiction III - Trophy Catches & Fishing Photos",
