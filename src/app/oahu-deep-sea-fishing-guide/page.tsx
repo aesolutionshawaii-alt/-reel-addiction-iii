@@ -417,6 +417,13 @@ export default function FishingGuidePage() {
           <p className="mb-6 font-inter text-xl text-white/80">
             Reel Addiction III departs from Ko Olina Harbor with the only SeaKeeper gyro stabilizer in the fleet — meaning we fish when other boats can't!
           </p>
+          <p className="mb-6 font-inter text-xl text-white/80">
+            Staying at Aulani, Four Seasons, or Marriott Ko Olina?{' '}
+            <Link href="/fishing-near-aulani" className="font-bold text-white underline decoration-red-400 underline-offset-4 transition-colors hover:text-red-400">
+              The boat is inside your resort
+            </Link>
+            .
+          </p>
 
           <div className="mb-10 flex flex-col items-center gap-4 font-inter text-xl text-white">
             <a href="tel:808-867-3474" className="flex items-center gap-2 transition-colors hover:text-red-400">
