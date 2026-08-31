@@ -10,9 +10,53 @@ export const metadata: Metadata = {
   description: "What's biting in Hawaiian waters right now? Complete guide to Oahu deep sea fishing — peak seasons for Marlin, Ahi, Mahi & Ono, plus Ko Olina charter options.",
 };
 
+const faqs = [
+  {
+    q: 'How much does a deep sea fishing charter cost on Oahu?',
+    a: 'Private charters on Oahu generally run from around $1,000 to $4,000 depending on the boat, trip length, and group size. Aboard Reel Addiction III, a private 3/4 day trip is $3,095, a full day is $3,495, and the dark-to-dark Extravaganza is $3,800, each for up to six guests. Shared charters run $500 per person with a four-guest minimum.',
+  },
+  {
+    q: 'Where do deep sea fishing charters leave from on Oahu?',
+    a: 'Most Oahu charters depart from three harbors: Kewalo Basin in Honolulu, Ko Olina Marina on the leeward west side, and Haleiwa on the North Shore. Reel Addiction III departs Ko Olina Marina, Slip F7, where the leeward coast offers calmer water and deep ocean just minutes from the dock.',
+  },
+  {
+    q: 'What fish can you catch deep sea fishing on Oahu?',
+    a: 'Blue marlin, yellowfin tuna (ahi), mahi mahi, ono (wahoo), skipjack tuna (aku), and spearfish are the main targets. All are caught year-round in Hawaiian waters, with summer producing the biggest marlin and ahi.',
+  },
+  {
+    q: 'When is the best time of year for deep sea fishing on Oahu?',
+    a: 'Fishing is productive every month of the year in Hawaii. Summer (June through August) is best for big blue marlin and yellowfin tuna over 100 pounds. Spring and fall bring peak mahi mahi runs, and winter offers striped marlin and bigeye tuna.',
+  },
+  {
+    q: 'Do I need a fishing license for a charter on Oahu?',
+    a: 'Yes. The State of Hawaii requires non-resident anglers age 15 and older to carry a recreational marine fishing license, even on charter boats. A 1-day license is $20 and can be purchased online at fishing.hawaii.gov, right up until departure.',
+  },
+  {
+    q: 'Is deep sea fishing on Oahu good for beginners?',
+    a: 'Yes. The crew handles rigging, baiting, and boat positioning, so first-timers just fight the fish. A larger, stabilized boat makes a big difference for comfort: Reel Addiction III carries the only SeaKeeper gyro stabilizer in the Ko Olina fleet, which takes most of the roll out of the ride.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
+
 export default function FishingGuidePage() {
   return (
     <main className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <InnerNavigation />
 
       {/* ===== HERO SECTION ===== */}
@@ -305,10 +349,6 @@ export default function FishingGuidePage() {
                 <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 text-sm font-bold text-red-600">✓</span>
                 <span>Late afternoon (before sunset)</span>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 text-sm font-bold text-red-600">✓</span>
-                <span>Night fishing for Tuna and Swordfish (late spring/early summer)</span>
-              </li>
             </ul>
           </div>
         </div>
@@ -408,6 +448,110 @@ export default function FishingGuidePage() {
         </div>
       </section>
 
+      {/* ===== HOW TO CHOOSE A CHARTER ===== */}
+      <section className="bg-gray-50 py-20 md:py-28">
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="mb-12 text-center">
+            <h2 className="mb-6 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
+              How to Choose an Oahu Fishing Charter
+            </h2>
+            <p className="font-inter text-xl text-gray-600">
+              Every boat targets the same fish. These are the things that actually separate one trip from another.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="rounded-2xl border-2 border-gray-200 bg-white p-8">
+              <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">
+                Departure point
+              </h3>
+              <p className="font-inter text-lg leading-relaxed text-gray-600">
+                Oahu charters leave from Kewalo Basin in Honolulu, Ko Olina Marina on the west side, and Haleiwa on the North Shore. The leeward west coast is protected from the trade winds, so mornings are typically calmer, and the sea floor drops off fast: boats out of Ko Olina reach deep water minutes after leaving the dock.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border-2 border-gray-200 bg-white p-8">
+              <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">
+                Boat size and stability
+              </h3>
+              <p className="font-inter text-lg leading-relaxed text-gray-600">
+                Bigger hulls ride smoother, and gyro stabilization matters more than anything else if anyone in your group is prone to seasickness. Ask whether the boat has a SeaKeeper before you book. Reel Addiction III is a 62' yacht carrying the only SeaKeeper in the Ko Olina fleet.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border-2 border-gray-200 bg-white p-8">
+              <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">
+                Trip length
+              </h3>
+              <p className="font-inter text-lg leading-relaxed text-gray-600">
+                A 3/4 day trip covers the prime morning bite and gets you back for the afternoon. A full day means more water covered and more techniques deployed. Dark-to-dark trips reach grounds shorter runs never touch. Book the longest trip you're comfortable with: more time on the water means more chances.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border-2 border-gray-200 bg-white p-8">
+              <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">
+                Private or shared
+              </h3>
+              <p className="font-inter text-lg leading-relaxed text-gray-600">
+                A private charter gives your group the whole boat and the captain's full attention. Shared charters split the cost with other anglers, a good fit for couples and solo travelers who don't need the entire deck.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border-2 border-gray-200 bg-white p-8">
+              <h3 className="mb-3 font-outfit text-2xl font-bold text-[#1B3A5F]">
+                Booking direct vs. a booking site
+              </h3>
+              <p className="font-inter text-lg leading-relaxed text-gray-600">
+                The price is usually the same either way. The difference with booking direct is that you talk to the captain before you commit: about conditions, what's biting, and which trip fits your group. Call the boat first and see how the conversation feels.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FAQ ===== */}
+      <section className="py-20 md:py-28">
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="mb-12 text-center">
+            <h2 className="mb-6 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
+              Frequently Asked Questions
+            </h2>
+            <p className="font-inter text-xl text-gray-600">
+              What anglers ask before fishing Oahu
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <details
+                key={index}
+                className="group overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
+              >
+                <summary className="flex cursor-pointer items-center justify-between p-8 text-left transition-colors hover:bg-gray-50">
+                  <h3 className="pr-4 font-outfit text-2xl font-bold text-[#1B3A5F]">
+                    {faq.q}
+                  </h3>
+                  <svg
+                    className="h-8 w-8 shrink-0 text-red-600 transition-transform group-open:rotate-180"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+
+                <div className="border-t-2 border-gray-200 bg-gray-50 p-8">
+                  <p className="font-inter text-lg leading-relaxed text-gray-700">
+                    {faq.a}
+                  </p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ===== CTA ===== */}
       <section className="bg-[#1B3A5F] py-20 md:py-28">
         <div className="mx-auto max-w-3xl px-6 text-center">
@@ -451,7 +595,7 @@ export default function FishingGuidePage() {
             href="/charters"
             className="inline-block rounded-full bg-red-600 px-10 py-4 font-outfit text-lg font-bold text-white transition-all hover:bg-red-700 hover:shadow-xl"
           >
-            View Charters
+            Compare Oahu Fishing Charters
           </Link>
         </div>
       </section>

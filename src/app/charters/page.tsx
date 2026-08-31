@@ -7,8 +7,8 @@ import InnerNavigation from '@/components/InnerNavigation';
 import ChartersHeroContent from '@/components/ChartersHeroContent';
 
 export const metadata: Metadata = {
-  title: "Fishing Charters | Reel Addiction III - Ko Olina, Oahu",
-  description: "Choose your Hawaiian fishing adventure. 3/4 day, full day, or Extravaganza charters departing from Ko Olina Marina. Hawaii's only guaranteed charter.",
+  title: "Oahu Fishing Charters | Reel Addiction III | Ko Olina",
+  description: "Compare private Oahu fishing charters: 3/4 day, full day, or the Extravaganza. Up to 6 guests aboard a 62' SeaKeeper-stabilized yacht from Ko Olina Marina.",
 };
 
 const charters = [
@@ -239,8 +239,15 @@ export default function ChartersPage() {
                         <h2 className="mb-6 font-outfit text-4xl font-bold text-[#1B3A5F] md:text-5xl">
                             Still Not Sure?
                         </h2>
-                        <p className="mb-8 font-inter text-lg text-gray-700 leading-relaxed">
+                        <p className="mb-4 font-inter text-lg text-gray-700 leading-relaxed">
                             Call Captain JR directly. He'll ask about your experience level, what you want to catch, and your schedule — then recommend the right trip for your group.
+                        </p>
+                        <p className="mb-8 font-inter text-lg text-gray-700 leading-relaxed">
+                            First time fishing Hawaiian waters? Start with our{' '}
+                            <Link href="/oahu-deep-sea-fishing-guide" className="font-bold text-[#1B3A5F] underline decoration-red-400 underline-offset-4 transition-colors hover:text-red-600">
+                                Oahu deep sea fishing guide
+                            </Link>{' '}
+                            for seasons, species, and what to expect on board.
                         </p>
 
                         <a href="tel:808-867-3474"
