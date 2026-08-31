@@ -48,11 +48,15 @@ const reviewSchema = {
   '@type': 'LocalBusiness',
   '@id': 'https://reeladdictioniii.com/#business',
   name: 'Reel Addiction III Sport Fishing',
+  description:
+    "Private deep sea fishing charters aboard a 62' SeaKeeper-stabilized sportfishing yacht, departing Ko Olina Marina on O'ahu's leeward coast.",
   url: 'https://reeladdictioniii.com',
+  image: 'https://res.cloudinary.com/dmu9szrap/image/upload/f_auto,q_auto/vessel/vessel-exterior',
   telephone: '+1-808-867-3474',
+  priceRange: '$500 - $3,800',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Ko Olina Marina',
+    streetAddress: '92-100 Waipahe Pl, Ko Olina Marina, Slip F7',
     addressLocality: 'Kapolei',
     addressRegion: 'HI',
     postalCode: '96707',
@@ -63,7 +67,40 @@ const reviewSchema = {
     latitude: 21.3266695,
     longitude: -158.1207375,
   },
-  sameAs: ['https://maps.google.com/?cid=16536498185307755754'],
+  areaServed: {
+    '@type': 'Place',
+    name: "O'ahu, Hawaii",
+  },
+  sameAs: [
+    'https://maps.google.com/?cid=16536498185307755754',
+    'https://www.instagram.com/reeladdictioniiisportfishing/',
+    'https://www.youtube.com/@ReelAddictionIII-808',
+    'https://www.facebook.com/people/Reeladdictioniiisportfishing/100092848172223/',
+    'https://www.tripadvisor.com/Attraction_Review-g11900445-d26852561-Reviews-Reel_Addiction_III_Sportfishing-Ko_Olina_Kapolei_Oahu_Hawaii.html',
+  ],
+  makesOffer: [
+    {
+      '@type': 'Offer',
+      name: '3/4 Day Private Charter',
+      price: '3095',
+      priceCurrency: 'USD',
+      url: 'https://reeladdictioniii.com/charters/3-4-day',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Full Day Private Charter',
+      price: '3495',
+      priceCurrency: 'USD',
+      url: 'https://reeladdictioniii.com/charters/full-day',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Extravaganza Private Charter',
+      price: '3800',
+      priceCurrency: 'USD',
+      url: 'https://reeladdictioniii.com/charters/extravaganza',
+    },
+  ],
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.9',
