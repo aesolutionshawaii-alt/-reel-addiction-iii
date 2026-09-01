@@ -24,8 +24,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Reel Addiction III | O'ahu's Premier Deep Sea Fishing Charter",
-  description: "Experience world-class deep sea fishing aboard O'ahu's largest and fastest charter. SeaKeeper stabilized for smooth rides. Blue marlin, ahi, mahi mahi, and more from Ko Olina.",
+  title: "Reel Addiction III | Official Site | O'ahu Deep Sea Fishing Charter",
+  description: "The official Reel Addiction III website. Book direct. Same price, no middleman. World-class deep sea fishing aboard O'ahu's largest and fastest charter from Ko Olina Marina.",
   keywords: "deep sea fishing oahu, ko olina fishing charter, hawaii fishing charter, blue marlin hawaii, ahi fishing oahu, sport fishing oahu",
   icons: {
     icon: '/favicon.png',
