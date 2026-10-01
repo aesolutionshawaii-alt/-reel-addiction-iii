@@ -59,6 +59,8 @@ export default function Footer() {
 <Link href="/oahu-deep-sea-fishing-guide" className="font-outfit text-[16px] md:text-[36px] text-white hover:text-gray-300 transition-colors">Fishing Guide</Link>
           <span className="font-outfit text-[16px] md:text-[36px] text-white">|</span>
           <Link href="/fishing-near-aulani" className="font-outfit text-[16px] md:text-[36px] text-white hover:text-gray-300 transition-colors">Ko Olina Guests</Link>
+          <span className="font-outfit text-[16px] md:text-[36px] text-white">|</span>
+          <Link href="/honolulu-fishing-charters" className="font-outfit text-[16px] md:text-[36px] text-white hover:text-gray-300 transition-colors">Honolulu Charters</Link>
         </div>
         
         {/* Copyright */}

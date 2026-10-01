@@ -466,7 +466,11 @@ export default function FishingGuidePage() {
                 Departure point
               </h3>
               <p className="font-inter text-lg leading-relaxed text-gray-600">
-                Oahu charters leave from Kewalo Basin in Honolulu, Ko Olina Marina on the west side, and Haleiwa on the North Shore. The leeward west coast is protected from the trade winds, so mornings are typically calmer, and the sea floor drops off fast: boats out of Ko Olina reach deep water minutes after leaving the dock.
+                Oahu charters leave from Kewalo Basin in Honolulu, Ko Olina Marina on the west side, and Haleiwa on the North Shore. The leeward west coast is protected from the trade winds, so mornings are typically calmer, and the sea floor drops off fast: boats out of Ko Olina reach deep water minutes after leaving the dock. Staying in town? See how{' '}
+                <Link href="/honolulu-fishing-charters" className="font-bold text-[#1B3A5F] underline decoration-red-400 underline-offset-4 transition-colors hover:text-red-600">
+                  Honolulu fishing charters
+                </Link>{' '}
+                compare with the drive west.
               </p>
             </div>
 

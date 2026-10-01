@@ -249,6 +249,13 @@ export default function ChartersPage() {
                             </Link>{' '}
                             for seasons, species, and what to expect on board.
                         </p>
+                        <p className="mb-8 font-inter text-lg text-gray-700 leading-relaxed">
+                            Staying in Honolulu or Waikiki? Our{' '}
+                            <Link href="/honolulu-fishing-charters" className="font-bold text-[#1B3A5F] underline decoration-red-400 underline-offset-4 transition-colors hover:text-red-600">
+                                Honolulu fishing charters
+                            </Link>{' '}
+                            page covers the drive from town and why the deep water is west.
+                        </p>
 
                         <a href="tel:808-867-3474"
                             className="inline-flex items-center gap-3 rounded-full bg-[#1B3A5F] px-8 py-4 font-outfit text-lg font-bold text-white transition-all hover:bg-[#2a4a6f] hover:shadow-xl"
