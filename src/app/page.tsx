@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 
 import ExploreCards from '@/components/ExploreCards'
 import CharterSection from '@/components/CharterSection'
@@ -9,6 +10,10 @@ import Footer from '@/components/Footer'
 import SocialSidebar from '@/components/SocialSidebar'
 import FadeBackground from '@/components/FadeBackground'
 import InnerNavigation from '@/components/InnerNavigation'
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
+
 export default function Home() {
   return (
     <main>

@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 import CatchHeroContent from '@/components/CatchHeroContent';
 export const metadata: Metadata = {
+  alternates: { canonical: '/catch' },
   title: "6 Fish You'll Catch Deep Sea Fishing Hawaii (+ How to Eat Them)",
   description: "Ahi, Mahi, Ono, Marlin & more — what you'll hook on an Oahu charter and the best way to prepare each. Simple recipes from a Ko Olina captain.",
 };

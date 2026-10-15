@@ -7,6 +7,7 @@ import InnerNavigation from '@/components/InnerNavigation';
 import ChartersHeroContent from '@/components/ChartersHeroContent';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/charters' },
   title: "Oahu Fishing Charters | Reel Addiction III | Ko Olina",
   description: "Compare private Oahu fishing charters: 3/4 day, full day, or the Extravaganza. Up to 6 guests aboard a 62' SeaKeeper-stabilized yacht from Ko Olina Marina.",
 };

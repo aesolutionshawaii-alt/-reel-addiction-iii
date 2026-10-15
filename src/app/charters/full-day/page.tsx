@@ -8,6 +8,7 @@ import FareHarborButton from '@/components/FareHarborButton';
 import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/charters/full-day' },
   title: "Full Day Charter | Reel Addiction III - Ko Olina, Oahu",
   description: "Go deeper, more water, bigger fish. 8-10 hours on the water with O'ahu's most experienced local crew. Book your full day charter from Ko Olina Marina.",
 };

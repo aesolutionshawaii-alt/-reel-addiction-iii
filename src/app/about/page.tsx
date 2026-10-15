@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 import AboutHeroContent from '@/components/AboutHeroContent';
 export const metadata: Metadata = {
+  alternates: { canonical: '/about' },
   title: "About Us | Reel Addiction III - O'ahu Deep Sea Fishing",
   description: "Meet Captain JR and the crew of Reel Addiction III. Premium deep sea fishing charters from Ko Olina Marina, Oahu. Generations of Hawaii fishing experience.",
 };

@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/fishing-near-aulani' },
   title: 'Fishing Charter Near Aulani & Ko Olina Resort | Reel Addiction III',
   description:
     'Staying at Aulani, Four Seasons, or Marriott Ko Olina? Reel Addiction III departs from Ko Olina Marina inside your resort. Walk to the boat and fish deep water in minutes.',

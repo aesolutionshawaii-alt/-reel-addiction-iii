@@ -13,6 +13,7 @@ import { client } from '@/sanity/lib/client';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/gallery' },
   title: "Gallery | Reel Addiction III - Trophy Catches & Fishing Photos",
   description: "Browse trophy catches and unforgettable moments from Reel Addiction III fishing charters. Marlin, tuna, mahi mahi, and more from Oahu's best charter boat.",
 };

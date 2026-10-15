@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${fish.hawaiianName} (${fish.name}) | Reel Addiction III - Hawaii Fishing`,
     description: `Target ${fish.name} on your Hawaiian fishing charter. ${fish.description.slice(0, 150)}...`,
+    alternates: { canonical: `/fish/${slug}` },
   };
 }
 

@@ -24,6 +24,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://reeladdictioniii.com'),
   title: "Reel Addiction III | Official Site | O'ahu Deep Sea Fishing Charter",
   description: "The official Reel Addiction III website. Book direct. Same price, no middleman. World-class deep sea fishing aboard O'ahu's largest and fastest charter from Ko Olina Marina.",
   keywords: "deep sea fishing oahu, ko olina fishing charter, hawaii fishing charter, blue marlin hawaii, ahi fishing oahu, sport fishing oahu",

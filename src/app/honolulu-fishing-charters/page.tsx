@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/honolulu-fishing-charters' },
   title: 'Deep Sea Fishing Charters Near Honolulu | Reel Addiction III',
   description:
     'Comparing Honolulu fishing charters? Reel Addiction III departs Ko Olina Marina, 35 minutes west of Waikiki, with calm leeward water and deep ocean minutes from the dock.',

@@ -9,6 +9,7 @@ import FareHarborButton from '@/components/FareHarborButton';
 import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/charters/extravaganza' },
   title: "Extravaganza Charter | Reel Addiction III - Hawaii's Only Guaranteed Charter",
   description: "Dark to dark, 40+ miles offshore. The ultimate O'ahu fishing experience with Hawaii's only catch guarantee. Book the Extravaganza charter from Ko Olina.",
 };

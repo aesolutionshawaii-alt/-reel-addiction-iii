@@ -6,6 +6,7 @@ import InnerNavigation from '@/components/InnerNavigation';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/fish' },
   title: "Fish Species | Reel Addiction III - Hawaii Deep Sea Fishing",
   description: "Explore the fish species we target on Oahu deep sea fishing charters. Ahi, Mahi Mahi, Blue Marlin, Ono, and more.",
 };

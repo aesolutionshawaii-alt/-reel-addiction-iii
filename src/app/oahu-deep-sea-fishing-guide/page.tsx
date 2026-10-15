@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import InnerNavigation from '@/components/InnerNavigation';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/oahu-deep-sea-fishing-guide' },
   title: "Deep Sea Fishing Oahu: 2026 Seasons, Species & What to Expect",
   description: "What's biting in Hawaiian waters right now? Complete guide to Oahu deep sea fishing — peak seasons for Marlin, Ahi, Mahi & Ono, plus Ko Olina charter options.",
 };

@@ -7,6 +7,7 @@ import InnerNavigation from '@/components/InnerNavigation';
 import CustomHeroContent from '@/components/CustomHeroContent';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/custom' },
   title: "Custom Charters | Reel Addiction III - Private Events & Memorials",
   description: "Custom charter experiences on Oahu's finest vessel. Memorial services, corporate events, celebrations, and inter-island overnighters. Contact Captain JR.",
 };

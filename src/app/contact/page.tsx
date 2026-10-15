@@ -10,6 +10,7 @@ import FareHarborButton from '@/components/FareHarborButton';
 import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/contact' },
   title: "Contact Us | Reel Addiction III - Book Your Charter",
   description: "Contact Captain JR to book your Hawaiian fishing charter. Call (808) 867-FISH or send us a message. Departing from Ko Olina Marina, Oahu.",
 };
