@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
         
         {/* Copyright */}
-        <p className="font-outfit text-white text-xs md:text-sm text-center md:text-left">© 2025 Reel Addiction III</p>
+        <p className="font-outfit text-white text-xs md:text-sm text-center md:text-left">© 2025 Reel Addiction III · Site by <a href="https://techkeeping.com" className="hover:text-gray-300 transition-colors">Techkeeping</a></p>
       </div>
     </footer>
   )
