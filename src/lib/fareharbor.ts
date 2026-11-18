@@ -7,3 +7,8 @@ export const FAREHARBOR_ITEMS = {
 } as const;
 
 export const FAREHARBOR_SHORTNAME = 'reeladdictioniii';
+
+// Online gift cards are not switched on for this account yet (FareHarbor Support enables them).
+// Flip to true once https://fareharbor.com/embeds/book/reeladdictioniii/gift-cards/ stops returning "Not found".
+export const GIFT_CARDS_ONLINE = false;
+export const FAREHARBOR_GIFT_CARD_URL = `https://fareharbor.com/embeds/book/${FAREHARBOR_SHORTNAME}/gift-cards/`;
