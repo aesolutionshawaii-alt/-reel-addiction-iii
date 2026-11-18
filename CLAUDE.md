@@ -320,6 +320,18 @@ Posts stored in `content/output/instagram-posts-queue.json`:
 - Activity: #DeepSeaFishing, #CharterFishing, #SportFishing
 - Seasonal: #SpringFishing, #MahiSeason, #TunaFishing
 
+## Open-Date Posts (FareHarbor availability)
+
+FareHarbor gives us no API key, but the public booking widget's endpoints answer plain HTTPS. `content/src/open-dates.js` reads them (read-only, no login) and writes post copy for every bookable private-charter date.
+
+```bash
+node content/src/open-dates.js --from 2026-11-18 --days 21      # -> content/output/open-dates/open-dates-<from>.{json,md}
+python3 content/src/story-frame.py content/output/open-dates/open-dates-2026-11-18.json   # 1080x1920 story PNGs
+python3 content/src/story-frame.py --lines "BLACK FRIDAY" "LAST YEAR'S PRICES" --sub "Nov 27 to 30. Code HOLIDAY." --bg boat --out content/output/stories/bf.png
+```
+
+Each date gets a story frame, a Facebook group post and a Google Business Profile post (GBP body never carries a phone number or URL; the booking link goes on the post button). Prices live in `TRIPS` inside the script and are checked against FareHarbor's price preview on every run; a mismatch prints a warning. Story backgrounds are the real photos in `content/assets/story-bg-*.jpg`; fonts are Barlow (OFL) in `content/assets/fonts/`. Nothing posts automatically; the output is copy to paste.
+
 ## Dev Commands
 ```bash
 npm run dev          # localhost:3000
