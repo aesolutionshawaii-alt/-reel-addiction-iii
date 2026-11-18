@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import FareHarborButton from '@/components/FareHarborButton';
+import HolidayBanner from '@/components/HolidayBanner';
 import { FAREHARBOR_ITEMS } from '@/lib/fareharbor';
 
 const NAV_LINKS = [
@@ -49,6 +50,7 @@ export default function InnerNavigation({ disablePrefetch = false }: { disablePr
             : 'bg-transparent'
         }`}
       >
+        <HolidayBanner />
         <nav className="mx-auto max-w-7xl px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
