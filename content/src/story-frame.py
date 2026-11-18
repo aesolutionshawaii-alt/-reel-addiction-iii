@@ -18,20 +18,28 @@ LIME = (227, 241, 125)
 WHITE = (255, 255, 255)
 
 
+PHOTO_H = int(H * 0.56)
+
+
 def load_bg(name):
+    """Photo fills the top 56% (cover crop, faces kept); solid navy panel below carries the text."""
     p = os.path.join(ROOT, 'assets', f'story-bg-{name}.jpg')
     im = Image.open(p).convert('RGB')
-    scale = max(W / im.width, H / im.height)
+    scale = max(W / im.width, PHOTO_H / im.height)
     im = im.resize((round(im.width * scale), round(im.height * scale)), Image.LANCZOS)
-    left, top = (im.width - W) // 2, max(0, (im.height - H) // 3)
-    im = im.crop((left, top, left + W, top + H))
-    # darken the lower half so the text reads
-    grad = Image.new('L', (1, H))
-    for y in range(H):
-        grad.putpixel((0, y), int(min(255, max(0, (y - H * 0.42) / (H * 0.58) * 190))))
-    grad = grad.resize((W, H))
-    dark = Image.new('RGB', (W, H), NAVY)
-    return Image.composite(dark, im, grad)
+    left, top = (im.width - W) // 2, (im.height - PHOTO_H) // 2
+    im = im.crop((left, top, left + W, top + PHOTO_H))
+    canvas = Image.new('RGB', (W, H), NAVY)
+    canvas.paste(im, (0, 0))
+    fade = 90
+    grad = Image.new('L', (W, fade))
+    for y in range(fade):
+        for x in range(0, W, W):
+            pass
+    for y in range(fade):
+        grad.paste(int(255 * y / fade), (0, y, W, y + 1))
+    canvas.paste(Image.new('RGB', (W, fade), NAVY), (0, PHOTO_H - fade), grad)
+    return canvas
 
 
 def font(name, size):
@@ -51,7 +59,7 @@ def render(lines, sub, cta, bg, out, kicker='REEL ADDICTION III'):
     im = load_bg(bg)
     d = ImageDraw.Draw(im)
     margin = 80
-    y = int(H * 0.50)
+    y = PHOTO_H + 40
     k = font('Barlow-Bold.ttf', 34)
     x = margin
     for ch in kicker:
@@ -59,12 +67,12 @@ def render(lines, sub, cta, bg, out, kicker='REEL ADDICTION III'):
         x += d.textlength(ch, font=k) + 5
     y += 70
     for line in lines:
-        f = fit(d, line, 'BarlowCondensed-ExtraBold.ttf', 150, W - 2 * margin)
+        f = fit(d, line, 'BarlowCondensed-ExtraBold.ttf', 128, W - 2 * margin)
         d.text((margin, y), line, font=f, fill=WHITE)
         y += int(f.size * 0.96)
     y += 30
     if sub:
-        f = font('Barlow-SemiBold.ttf', 44)
+        f = font('Barlow-SemiBold.ttf', 38)
         # wrap
         words, cur, out_lines = sub.split(), '', []
         for w_ in words:
@@ -76,9 +84,9 @@ def render(lines, sub, cta, bg, out, kicker='REEL ADDICTION III'):
         out_lines.append(cur)
         for l in out_lines:
             d.text((margin, y), l, font=f, fill=(214, 229, 235))
-            y += 58
+            y += 50
     if cta:
-        y += 40
+        y += 28
         f = font('Barlow-Bold.ttf', 40)
         tw = d.textlength(cta, font=f)
         pad = 34
