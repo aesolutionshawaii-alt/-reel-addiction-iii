@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import CloudinaryImage from '@/components/CloudinaryImage';
 import InnerNavigation from '@/components/InnerNavigation';
 import ChartersHeroContent from '@/components/ChartersHeroContent';
+import MilitaryRate from '@/components/MilitaryRate';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/charters' },
@@ -222,6 +223,8 @@ export default function ChartersPage() {
                     </div>
                 </div>
             </section>
+            <MilitaryRate />
+
             {/* ===== STILL NOT SURE CTA ===== */}
             <section className="relative py-20 md:py-28 overflow-hidden">
                 <div className="absolute inset-0">
