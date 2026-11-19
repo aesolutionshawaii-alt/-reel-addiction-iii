@@ -6,9 +6,9 @@ export default function MilitaryRate() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
           <div>
-            <p className="mb-4 text-label uppercase tracking-widest text-white/60">Military rate</p>
+            <p className="mb-4 text-label uppercase tracking-widest text-white/60">Active Duty and Retired Military</p>
             <h2 className="mb-6 font-outfit text-3xl font-bold md:text-4xl">
-              20% off for active duty and retired military
+              20% Military Discount on Oahu Fishing Charters
             </h2>
             <div className="space-y-4 font-inter text-lg leading-relaxed text-white/85">
               <p>
