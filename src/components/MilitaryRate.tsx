@@ -34,10 +34,10 @@ export default function MilitaryRate() {
               </a>
             </div>
           </div>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
+          <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
             <CloudinaryImage
-              src="charters/full-day/hero"
-              alt="Reel Addiction III fishing offshore from Ko Olina"
+              src="images/cta-group"
+              alt="Guests and crew on the dock at Ko Olina holding two yellowfin tuna"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
