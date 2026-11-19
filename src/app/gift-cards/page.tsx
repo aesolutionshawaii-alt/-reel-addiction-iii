@@ -38,7 +38,7 @@ export default function GiftCardsPage() {
           <div className="mx-auto w-full max-w-7xl px-6 pb-14 lg:px-8">
             <p className="mb-4 font-outfit text-sm font-bold uppercase tracking-[0.2em] text-red-400">Gift certificates</p>
             <h1 className="max-w-3xl font-outfit text-4xl font-bold leading-tight text-white md:text-6xl">
-              Give a day offshore with Captain JR
+              Give a Day Offshore With Captain JR
             </h1>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default function GiftCardsPage() {
             </div>
             <div>
               <h2 className="mb-6 font-outfit text-3xl font-bold text-[#1B3A5F] md:text-4xl">
-                The whole boat, their date
+                Fishing Charter Gift Certificates From Ko Olina
               </h2>
               <div className="space-y-4 font-inter text-lg leading-relaxed text-gray-600">
                 <p>
@@ -102,7 +102,7 @@ export default function GiftCardsPage() {
       <section id="holiday" className="bg-[#1B3A5F] py-20 text-white md:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="mb-4 text-label uppercase tracking-widest text-white/60">Black Friday through Cyber Monday</p>
-          <h2 className="mb-4 font-outfit text-3xl font-bold md:text-4xl">Last year&rsquo;s prices, November 27 to 30</h2>
+          <h2 className="mb-4 font-outfit text-3xl font-bold md:text-4xl">Last Year&rsquo;s Prices, November 27 to 30</h2>
           <p className="mb-10 max-w-2xl font-inter text-lg leading-relaxed text-white/85">
             For four days every private charter goes back to what it cost last year. Book a date with code HOLIDAY at
             checkout, or buy a gift certificate during the window at the same price.
@@ -135,7 +135,7 @@ export default function GiftCardsPage() {
       {/* How it works */}
       <section className="py-20 md:py-28">
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <h2 className="mb-8 font-outfit text-3xl font-bold text-[#1B3A5F] md:text-4xl">How it works</h2>
+          <h2 className="mb-8 font-outfit text-3xl font-bold text-[#1B3A5F] md:text-4xl">How Gift Certificates Work</h2>
           <div className="space-y-6 font-inter text-lg leading-relaxed text-gray-600">
             <p>
               <span className="font-semibold text-[#1B3A5F]">Buying.</span> Call or text (808) 867-FISH, or send a message
