@@ -36,8 +36,8 @@ export default function MilitaryRate() {
           </div>
           <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
             <CloudinaryImage
-              src="images/cta-group"
-              alt="Guests and crew on the dock at Ko Olina holding two yellowfin tuna"
+              src="images/military-ahi"
+              alt="Angler holding a yellowfin tuna on the deck of Reel Addiction III off Oahu"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
