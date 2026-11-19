@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import CloudinaryImage from '@/components/CloudinaryImage';
 
 export default function MilitaryRate() {
@@ -13,12 +12,11 @@ export default function MilitaryRate() {
             </h2>
             <div className="space-y-4 font-inter text-lg leading-relaxed text-white/85">
               <p>
-                Any private charter, any date on the calendar. Show your military ID at the dock in Ko Olina and the rate is
-                yours.
+                Any private charter on the calendar: 3/4 Day, Full Day or the Extravaganza. Up to 6 guests aboard a 62-foot
+                Ocean Yacht out of Ko Olina Marina.
               </p>
               <p>
-                Book by phone or message so we can apply the rate before you pay. Pearl Harbor, Kaneohe Bay and Schofield are
-                all within an hour of the marina.
+                Call or text (808) 867-FISH to book the military rate. Valid military ID required at the dock.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -28,12 +26,12 @@ export default function MilitaryRate() {
               >
                 Call (808) 867-FISH
               </a>
-              <Link
-                href="/contact"
+              <a
+                href="sms:+18088673474"
                 className="inline-flex items-center justify-center rounded-button border border-white/40 px-6 py-3 font-outfit font-semibold text-white transition-colors hover:bg-white/10"
               >
-                Message Captain JR
-              </Link>
+                Text (808) 867-FISH
+              </a>
             </div>
           </div>
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
